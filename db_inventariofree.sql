@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2023 a las 23:54:14
+-- Tiempo de generación: 21-10-2023 a las 00:02:00
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -91,16 +91,17 @@ CREATE TABLE `entrada` (
   `ent_fecha` date NOT NULL,
   `ent_cantidad` int(11) NOT NULL,
   `cuerpo_merma` int(11) NOT NULL,
-  `reja_merma` int(11) NOT NULL
+  `reja_merma` int(11) NOT NULL,
+  `tapa_merma` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `entrada`
 --
 
-INSERT INTO `entrada` (`ent_id`, `ent_categoria`, `ent_pro_codigo`, `ent_fecha`, `ent_cantidad`, `cuerpo_merma`, `reja_merma`) VALUES
-(63, '', '12345678', '2023-10-16', 2, 1, 1),
-(64, '', '654', '2023-10-16', 1, 200, 300);
+INSERT INTO `entrada` (`ent_id`, `ent_categoria`, `ent_pro_codigo`, `ent_fecha`, `ent_cantidad`, `cuerpo_merma`, `reja_merma`, `tapa_merma`) VALUES
+(63, '', '12345678', '2023-10-16', 2, 1, 1, 0),
+(64, '', '654', '2023-10-16', 1, 200, 300, 0);
 
 -- --------------------------------------------------------
 
