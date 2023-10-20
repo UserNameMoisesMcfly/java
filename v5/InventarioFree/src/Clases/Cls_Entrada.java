@@ -14,8 +14,8 @@ public class Cls_Entrada {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_cantidad, cuerpo_merma, reja_merma) values (?,?,?,?,?,?)";
-    private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria , ent_cantidad, cuerpo_merma, reja_merma  FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo";
+    private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_cantidad, cuerpo_merma, reja_merma, tapa_merma) values (?,?,?,?,?,?,?)";
+    private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria , ent_cantidad, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo";
 
     public Cls_Entrada() {
         PS = null;
@@ -38,7 +38,8 @@ public class Cls_Entrada {
         DT.addColumn("Categoria");
         DT.addColumn("Cantidad");
         DT.addColumn("Merma Cuerpo");
-        DT.addColumn("Merma Reja");
+        DT.addColumn("Merma Divisor");
+        DT.addColumn("Merma Tapa");
         return DT;
 
     }
@@ -48,7 +49,7 @@ public class Cls_Entrada {
             setTitulosEntrada();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_ENTRADA);
             RS = PS.executeQuery();
-            Object[] fila = new Object[9];////////////////////
+            Object[] fila = new Object[10];////////////////////
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getDate(2);
@@ -59,6 +60,7 @@ public class Cls_Entrada {
                 fila[6] = RS.getInt(7);
                 fila[7] = RS.getInt(8);
                 fila[8] = RS.getInt(9);
+                fila[9] = RS.getInt(10);
                 DT.addRow(fila);
 
             }
@@ -72,7 +74,7 @@ public class Cls_Entrada {
         return DT;
     }
 
-    public int registrarEntrada(String categoria, String codigo, Date fecha, int cantidad,int cuerpomerma,int rejamerma) {
+    public int registrarEntrada(String categoria, String codigo, Date fecha, int cantidad,int cuerpomerma,int rejamerma, int tapamerma) {
         int res = 0;
         try {
             PS = CN.getConnection().prepareStatement(SQL_INSERT_ENTRADA);
@@ -82,6 +84,7 @@ public class Cls_Entrada {
             PS.setInt(4, cantidad);
             PS.setInt(5, cuerpomerma);
             PS.setInt(6, rejamerma);
+            PS.setInt(7, tapamerma);
             res = PS.executeUpdate();
             if (res > 0) {
 
