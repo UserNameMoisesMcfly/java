@@ -15,7 +15,7 @@ public class Cls_Productos {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, estado, cuerpo, reja) values (?,?,?,?,?,?,?,?)";
+    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, estado, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?,?)";
     private final String SQL_SELECT_PRODUCTOS = "SELECT *FROM artículos";
     Connection conn;
 
@@ -40,6 +40,7 @@ public class Cls_Productos {
         DT.addColumn("Estado"); ////////////////////
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
+        DT.addColumn("Tapa");
         return DT;
     }
 
@@ -48,7 +49,7 @@ public class Cls_Productos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_PRODUCTOS);
             RS = PS.executeQuery();
-            Object[] fila = new Object[8];////////
+            Object[] fila = new Object[9];////////
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -58,6 +59,7 @@ public class Cls_Productos {
                 fila[5] = RS.getString(6);/////////////////////
                 fila[6] = RS.getString(7);/////////////////////
                 fila[7] = RS.getString(8);/////////////////////
+                fila[8] = RS.getString(9);/////////////////////
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
@@ -70,7 +72,7 @@ public class Cls_Productos {
         return DT;
     }
 
-    public int registrarProducto(String codigo, String descripcion, String nomproveedor, String categoria, String ubicacion, String estado, String cuerpo, String reja) {/////////////////////////
+    public int registrarProducto(String codigo, String descripcion, String nomproveedor, String categoria, String ubicacion, String estado, String cuerpo, String reja, String tapa) {/////////////////////////
         int res = 0;
         try {
             PS = CN.getConnection().prepareStatement(SQL_INSERT_PRODUCTOS);
@@ -82,6 +84,7 @@ public class Cls_Productos {
             PS.setString(6, estado);////////////////
             PS.setString(7, cuerpo);
             PS.setString(8, reja);
+            PS.setString(9, tapa);
             res = PS.executeUpdate();
             if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Articulo registrado con éxito.");
@@ -128,8 +131,8 @@ public class Cls_Productos {
         return res;
     }
 
-    public int actualizarProducto(String codigo, String descripcion, String nomproveedor, String nomcategoria, String codigo_old, String nomUbicacion, String nomestado, String numcuerpo, String numreja) {//////////
-        String SQL = "UPDATE artículos SET pro_codigo='" + codigo + "',pro_descripcion='" + descripcion + "',nomproveedor='" + nomproveedor + "',categoria='" + nomcategoria + "',ubicacion='" + nomestado + "',estado='" + nomUbicacion + "',cuerpo='" + numcuerpo + "',reja='" + numreja + "' WHERE pro_codigo='" + codigo_old + "'";
+    public int actualizarProducto(String codigo, String descripcion, String nomproveedor, String nomcategoria, String codigo_old, String nomUbicacion, String nomestado, String numcuerpo, String numreja, String numtapa) {//////////
+        String SQL = "UPDATE artículos SET pro_codigo='" + codigo + "',pro_descripcion='" + descripcion + "',nomproveedor='" + nomproveedor + "',categoria='" + nomcategoria + "',ubicacion='" + nomestado + "',estado='" + nomUbicacion + "',cuerpo='" + numcuerpo + "',reja='" + numreja + "',tapa='" + numtapa + "' WHERE pro_codigo='" + codigo_old + "'";
         int res = 0;
         try {
             PS = CN.getConnection().prepareStatement(SQL);

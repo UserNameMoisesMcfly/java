@@ -38,6 +38,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         txt_estado.setEnabled(false);
         txt_cuerpo.setEnabled(false);
         txt_reja.setEnabled(false);
+        txt_tapa.setEnabled(false);
     }
 
     private void activar() {
@@ -49,6 +50,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         txt_estado.setEnabled(true);
         txt_cuerpo.setEnabled(true);
         txt_reja.setEnabled(true);
+        txt_tapa.setEnabled(true);
         txt_codigo.requestFocus();
     }
 
@@ -61,6 +63,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         txt_estado.setText("");
         txt_cuerpo.setText("");
         txt_reja.setText("");
+        txt_tapa.setText("");
     }
 
     private void guardar() {
@@ -72,16 +75,17 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     String estado = txt_estado.getText();
     String cuerpo = txt_cuerpo.getText();
     String reja = txt_reja.getText();
+    String tapa = txt_tapa.getText();
 
     // Verificar que todos los campos están llenos
     if (codigo.isEmpty() || descripcion.isEmpty() || nomproveedor == null || nomproveedor.isEmpty() || 
-        categoria == null || categoria.isEmpty() || MAX.isEmpty() || estado.isEmpty() || cuerpo.isEmpty() || reja.isEmpty()) {
+        categoria == null || categoria.isEmpty() || MAX.isEmpty() || estado.isEmpty() || cuerpo.isEmpty() || reja.isEmpty() || tapa.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos.");
         return;
     }
 
     if (num == 0) {
-        int respuesta = CP.registrarProducto(codigo, descripcion, nomproveedor, categoria, MAX, estado, cuerpo, reja);
+        int respuesta = CP.registrarProducto(codigo, descripcion, nomproveedor, categoria, MAX, estado, cuerpo, reja, tapa);
         if (respuesta > 0) {
             if (CP.verificarCodigoInventario(codigo) == 0) {
                 CP.insertarProductoInventario(codigo);
@@ -97,7 +101,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         int row = jtb_productos.getSelectedRow();
         String codigo_old = jtb_productos.getValueAt(row, 0).toString();
 
-        int respuesta = CP.actualizarProducto(codigo, descripcion, nomproveedor, categoria, codigo_old, MAX, estado, cuerpo, reja);
+        int respuesta = CP.actualizarProducto(codigo, descripcion, nomproveedor, categoria, codigo_old, MAX, estado, cuerpo, reja, tapa);
         if (respuesta > 0) {
             listar();
             limpiar();
@@ -140,6 +144,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         txt_cuerpo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        txt_tapa = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Productos");
@@ -278,8 +284,17 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Reja *");
 
+        txt_cuerpo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cuerpoActionPerformed(evt);
+            }
+        });
+
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Cuerpo *");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setText("Tapa *");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,6 +314,18 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
                 .addGap(136, 136, 136))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(49, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(485, 485, 485)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_reja, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,29 +355,24 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
                             .addComponent(txt_estado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_cuerpo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(49, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(485, 485, 485)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_reja))))))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_cuerpo, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_tapa)))
+                        .addGap(6, 6, 6)))
                 .addGap(61, 61, 61))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
-                .addGap(11, 11, 11)
+                .addGap(7, 7, 7)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txt_tapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9)
@@ -420,6 +442,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         txt_estado.setText(jtb_productos.getValueAt(row, 5).toString());
         txt_cuerpo.setText(jtb_productos.getValueAt(row, 6).toString());
         txt_reja.setText(jtb_productos.getValueAt(row, 7).toString());
+        txt_tapa.setText(jtb_productos.getValueAt(row, 8).toString());
 
     }//GEN-LAST:event_jtb_productosMouseClicked
 
@@ -489,6 +512,10 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_rejaActionPerformed
 
+    private void txt_cuerpoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cuerpoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cuerpoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_actualizar;
@@ -501,6 +528,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -516,6 +544,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_estado;
     private javax.swing.JTextField txt_reja;
+    private javax.swing.JTextField txt_tapa;
     private javax.swing.JTextField txt_ubicacion;
     // End of variables declaration//GEN-END:variables
 }
