@@ -65,7 +65,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private void guardar() {
         String folio = "";
         String codigo = txt_codigo.getText();
-        String cantidad = "";
+        int cantidad = 0;
         Date fechaa = jdc_fecha.getDate();
         long d = fechaa.getTime();
         int mermac = Integer.parseInt(txt_mermac.getText());
@@ -75,7 +75,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
         if (num == 0) {
-            int respuesta = CP.registrarEntrada(folio, codigo, cantidad, fecha_sql, mermac, mermar, mermat);
+            int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, cantidad, mermac, mermar, mermat);
 
 
             if (respuesta > 0) {
