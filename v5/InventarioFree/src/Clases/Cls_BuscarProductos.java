@@ -13,7 +13,7 @@ public class Cls_BuscarProductos {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_SELECT_PRODUCTOS = "SELECT pro_codigo, pro_descripcion, nomproveedor, categoria, cuerpo, reja FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo ORDER BY pro_codigo ASC";
+    private final String SQL_SELECT_PRODUCTOS = "SELECT pro_codigo, pro_descripcion, nomproveedor, categoria, cuerpo, reja, tapa FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo ORDER BY pro_codigo ASC";
 
     public Cls_BuscarProductos() {
         PS = null;
@@ -34,6 +34,7 @@ public class Cls_BuscarProductos {
         DT.addColumn("Categoria");
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
+        DT.addColumn("Tapa");
 
         return DT;
     }
@@ -43,7 +44,7 @@ public class Cls_BuscarProductos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_PRODUCTOS);
             RS = PS.executeQuery();
-            Object[] fila = new Object[6];///////////////4
+            Object[] fila = new Object[7];///////////////4
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -51,6 +52,7 @@ public class Cls_BuscarProductos {
                 fila[3] = RS.getString(4);//////////////////
                 fila[4] = RS.getInt(5);
                 fila[5] = RS.getInt(6);
+                fila[6] = RS.getInt(7);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
@@ -66,9 +68,9 @@ public class Cls_BuscarProductos {
     public DefaultTableModel getDatoP(int crt, String inf) {
         String SQL;
         if (crt == 2) {
-            SQL = "SELECT pro_codigo, pro_descripcion, nomproveedor,categoria, cuerpo, reja FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo where pro_codigo like '" + inf + "'";
+            SQL = "SELECT pro_codigo, pro_descripcion, nomproveedor,categoria, cuerpo, reja, tapa FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo where pro_codigo like '" + inf + "'";
         } else {
-            SQL = "SELECT pro_codigo, pro_descripcion, nomproveedor,categoria, cuerpo, reja FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo where pro_descripcion like '" + inf + "%'";
+            SQL = "SELECT pro_codigo, pro_descripcion, nomproveedor,categoria, cuerpo, reja, tapa FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo where pro_descripcion like '" + inf + "%'";
         }
         try {
             setTitulosProductos();
@@ -82,6 +84,7 @@ public class Cls_BuscarProductos {
                 fila[3] = RS.getString(4);//////////////////
                 fila[4] = RS.getInt(5);
                 fila[5] = RS.getInt(6);
+                fila[6] = RS.getInt(7);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
