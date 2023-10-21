@@ -28,7 +28,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     }
 
     private void iniciar() {
-        txt_folioEnt.setEnabled(false);
         //txt_cantidad.setEnabled(false);
         txt_codigo.setEnabled(false);
         jdc_fecha.setEnabled(false);
@@ -46,7 +45,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jdc_fecha.setEnabled(true);
         jbt_buscar.setEnabled(true);
         jbt_guardar.setEnabled(true);
-        txt_folioEnt.requestFocus();
         jbt_guardar.setEnabled(true);
         jdc_fecha.getCalendarButton().setEnabled(false);
         txt_mermac.setEnabled(true);
@@ -56,20 +54,18 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     }
 
     private void limpiar() {
-        txt_folioEnt.setText("");
         txt_codigo.setText("");
         txt_mermac.setText("");
         txt_mermar.setText("");
         txt_mermat.setText("");
         txt_descripcion.setText("");
-        txt_folioEnt.requestFocus();
         jtb_entrada.clearSelection();
     }
 
     private void guardar() {
-        String folio = txt_folioEnt.getText();
+        String folio = "";
         String codigo = txt_codigo.getText();
-        String cantidad = txt_folioEnt.getText();
+        String cantidad = "";
         Date fechaa = jdc_fecha.getDate();
         long d = fechaa.getTime();
         int mermac = Integer.parseInt(txt_mermac.getText());
@@ -95,8 +91,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txt_folioEnt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JTextField();
         txt_descripcion = new javax.swing.JTextField();
@@ -123,15 +117,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Folio de Entrada *");
-
-        txt_folioEnt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_folioEntActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Código del Producto *");
 
@@ -156,6 +141,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha *");
 
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
+        ((JTextField) jdc_fecha.getDateEditor().getUiComponent()).setEditable(false);
 
         jtb_entrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -247,27 +233,25 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
-                                .addComponent(jLabel1)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txt_folioEnt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                        .addComponent(txt_codigo, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jbt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(61, 61, 61)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
                                 .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_mermar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_mermar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cant_cuerpo)
                                 .addComponent(cant_reja)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txt_mermat, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_mermac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+                                    .addComponent(txt_mermat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(txt_mermac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                                 .addComponent(cant_cuerpo1)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7)
@@ -291,26 +275,20 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
-                        .addGap(4, 4, 4))
+                        .addGap(51, 51, 51))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(cant_cuerpo1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(txt_mermat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_folioEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(cant_cuerpo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jdc_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(txt_mermac))))
+                        .addComponent(txt_mermat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cant_cuerpo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jdc_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(txt_mermac, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -407,10 +385,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_mermatActionPerformed
 
-    private void txt_folioEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_folioEntActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_folioEntActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_nuevo;
@@ -418,7 +392,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private javax.swing.JLabel cant_cuerpo;
     private javax.swing.JLabel cant_cuerpo1;
     private javax.swing.JLabel cant_reja;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -432,7 +405,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtb_entrada;
     public static javax.swing.JTextField txt_codigo;
     public static javax.swing.JTextField txt_descripcion;
-    private javax.swing.JTextField txt_folioEnt;
     private javax.swing.JTextField txt_mermac;
     private javax.swing.JTextField txt_mermar;
     private javax.swing.JTextField txt_mermat;
