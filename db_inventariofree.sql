@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2023 a las 00:02:00
+-- Tiempo de generación: 21-10-2023 a las 02:17:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,24 +39,25 @@ CREATE TABLE `artículos` (
   `pro_codigo` varchar(50) NOT NULL,
   `pro_descripcion` varchar(150) NOT NULL,
   `nomproveedor` varchar(100) DEFAULT NULL,
-  `categoria` int(50) DEFAULT NULL,
+  `categoria` int(11) DEFAULT NULL,
   `ubicacion` varchar(150) DEFAULT NULL,
   `estado` varchar(150) DEFAULT NULL,
   `cuerpo` int(11) NOT NULL,
-  `reja` int(11) NOT NULL
+  `reja` int(11) NOT NULL,
+  `tapa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `artículos`
 --
 
-INSERT INTO `artículos` (`pro_codigo`, `pro_descripcion`, `nomproveedor`, `categoria`, `ubicacion`, `estado`, `cuerpo`, `reja`) VALUES
-('12345678', 'Cerveza', 'Sol', 20, 'mojado', 'Nuevo', 4000, 4000),
-('432', 'test', 'Sol', 20, 'nuevo', 'golpeado', 30000, 30000),
-('654', 'Cerveza', 'Sol', 40, 'golpeado', 'nuevo', 8000, 8000),
-('666', 'cerveza', 'XX Lager', 40, 'intacto', 'regreso', 5000, 5000),
-('777', 'cerveza', 'XX Lager', 40, 'mojado', 'Nuevo', 4000, 4000),
-('88888', 'test', 'XX Lager', 30, 'golpeado', 'nuevo', 20000, 20000);
+INSERT INTO `artículos` (`pro_codigo`, `pro_descripcion`, `nomproveedor`, `categoria`, `ubicacion`, `estado`, `cuerpo`, `reja`, `tapa`) VALUES
+('12345', 'hi', 'Sol', 20, 'hi', 'hi', 2000, 2000, 2000),
+('12345678', 'Cerveza', 'Sol', 20, 'mojado', 'Nuevo', 4000, 4000, 0),
+('432', 'test', 'Sol', 20, 'nuevo', 'golpeado', 30000, 30000, 0),
+('654', 'Cerveza', 'Sol', 40, 'golpeado', 'nuevo', 8000, 8000, 0),
+('666', 'cerveza', 'XX Lager', 40, 'intacto', 'regreso', 5000, 5000, 0),
+('777', 'cerveza', 'XX Lager', 40, 'mojado', 'Nuevo', 4000, 4000, 0);
 
 -- --------------------------------------------------------
 
@@ -122,12 +123,12 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`inv_pro_codigo`, `inv_entradas`, `inv_salidas`, `inv_stock`, `inv_reja`) VALUES
+('12345', 0, 0, 0, 0),
 ('12345678', 2, 0, 2, 0),
 ('432', 0, 0, 0, 0),
 ('654', 1, 0, 1, 0),
 ('666', 0, 0, 0, 0),
-('777', 0, 0, 0, 0),
-('88888', 0, 0, 0, 0);
+('777', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
