@@ -16,7 +16,7 @@ public class Cls_Productos {
     private final Conectar CN;
     private DefaultTableModel DT;
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, estado, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?,?)";
-    private final String SQL_SELECT_PRODUCTOS = "SELECT *FROM artículos";
+    private final String SQL_SELECT_PRODUCTOS = "SELECT * FROM artículos";
     Connection conn;
 
     public Cls_Productos() {
@@ -188,7 +188,7 @@ public class Cls_Productos {
 
     public void ConsultarCategorias(JComboBox categorias) {
 
-        String sql = ("SELECT valor FROM categorias");
+        String sql = ("SELECT valor, unidad FROM categorias");
 
         try {
             conn = CN.getConnection();
@@ -196,7 +196,7 @@ public class Cls_Productos {
             RS = PS.executeQuery();
 
             while (RS.next()) {
-                categorias.addItem(RS.getString("valor"));
+                categorias.addItem(RS.getString("valor" )/*+" "+RS.getString("unidad")*/);
             }
 
         } catch (Exception ex) {

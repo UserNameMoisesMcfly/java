@@ -126,6 +126,12 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Folio de Entrada *");
 
+        txt_folioEnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_folioEntActionPerformed(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Código del Producto *");
 
@@ -400,6 +406,10 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private void txt_mermatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_mermatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_mermatActionPerformed
+
+    private void txt_folioEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_folioEntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_folioEntActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
