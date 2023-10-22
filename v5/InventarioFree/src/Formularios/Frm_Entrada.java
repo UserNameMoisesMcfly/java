@@ -7,6 +7,18 @@ import java.io.IOException;
 import java.awt.Dimension;
 import java.util.Date;
 import javax.swing.JTextField;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+
+import java.sql.Connection; 
+import java.sql.PreparedStatement; 
+import java.sql.ResultSet; 
+import java.text.SimpleDateFormat; 
+import java.util.Date; 
+import Conexion.Conectar;
+
+
 
 public class Frm_Entrada extends javax.swing.JInternalFrame {
 
@@ -61,30 +73,75 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         txt_descripcion.setText("");
         jtb_entrada.clearSelection();
     }
+    
+    private String generarFolio(String codigo, Date fecha) {
+    String folio = "";
+    try {
+        Conectar conectar = new Conectar();  // Crea una instancia de tu clase Conectar
+        Connection conn = conectar.getConnection();  // Obtén la conexión
+        PreparedStatement ps = conn.prepareStatement("SELECT categoria FROM artículos WHERE pro_codigo = ?");
+        ps.setString(1, codigo);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int categoria = rs.getInt("categoria");
+            int prefix;
+            // Asignar el número prefix según la categoría
+            switch (categoria) {
+                case 20:
+                    prefix = 207;
+                    break;
+                case 40:
+                    prefix = 90;
+                    break;
+                default:
+                    throw new Exception("Categoría no válida");
+            }
+
+            // Formatear la fecha según tus necesidades
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            String fechaStr = sdf.format(fecha);
+
+            // Construir el folio
+            folio = prefix + fechaStr + categoria;
+        } else {
+            throw new Exception("Código no encontrado");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Manejar la excepción según sea necesario
+    }
+    return folio;
+}
+
 
     private void guardar() {
-        String folio = "";
         String codigo = txt_codigo.getText();
-        int cantidad = 0;
         Date fechaa = jdc_fecha.getDate();
         long d = fechaa.getTime();
         int mermac = Integer.parseInt(txt_mermac.getText());
         int mermar = Integer.parseInt(txt_mermar.getText());
         int mermat = Integer.parseInt(txt_mermat.getText());
-       
+
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
         if (num == 0) {
-            int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, cantidad, mermac, mermar, mermat);
+            // Generar el folio
+            String folio = generarFolio(codigo, fechaa);
 
-
-            if (respuesta > 0) {
-                listar();
-                limpiar();
-                iniciar();
+            if (!folio.isEmpty()) {
+                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, mermac, mermar, mermat);
+                if (respuesta > 0) {
+                    listar();
+                    limpiar();
+                    iniciar();
+                }
+            } else {
+                // Manejar el caso en que el folio no se pudo generar
             }
         }
     }
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

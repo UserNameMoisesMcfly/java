@@ -12,7 +12,7 @@ public class Cls_Inventario {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_SELECT_INVENTARIO = "SELECT inv_pro_codigo, pro_descripcion, nomproveedor, categoria, inv_entradas, inv_salidas, inv_stock, inv_reja FROM inventario INNER JOIN artículos ON inv_pro_codigo = pro_codigo";
+    private final String SQL_SELECT_INVENTARIO = "SELECT inv_pro_codigo, pro_descripcion, nomproveedor, categoria, inv_entradas, inv_salidas, inv_stock, inv_cuerpo, inv_reja, inv_tapa FROM inventario INNER JOIN artículos ON inv_pro_codigo = pro_codigo";
 
     public Cls_Inventario() {
         PS = null;
@@ -29,13 +29,15 @@ public class Cls_Inventario {
         };
         DT.addColumn("Código");
         DT.addColumn("Descripción");
-        DT.addColumn("Proveedor");//////////////////////
+        DT.addColumn("Presentacion");//////////////////////
         DT.addColumn("Categoria");/////////////////////
         // DT.addColumn("Precio");//////////////
         DT.addColumn("Entrada");
         DT.addColumn("Salida");
+        DT.addColumn("Tarimas");
         DT.addColumn("Cuerpo");
-        DT.addColumn("Reja");//////////////
+        DT.addColumn("Divisor");//////////////
+        DT.addColumn("Tapa");//////////////
         return DT;
     }
 
@@ -44,7 +46,7 @@ public class Cls_Inventario {
             setTitulosInventario();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_INVENTARIO);
             RS = PS.executeQuery();
-            Object[] fila = new Object[8];//////////// 
+            Object[] fila = new Object[10];//////////// 
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -55,6 +57,8 @@ public class Cls_Inventario {
                 fila[5] = RS.getInt(6);
                 fila[6] = RS.getInt(7);
                 fila[7] = RS.getInt(8);
+                fila[8] = RS.getInt(9);
+                fila[9] = RS.getInt(10);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
