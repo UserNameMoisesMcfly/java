@@ -75,18 +75,18 @@ public class Cls_Entrada {
     }
 
     public int registrarEntrada(String categoria, String codigo, Date fecha, int cantidad,int cuerpomerma,int rejamerma, int tapamerma) {
-        int res = 0;
-        try {
-            PS = CN.getConnection().prepareStatement(SQL_INSERT_ENTRADA);
-            PS.setString(1, categoria);
-            PS.setString(2, codigo);
-            PS.setDate(3, fecha);
-            PS.setInt(4, cantidad);
-            PS.setInt(5, cuerpomerma);
-            PS.setInt(6, rejamerma);
-            PS.setInt(7, tapamerma);
-            res = PS.executeUpdate();
-            if (res > 0) {
+    int res = 0;
+    try {
+        PS = CN.getConnection().prepareStatement(SQL_INSERT_ENTRADA);
+        PS.setString(1, categoria);
+        PS.setString(2, codigo);
+        PS.setDate(3, fecha);
+        PS.setInt(4, cantidad);
+        PS.setInt(5, cuerpomerma);
+        PS.setInt(6, rejamerma);
+        PS.setInt(7, tapamerma);
+        res = PS.executeUpdate();
+        if (res > 0) {
 
                 String GET_SUMA = "SELECT SUM(ent_cantidad) AS suma_ent_cantidad FROM entrada WHERE ent_pro_codigo = ?;";
                 PS = CN.getConnection().prepareStatement(GET_SUMA);
@@ -110,13 +110,27 @@ public class Cls_Entrada {
 
                         int res3 = 0;
                         String UPDATE_INV_STOCK = "UPDATE inventario SET inv_stock = inv_entradas - inv_salidas WHERE inv_pro_codigo = ?";
-                        PS = CN.getConnection().prepareStatement(UPDATE_INV_STOCK);
+                        PS =    CN.getConnection().prepareStatement(UPDATE_INV_STOCK);
                         PS.setString(1, codigo);
                         res3 = PS.executeUpdate();
 
                         if (res3 > 0) {
-                            System.out.println("Update Inventario");
-                        }
+                System.out.println("Update Inventario");
+
+                // Agregar este bloque para actualizar la tabla de artículos
+                int res4 = 0;
+                String UPDATE_ART_CUERPO = "UPDATE artículos SET cuerpo = cuerpo - ? WHERE pro_codigo = ?";
+                PS = CN.getConnection().prepareStatement(UPDATE_ART_CUERPO);
+                PS.setInt(1, cuerpomerma);  // Restar cuerpomerma
+                PS.setString(2, codigo);
+                res4 = PS.executeUpdate();
+
+                if (res4 > 0) {
+                    System.out.println("Tabla de artículos actualizada");
+                } else {
+                    System.out.println("Error al actualizar la tabla de artículos");
+                }
+            }
                     }
 
                 }
@@ -125,12 +139,12 @@ public class Cls_Entrada {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se pudo registrar la entrada.");
-            System.err.println("Error al registrar la entrada." + e.getMessage());
-        } finally {
-            PS = null;
-            CN.desconectar();
-        }
-        return res;
+        JOptionPane.showMessageDialog(null, "No se pudo registrar la entrada.");
+        System.err.println("Error al registrar la entrada." + e.getMessage());
+    } finally {
+        PS = null;
+        CN.desconectar();
+    }
+    return res;
     }
 }

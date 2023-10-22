@@ -28,7 +28,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     public static int enviar = 0;
     int num = 0;
     private static int contador = 0;
-
+    
     public Frm_Entrada() {
         initComponents();
         CP = new Cls_Entrada();
