@@ -115,22 +115,50 @@ public class Cls_Entrada {
                         res3 = PS.executeUpdate();
 
                         if (res3 > 0) {
-                System.out.println("Update Inventario");
+                            System.out.println("Update Inventario");
 
-                // Agregar este bloque para actualizar la tabla de artículos
-                int res4 = 0;
-                String UPDATE_ART_CUERPO = "UPDATE artículos SET cuerpo = cuerpo - ? WHERE pro_codigo = ?";
-                PS = CN.getConnection().prepareStatement(UPDATE_ART_CUERPO);
-                PS.setInt(1, cuerpomerma);  // Restar cuerpomerma
-                PS.setString(2, codigo);
-                res4 = PS.executeUpdate();
+                            // Actualiza el cuerpo
+                            int res4 = 0;
+                            String UPDATE_ART_CUERPO = "UPDATE artículos SET cuerpo = cuerpo - ? WHERE pro_codigo = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ART_CUERPO);
+                            PS.setInt(1, cuerpomerma);  
+                            PS.setString(2, codigo);
+                            res4 = PS.executeUpdate();
 
-                if (res4 > 0) {
-                    System.out.println("Tabla de artículos actualizada");
-                } else {
-                    System.out.println("Error al actualizar la tabla de artículos");
-                }
-            }
+                            if (res4 > 0) {
+                                System.out.println("Campo cuerpo de la tabla de artículos actualizada");
+                            } else {
+                                System.out.println("Error al actualizar el campo cuerpo de la tabla de artículos");
+                            }
+
+                            // Actualiza la reja
+                            int res5 = 0;
+                            String UPDATE_ART_REJA = "UPDATE artículos SET reja = reja - ? WHERE pro_codigo = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ART_REJA);
+                            PS.setInt(1, rejamerma);  
+                            PS.setString(2, codigo);
+                            res5 = PS.executeUpdate();
+
+                            if (res5 > 0) {
+                                System.out.println("Campo reja de la tabla de artículos actualizada");
+                            } else {
+                                System.out.println("Error al actualizar el campo reja de la tabla de artículos");
+                            }
+
+                            // Actualiza la tapa
+                            int res6 = 0;
+                            String UPDATE_ART_TAPA = "UPDATE artículos SET tapa = tapa - ? WHERE pro_codigo = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ART_TAPA);
+                            PS.setInt(1, tapamerma);  
+                            PS.setString(2, codigo);
+                            res6 = PS.executeUpdate();
+
+                            if (res6 > 0) {
+                                System.out.println("Campo tapa de la tabla de artículos actualizada");
+                            } else {
+                                System.out.println("Error al actualizar el campo tapa de la tabla de artículos");
+                            }
+                        }
                     }
 
                 }
@@ -146,5 +174,5 @@ public class Cls_Entrada {
         CN.desconectar();
     }
     return res;
-    }
+}
 }
