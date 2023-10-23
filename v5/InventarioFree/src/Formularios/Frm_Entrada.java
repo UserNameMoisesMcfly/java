@@ -27,7 +27,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private Frm_BuscarProductos currentBuscarProductosFrame;
     public static int enviar = 0;
     int num = 0;
-    private static int contador = 0;
     
     public Frm_Entrada() {
         initComponents();
@@ -67,7 +66,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     }
 
     private void limpiar() {
-        txt_codigo.setText("");
+        
         txt_mermac.setText("");
         txt_mermar.setText("");
         txt_mermat.setText("");
@@ -75,45 +74,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jtb_entrada.clearSelection();
     }
     
-    private String generarFolio(String codigo, Date fecha) {
-        String folio = "";
-        try {
-            Conectar conectar = new Conectar();
-            Connection conn = conectar.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT categoria FROM artículos WHERE pro_codigo = ?");
-            ps.setString(1, codigo);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int categoria = rs.getInt("categoria");
-                int prefix;
-                switch (categoria) {
-                    case 20:
-                        prefix = 207;
-                        break;
-                    case 40:
-                        prefix = 90;
-                        break;
-                    default:
-                        throw new Exception("Categoría no válida");
-                }
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                String fechaStr = sdf.format(fecha);
-
-                
-                folio = contador + String.valueOf(prefix) + fechaStr + categoria;
-                contador++;  
-            } else {
-                throw new Exception("Código no encontrado");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return folio;
-    }
-
-
     private void guardar() {
         String codigo = txt_codigo.getText();
         Date fechaa = jdc_fecha.getDate();
@@ -125,9 +85,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
         if (num == 0) {
-           
-            String folio = generarFolio(codigo, fechaa);
-
+            
+            String folio = CP.generarFolio(codigo, fecha_sql);
+            
             if (!folio.isEmpty()) {
                 int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, mermac, mermar, mermat);
                 if (respuesta > 0) {

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +17,8 @@ public class Cls_Entrada {
     private DefaultTableModel DT;
     private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_cantidad, cuerpo_merma, reja_merma, tapa_merma) values (?,?,?,?,?,?,?)";
     private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria , ent_cantidad, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo";
-
+    private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos WHERE pro_codigo = ?";
+    private final String SQL_SELECT_ID= "SELECT MAX(ent_id) FROM entrada ";
     public Cls_Entrada() {
         PS = null;
         CN = new Conectar();
@@ -73,7 +75,63 @@ public class Cls_Entrada {
         }
         return DT;
     }
+    
+     public String generarFolio(String identificador, Date fecha) {
+        String folio = "";
+        try {
+            PS = CN.getConnection().prepareStatement(SQL_SELECT_CATEGORIA);
+            PS.setString(1, identificador);
+            RS = PS.executeQuery();
+            //Conectar conectar = new Conectar();
+            //Connection conn = conectar.getConnection();
+            //PreparedStatement ps = conn.prepareStatement("SELECT categoria FROM artículos WHERE pro_codigo = ?");
+            //ps.setString(1, codigo);
+            //ResultSet rs = ps.executeQuery();
+            
+            if (RS.next()) {
+                int categoria = RS.getInt("categoria");
+                int prefix;
+                switch (categoria) {
+                    case 20:
+                        prefix = 207;
+                        break;
+                    case 40:
+                        prefix = 90;
+                        break;
+                    default:
+                        throw new Exception("Categoría no válida");
+                }
 
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                String fechaStr = sdf.format(fecha);
+
+                
+                folio = numeroUnico() + String.valueOf(prefix) + fechaStr + categoria;  
+            } else {
+                throw new Exception("Código no encontrado");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return folio;
+    }
+    
+    public int numeroUnico(){
+        int id = 0;
+        try {
+            PS = CN.getConnection().prepareStatement(SQL_SELECT_ID);
+            RS = PS.executeQuery();
+            
+            if(RS.next()){
+                id = RS.getInt("MAX(ent_id)");
+                id++;
+            } 
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+    
     public int registrarEntrada(String categoria, String codigo, Date fecha, int cantidad,int cuerpomerma,int rejamerma, int tapamerma) {
     int res = 0;
     try {
