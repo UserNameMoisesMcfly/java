@@ -5,7 +5,11 @@
             <url>src/Formularios/Frm_Entrada.java</url>
             <bookmark id="1">
                 <name/>
+<<<<<<< Updated upstream
                 <line>61</line>
+=======
+                <line>62</line>
+>>>>>>> Stashed changes
                 <key/>
             </bookmark>
         </file>
@@ -15,7 +19,10 @@
             <file>file:/C:/Users/dilan/OneDrive/Documentos/GitHub/java/v5/InventarioFree/src/Clases/Cls_Productos.java</file>
             <file>file:/C:/Users/dilan/OneDrive/Documentos/GitHub/java/v5/InventarioFree/src/Formularios/Frm_Entrada.java</file>
             <file>file:/C:/Users/dilan/OneDrive/Documentos/GitHub/java/v5/InventarioFree/src/Clases/Cls_Entrada.java</file>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/dilan/OneDrive/Documentos/GitHub/java/v5/InventarioFree/src/Formularios/Frm_Productos.java</file>
+=======
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
