@@ -36,7 +36,6 @@ public class Cls_Salida {
         DT.addColumn("Descripción");
         DT.addColumn("Proveedor");////////////////////////////
         DT.addColumn("Categoria");////////////////////////
-        //DT.addColumn("Precio");////////////////
         DT.addColumn("Cantidad");
         return DT;
     }

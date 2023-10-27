@@ -88,7 +88,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         }
 
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

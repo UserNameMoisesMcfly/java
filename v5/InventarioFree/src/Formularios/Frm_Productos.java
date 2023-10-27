@@ -14,8 +14,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     public Frm_Productos() {
         initComponents();
         CP = new Cls_Productos();
-        CP.ConsultarProveedor(cbxProveedor);            ///////////////////////////////////////////////////////////
-        CP.ConsultarCategorias(cbxCategoria);           //////////////////////////////////////
+        CP.ConsultarProveedor(cbxProveedor);
+        CP.ConsultarCategorias(cbxCategoria);
         columnModel = jtb_productos.getColumnModel();
         listar();
         iniciar();
@@ -35,7 +35,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         cbxProveedor.setEnabled(false);
         cbxCategoria.setEnabled(false);
         txt_ubicacion.setEnabled(false);
-        //txt_estado.setEnabled(false);
         txt_cuerpo.setEnabled(false);
         txt_reja.setEnabled(false);
         txt_tapa.setEnabled(false);
@@ -47,7 +46,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         cbxProveedor.setEnabled(true);
         cbxCategoria.setEnabled(true);
         txt_ubicacion.setEnabled(true);
-        //txt_estado.setEnabled(true);
         txt_cuerpo.setEnabled(true);
         txt_reja.setEnabled(true);
         txt_tapa.setEnabled(true);
@@ -60,7 +58,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         txt_codigo.requestFocus();
         jtb_productos.clearSelection();
         txt_ubicacion.setText("");
-        //txt_estado.setText("");
         txt_cuerpo.setText("");
         txt_reja.setText("");
         txt_tapa.setText("");
@@ -72,7 +69,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     String nomproveedor = (String) cbxProveedor.getSelectedItem();
     String categoria = (String) cbxCategoria.getSelectedItem();
     String MAX = txt_ubicacion.getText();
-    //String estado = txt_estado.getText();
     String cuerpo = txt_cuerpo.getText();
     String reja = txt_reja.getText();
     String tapa = txt_tapa.getText();
