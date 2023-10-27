@@ -70,6 +70,7 @@ public class Cls_Salida {
 
     public int registrarSalida(String categoria, String codigo, Date fecha, int cantidad) {
         int res = 0;
+
         try {
             PS = CN.getConnection().prepareStatement(SQL_INSERT_SALIDA);
             PS.setString(1, categoria);
