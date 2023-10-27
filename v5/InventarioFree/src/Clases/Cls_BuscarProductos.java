@@ -39,11 +39,10 @@ public class Cls_BuscarProductos {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-
         };
         DT.addColumn("Folio");
         DT.addColumn("Descripción");
-        DT.addColumn("Provedor");
+        DT.addColumn("Presentacion");
         DT.addColumn("Categoria");
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
@@ -51,7 +50,6 @@ public class Cls_BuscarProductos {
         DT.addColumn("Cajas");
         DT.addColumn("Tarimas");
         DT.addColumn("Folio de entrada");
-
         return DT;
     }
 
@@ -95,7 +93,7 @@ public class Cls_BuscarProductos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL);
             RS = PS.executeQuery();
-            Object[] fila = new Object[10]; // Aquí había un error en la cantidad de objetos, debería ser 9 en lugar de 5.
+            Object[] fila = new Object[7]; // Aquí había un error en la cantidad de objetos, debería ser 9 en lugar de 5.
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -104,12 +102,11 @@ public class Cls_BuscarProductos {
                 fila[4] = RS.getInt(5);
                 fila[5] = RS.getInt(6);
                 fila[6] = RS.getInt(7);
-                fila[7] = RS.getInt(8); // Aquí recuperamos ent_cantidad
+                /*fila[7] = RS.getInt(8); // Aquí recuperamos ent_cantidad
                 fila[8] = (int) Math.round(RS.getDouble(9)); // Aquí recuperamos el cálculo basado en la categoría
-                fila[9] = RS.getString(10);
+                fila[9] = RS.getString(10);*/
                 DT.addRow(fila);
             }
-
         } catch (SQLException e) {
             System.err.println("Error al listar los datos." + e.getMessage());
         } finally {
