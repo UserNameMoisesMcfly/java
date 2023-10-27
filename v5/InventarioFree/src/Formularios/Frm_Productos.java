@@ -490,10 +490,9 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         cbxProveedor.setSelectedItem(jtb_productos.getValueAt(row, 2).toString());
         cbxCategoria.setSelectedItem(jtb_productos.getValueAt(row, 3).toString());
         txt_ubicacion.setText(jtb_productos.getValueAt(row, 4).toString());
-        //txt_estado.setText(jtb_productos.getValueAt(row, 5).toString());
-        txt_cuerpo.setText(jtb_productos.getValueAt(row, 6).toString());
-        txt_reja.setText(jtb_productos.getValueAt(row, 7).toString());
-        txt_tapa.setText(jtb_productos.getValueAt(row, 8).toString());
+        txt_cuerpo.setText(jtb_productos.getValueAt(row, 5).toString());
+        txt_reja.setText(jtb_productos.getValueAt(row, 6).toString());
+        txt_tapa.setText(jtb_productos.getValueAt(row, 7).toString());
     }//GEN-LAST:event_jtb_productosMouseClicked
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed

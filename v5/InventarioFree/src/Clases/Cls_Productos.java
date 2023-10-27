@@ -15,7 +15,7 @@ public class Cls_Productos {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa, tarimas) values (?,?,?,?,?,?,?,?,?)";
+    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?,)";
     private final String SQL_SELECT_PRODUCTOS = "SELECT * FROM artículos";
     Connection conn;
 
@@ -41,7 +41,6 @@ public class Cls_Productos {
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
         DT.addColumn("Tapa");
-        DT.addColumn("Tarimas");
         return DT;
     }
 
@@ -50,18 +49,16 @@ public class Cls_Productos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_PRODUCTOS);
             RS = PS.executeQuery();
-            Object[] fila = new Object[9];////////
+            Object[] fila = new Object[8];////////
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
                 fila[2] = RS.getString(3);/////////////////////
                 fila[3] = RS.getString(4);/////////////////////
                 fila[4] = RS.getString(5);/////////////////////
-                //fila[5] = RS.getString(6);/////////////////////
                 fila[5] = RS.getString(6);/////////////////////
                 fila[6] = RS.getString(7);/////////////////////
                 fila[7] = RS.getString(8);/////////////////////
-                fila[8] = RS.getString(9);/////////////////////
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
