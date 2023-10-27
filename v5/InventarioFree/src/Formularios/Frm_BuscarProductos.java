@@ -22,24 +22,13 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
         initComponents();
         CP = new Cls_BuscarProductos();
         columnModel = tabla.getColumnModel();
-        if (Frm_Entrada.enviar == 1) {
-            listarEntrada();
-        } else if (Frm_Salida.enviar == 1) {
-            listarSalida();
-        } else if (Frm_Entrada_sub.enviar == 1) {
-            listarEntrada();
-        } else if (Frm_Salida_sub.enviar == 1) {
-            listarSalida();
-        }
+        listar();
     }
 
-    private void listarEntrada() {
-        tabla.setModel(CP.getDatosEntrada());
+    private void listar() {
+        tabla.setModel(CP.getDatosProductos());
     }
-    
-    private void listarSalida() {
-        tabla.setModel(CP.getDatosSalida());
-    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -142,43 +131,16 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
     private void txt_busquedaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_busquedaCaretUpdate
         if (jrb_nombre.isSelected()) {
             String inf = txt_busqueda.getText();
-            if (Frm_Entrada.enviar == 1) {
-                tabla.setModel(CP.getDatoPE(1, inf));
-            } else if (Frm_Salida.enviar == 1) {
-                tabla.setModel(CP.getDatoPS(1, inf));
-            } else if (Frm_Entrada_sub.enviar == 1) {
-                tabla.setModel(CP.getDatoPE(1, inf));
-            } else if (Frm_Salida_sub.enviar == 1) {
-                tabla.setModel(CP.getDatoPS(1, inf));
-            }
-            //tabla.setModel(CP.getDatoP(1, inf));
+            tabla.setModel(CP.getDatoP(1, inf));
         }
 
         if (jrb_codigo.isSelected()) {
             String inf = txt_busqueda.getText();
-            if (Frm_Entrada.enviar == 1) {
-                tabla.setModel(CP.getDatoPE(2, inf));
-            } else if (Frm_Salida.enviar == 1) {
-                tabla.setModel(CP.getDatoPS(2, inf));
-            } else if (Frm_Entrada_sub.enviar == 1) {
-                tabla.setModel(CP.getDatoPE(2, inf));
-            } else if (Frm_Salida_sub.enviar == 1) {
-                tabla.setModel(CP.getDatoPS(2, inf));
-            }
-            //tabla.setModel(CP.getDatoP(2, inf));
+            tabla.setModel(CP.getDatoP(2, inf));
         }
 
         if (txt_busqueda.getText().isEmpty()) {
-            if (Frm_Entrada.enviar == 1) {
-                tabla.setModel(CP.getDatosEntrada());
-            } else if (Frm_Salida.enviar == 1) {
-                tabla.setModel(CP.getDatosSalida());
-            } else if (Frm_Entrada_sub.enviar == 1) {
-                tabla.setModel(CP.getDatosEntrada());
-            } else if (Frm_Salida_sub.enviar == 1) {
-                tabla.setModel(CP.getDatosSalida());
-            }
-            //tabla.setModel(CP.getDatosProductos());
+            tabla.setModel(CP.getDatosProductos());
         }
     }//GEN-LAST:event_txt_busquedaCaretUpdate
 
