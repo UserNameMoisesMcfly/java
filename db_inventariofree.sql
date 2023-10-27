@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2023 a las 08:26:55
+-- Tiempo de generación: 27-10-2023 a las 11:00:44
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -230,8 +230,16 @@ CREATE TABLE `salida` (
   `sal_factura` varchar(100) DEFAULT NULL,
   `sal_pro_codigo` varchar(100) DEFAULT NULL,
   `sal_fecha` date NOT NULL,
-  `sal_cantidad` int(50) NOT NULL
+  `sal_cantidad` int(50) NOT NULL,
+  `sal_tarima` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `salida`
+--
+
+INSERT INTO `salida` (`sal_id`, `sal_factura`, `sal_pro_codigo`, `sal_fecha`, `sal_cantidad`, `sal_tarima`) VALUES
+(37, 'test', '999999', '2023-02-20', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -348,7 +356,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `salida`
 --
 ALTER TABLE `salida`
-  MODIFY `sal_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `sal_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
