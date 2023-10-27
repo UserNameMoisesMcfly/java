@@ -97,6 +97,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
         if (num == 0) {
+            //generar folio
             
             String folio = CP.generarFolio(codigo, fecha_sql);
             
