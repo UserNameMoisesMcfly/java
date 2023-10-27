@@ -120,6 +120,11 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         jLabel2.setText("Código del Producto *");
 
         txt_codigo.setEditable(false);
+        txt_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_codigoActionPerformed(evt);
+            }
+        });
 
         txt_descripcion.setEditable(false);
 
@@ -333,6 +338,10 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
             System.out.println("Error en" + ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_codigoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

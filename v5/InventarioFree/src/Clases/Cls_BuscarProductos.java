@@ -20,11 +20,13 @@ public class Cls_BuscarProductos {
         "WHEN categoria = 20 THEN entrada.ent_cantidad / 207 " +
         "WHEN categoria = 40 THEN entrada.ent_cantidad / 90 " +
         "ELSE 0 " + 
-    "END AS calculo " +
+    "END AS calculo, " +
+    "entrada.ent_categoria " + // Agrega esta línea
     "FROM artículos " + 
     "INNER JOIN inventario ON pro_codigo = inv_pro_codigo " +
     "LEFT JOIN entrada ON artículos.pro_codigo = entrada.ent_pro_codigo " +
     "ORDER BY pro_codigo ASC";
+
 
     public Cls_BuscarProductos() {
         PS = null;
@@ -48,6 +50,7 @@ public class Cls_BuscarProductos {
         DT.addColumn("Tapa");
         DT.addColumn("Cajas");
         DT.addColumn("Tarimas");
+        DT.addColumn("Folio de entrada");
 
         return DT;
     }
@@ -57,7 +60,7 @@ public class Cls_BuscarProductos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_PRODUCTOS);
             RS = PS.executeQuery();
-            Object[] fila = new Object[9];
+            Object[] fila = new Object[10];
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -68,6 +71,7 @@ public class Cls_BuscarProductos {
                 fila[6] = RS.getInt(7);
                 fila[7] = RS.getInt(8);
                 fila[8] = (int) Math.round(RS.getDouble(9)); // Modificación aquí
+                fila[9] = RS.getString(10);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
@@ -91,7 +95,7 @@ public class Cls_BuscarProductos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL);
             RS = PS.executeQuery();
-            Object[] fila = new Object[9]; // Aquí había un error en la cantidad de objetos, debería ser 9 en lugar de 5.
+            Object[] fila = new Object[10]; // Aquí había un error en la cantidad de objetos, debería ser 9 en lugar de 5.
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -102,6 +106,7 @@ public class Cls_BuscarProductos {
                 fila[6] = RS.getInt(7);
                 fila[7] = RS.getInt(8); // Aquí recuperamos ent_cantidad
                 fila[8] = (int) Math.round(RS.getDouble(9)); // Aquí recuperamos el cálculo basado en la categoría
+                fila[9] = RS.getString(10);
                 DT.addRow(fila);
             }
 

@@ -59,7 +59,7 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
 
         jrb_codigo.setBackground(new java.awt.Color(255, 255, 255));
         bg_busqueda.add(jrb_codigo);
-        jrb_codigo.setText("Código/SN");
+        jrb_codigo.setText("Folio");
         jrb_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrb_codigoActionPerformed(evt);
@@ -108,7 +108,7 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jrb_nombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
