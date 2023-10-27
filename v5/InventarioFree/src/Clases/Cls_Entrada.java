@@ -15,7 +15,7 @@ public class Cls_Entrada {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_cantidad, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma) values (?,?,?,?,?,?,?,?,?,?)";
+    private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_cantidad, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma, sob_cuerpo, sob_reja, sob_tapa) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria , ent_cantidad, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo";
     private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos WHERE pro_codigo = ?";
     private final String SQL_SELECT_ID= "SELECT MAX(ent_id) FROM entrada ";
@@ -31,7 +31,6 @@ public class Cls_Entrada {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-
         };
         DT.addColumn("Folio de entrada");
         DT.addColumn("Fecha");
@@ -39,7 +38,7 @@ public class Cls_Entrada {
         DT.addColumn("Descripción");
         DT.addColumn("Proveedor");
         DT.addColumn("Categoria");
-        DT.addColumn("Tarimas");
+        DT.addColumn("Cajas");
         DT.addColumn("Retiro de Cuerpos");
         DT.addColumn("Retiro de Divisores");
         DT.addColumn("Retiro de Tapa");
@@ -47,7 +46,6 @@ public class Cls_Entrada {
         DT.addColumn("Merma Divisor");
         DT.addColumn("Merma Tapa");
         return DT;
-
     }
 
     public DefaultTableModel getDatosEntradas() {
@@ -71,7 +69,6 @@ public class Cls_Entrada {
                 fila[11] = RS.getInt(12);
                 fila[12] = RS.getInt(13);
                 DT.addRow(fila);
-
             }
         } catch (SQLException e) {
             System.err.println("Error al listar los datos." + e.getMessage());
@@ -153,9 +150,11 @@ public class Cls_Entrada {
         PS.setInt(8, cuerpomerma);
         PS.setInt(9, rejamerma);
         PS.setInt(10, tapamerma);
+        PS.setInt(11, 0);
+        PS.setInt(12, 0);
+        PS.setInt(13, 0);
         res = PS.executeUpdate();
         if (res > 0) {
-
                 String GET_SUMA = "SELECT SUM(ent_cantidad) AS suma_ent_cantidad FROM entrada WHERE ent_pro_codigo = ?;";
                 PS = CN.getConnection().prepareStatement(GET_SUMA);
                 PS.setString(1, codigo);
@@ -186,97 +185,96 @@ public class Cls_Entrada {
                             System.out.println("Update Inventario");
 
                             // Actualiza el cuerpo
-int totalCuerpo = rescuerpo + cuerpomerma;
-String UPDATE_ART_CUERPO = "UPDATE artículos SET cuerpo = cuerpo - ? WHERE pro_codigo = ?";
-PS = CN.getConnection().prepareStatement(UPDATE_ART_CUERPO);
-PS.setInt(1, totalCuerpo);  
-PS.setString(2, codigo);
-int res4 = PS.executeUpdate();
+                            String UPDATE_ART_CUERPO = "UPDATE artículos SET cuerpo = cuerpo - ? WHERE pro_codigo = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ART_CUERPO);
+                            PS.setInt(1, rescuerpo);  
+                            PS.setString(2, codigo);
+                            int res4 = PS.executeUpdate();
 
-if (res4 > 0) {
-    System.out.println("Campo cuerpo de la tabla de artículos actualizada");
-} else {
-    System.out.println("Error al actualizar el campo cuerpo de la tabla de artículos");
-}
+                            if (res4 > 0) {
+                                System.out.println("Campo cuerpo de la tabla de artículos actualizada");
+                            } else {
+                                System.out.println("Error al actualizar el campo cuerpo de la tabla de artículos");
+                            }
 
-// Actualiza la reja
-int totalReja = resreja + rejamerma;
-String UPDATE_ART_REJA = "UPDATE artículos SET reja = reja - ? WHERE pro_codigo = ?";
-PS = CN.getConnection().prepareStatement(UPDATE_ART_REJA);
-PS.setInt(1, totalReja);  
-PS.setString(2, codigo);
-int res5 = PS.executeUpdate();
+                            // Actualiza la reja
+                            String UPDATE_ART_REJA = "UPDATE artículos SET reja = reja - ? WHERE pro_codigo = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ART_REJA);
+                            PS.setInt(1, resreja);  
+                            PS.setString(2, codigo);
+                            int res5 = PS.executeUpdate();
 
-if (res5 > 0) {
-    System.out.println("Campo reja de la tabla de artículos actualizada");
-} else {
-    System.out.println("Error al actualizar el campo reja de la tabla de artículos");
-}
+                            if (res5 > 0) {
+                                System.out.println("Campo reja de la tabla de artículos actualizada");
+                            } else {
+                                System.out.println("Error al actualizar el campo reja de la tabla de artículos");
+                            }
 
-// Actualiza la tapa
-int totalTapa = restapa + tapamerma;
-String UPDATE_ART_TAPA = "UPDATE artículos SET tapa = tapa - ? WHERE pro_codigo = ?";
-PS = CN.getConnection().prepareStatement(UPDATE_ART_TAPA);
-PS.setInt(1, totalTapa);  
-PS.setString(2, codigo);
-int res6 = PS.executeUpdate();
+                            // Actualiza la tapa
+                            String UPDATE_ART_TAPA = "UPDATE artículos SET tapa = tapa - ? WHERE pro_codigo = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ART_TAPA);
+                            PS.setInt(1, restapa);  
+                            PS.setString(2, codigo);
+                            int res6 = PS.executeUpdate();
 
-if (res6 > 0) {
-    System.out.println("Campo tapa de la tabla de artículos actualizada");
-} else {
-    System.out.println("Error al actualizar el campo tapa de la tabla de artículos");
-}
-                            
+                            if (res6 > 0) {
+                                System.out.println("Campo tapa de la tabla de artículos actualizada");
+                            } else {
+                                System.out.println("Error al actualizar el campo tapa de la tabla de artículos");
+                            }
+
                             // Después de actualizar las cantidades, consulta las cantidades actuales.
-String QUERY_PIEZAS_ACTUALES = "SELECT cuerpo, reja, tapa FROM artículos WHERE pro_codigo = ?";
-PS = CN.getConnection().prepareStatement(QUERY_PIEZAS_ACTUALES);
-PS.setString(1, codigo);
-RS = PS.executeQuery();
+                            String QUERY_PIEZAS_ACTUALES = "SELECT res_cuerpo-cuerpo_merma as cuerpo, res_reja-reja_merma as reja, res_tapa-tapa_merma as tapa FROM entrada WHERE ent_categoria = ?";
+                            PS = CN.getConnection().prepareStatement(QUERY_PIEZAS_ACTUALES);
+                            PS.setString(1, categoria);
+                            RS = PS.executeQuery();
 
-int cuerposDisponibles = 0;
-int rejasDisponibles = 0;
-int tapasDisponibles = 0;
+                            int cuerposDisponibles = 0;
+                            int rejasDisponibles = 0;
+                            int tapasDisponibles = 0;
 
-if (RS.next()) {
-    cuerposDisponibles = RS.getInt("cuerpo");
-    rejasDisponibles = RS.getInt("reja");
-    tapasDisponibles = RS.getInt("tapa");
-}
+                            if (RS.next()) {
+                                cuerposDisponibles = RS.getInt("cuerpo");
+                                rejasDisponibles = RS.getInt("reja");
+                                tapasDisponibles = RS.getInt("tapa");
+                            }
 
-// Calcula cuántas cajas completas puedes formar con las piezas disponibles.
-int cajasCompletas = Math.min(Math.min(cuerposDisponibles, rejasDisponibles), tapasDisponibles);
+                            // Calcula cuántas cajas completas puedes formar con las piezas disponibles.
+                            int cajasCompletas = Math.min(Math.min(cuerposDisponibles, rejasDisponibles), tapasDisponibles);
+                            
+                            cuerposDisponibles -= cajasCompletas;
+                            rejasDisponibles -= cajasCompletas;
+                            tapasDisponibles -= cajasCompletas;
+                            
+                            System.out.println("Número de cajas completas que se pueden formar: " + cajasCompletas);
 
-System.out.println("Número de cajas completas que se pueden formar: " + cajasCompletas);
+                            // Actualiza el número de cajas completas en la tabla "entradas".
+                            String UPDATE_ENTRADAS = "UPDATE entrada SET ent_cantidad = ?, sob_cuerpo = ?, sob_reja = ?, sob_tapa = ? WHERE ent_categoria = ?";
+                            PS = CN.getConnection().prepareStatement(UPDATE_ENTRADAS);
+                            PS.setInt(1, cajasCompletas);
+                            PS.setInt(2, cuerposDisponibles);
+                            PS.setInt(3, rejasDisponibles);
+                            PS.setInt(4, tapasDisponibles);
+                            PS.setString(5, categoria);
+                            int resUpdate = PS.executeUpdate();
 
-// Actualiza el número de cajas completas en la tabla "entradas".
-String UPDATE_ENTRADAS = "UPDATE entrada SET ent_cantidad = ? WHERE ent_pro_codigo = ?";
-PS = CN.getConnection().prepareStatement(UPDATE_ENTRADAS);
-PS.setInt(1, cajasCompletas);
-PS.setString(2, codigo);
-int resUpdate = PS.executeUpdate();
-
-if (resUpdate > 0) {
-    System.out.println("Número de cajas actualizado correctamente en la tabla de entradas.");
-} else {
-    System.out.println("Error al actualizar el número de cajas en la tabla de entradas.");
-}
-
-
+                            if (resUpdate > 0) {
+                                System.out.println("Número de cajas actualizado correctamente en la tabla de entradas.");
+                            } else {
+                                System.out.println("Error al actualizar el número de cajas en la tabla de entradas.");
+                            }
                         }
                     }
-
                 }
-
                 JOptionPane.showMessageDialog(null, "Entrada realizada con éxito");
             }
-
         } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "No se pudo registrar la entrada.");
-        System.err.println("Error al registrar la entrada." + e.getMessage());
-    } finally {
-        PS = null;
-        CN.desconectar();
+            JOptionPane.showMessageDialog(null, "No se pudo registrar la entrada.");
+            System.err.println("Error al registrar la entrada." + e.getMessage());
+        } finally {
+            PS = null;
+            CN.desconectar();
+        }
+        return res;
     }
-    return res;
-}
 }

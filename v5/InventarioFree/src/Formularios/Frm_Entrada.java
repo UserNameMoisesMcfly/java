@@ -90,9 +90,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         int mermac = Integer.parseInt(txt_mermac.getText());
         int mermar = Integer.parseInt(txt_mermar.getText());
         int mermat = Integer.parseInt(txt_mermat.getText());
-        int rescuerpo = Integer.parseInt(txt_mermat.getText());
-        int resreja = Integer.parseInt(txt_mermat.getText());
-        int restapa = Integer.parseInt(txt_mermat.getText());
+        int rescuerpo = Integer.parseInt(ret_cuerpo.getText());
+        int resreja = Integer.parseInt(ret_divisor.getText());
+        int restapa = Integer.parseInt(ret_tapa.getText());
 
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
@@ -101,7 +101,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
             String folio = CP.generarFolio(codigo, fecha_sql);
             
             if (!folio.isEmpty()) {
-                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, mermac, mermar, mermat, rescuerpo, resreja, restapa );
+                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, rescuerpo, resreja, restapa, mermac, mermar, mermat);
                 if (respuesta > 0) {
                     listar();
                     limpiar();
