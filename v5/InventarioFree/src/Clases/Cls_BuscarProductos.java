@@ -13,7 +13,19 @@ public class Cls_BuscarProductos {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_SELECT_PRODUCTOS = "SELECT pro_codigo, pro_descripcion, nomproveedor, categoria, cuerpo, reja, tapa FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo ORDER BY pro_codigo ASC";
+    private final String SQL_SELECT_PRODUCTOS = 
+    "SELECT pro_codigo, pro_descripcion, nomproveedor, categoria, cuerpo, reja, tapa, " + 
+    "entrada.ent_cantidad, " + 
+    "CASE " +
+        "WHEN categoria = 20 THEN entrada.ent_cantidad / 207 " +
+        "WHEN categoria = 40 THEN entrada.ent_cantidad / 90 " +
+        "ELSE 0 " + 
+    "END AS calculo " +
+    "FROM artículos " + 
+    "INNER JOIN inventario ON pro_codigo = inv_pro_codigo " +
+    "LEFT JOIN entrada ON artículos.pro_codigo = entrada.ent_pro_codigo " +
+    "ORDER BY pro_codigo ASC";
+    
 
     public Cls_BuscarProductos() {
         PS = null;
@@ -35,6 +47,9 @@ public class Cls_BuscarProductos {
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
         DT.addColumn("Tapa");
+        DT.addColumn("Cajas");
+        DT.addColumn("Tarimas");
+        
 
         return DT;
     }
@@ -44,7 +59,7 @@ public class Cls_BuscarProductos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_PRODUCTOS);
             RS = PS.executeQuery();
-            Object[] fila = new Object[7];///////////////4
+            Object[] fila = new Object[9];///////////////4
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
@@ -53,6 +68,8 @@ public class Cls_BuscarProductos {
                 fila[4] = RS.getInt(5);
                 fila[5] = RS.getInt(6);
                 fila[6] = RS.getInt(7);
+                fila[7] = RS.getInt(8);
+                fila[8] = RS.getDouble(9);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
@@ -76,17 +93,19 @@ public class Cls_BuscarProductos {
             setTitulosProductos();
             PS = CN.getConnection().prepareStatement(SQL);
             RS = PS.executeQuery();
-            Object[] fila = new Object[5];
+            Object[] fila = new Object[9];
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
-                fila[2] = RS.getString(3);///////////////////
-                fila[3] = RS.getString(4);//////////////////
+                fila[2] = RS.getString(3);
+                fila[3] = RS.getString(4);
                 fila[4] = RS.getInt(5);
                 fila[5] = RS.getInt(6);
                 fila[6] = RS.getInt(7);
-                DT.addRow(fila);
-            }
+                fila[7] = RS.getInt(8); // Aquí recuperamos ent_cantidad
+                fila[8] = RS.getDouble(9); // Aquí recuperamos el cálculo basado en la categoría
+    DT.addRow(fila);
+}
         } catch (SQLException e) {
             System.err.println("Error al listar los datos." + e.getMessage());
         } finally {
