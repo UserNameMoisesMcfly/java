@@ -108,7 +108,6 @@ public class Cls_Entrada {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String fechaStr = sdf.format(fecha);
-
                 
                 folio = numeroUnico() + String.valueOf(prefix) + fechaStr + categoria;  
             } else {

@@ -5,20 +5,7 @@ import Clases.Cls_Entrada;
 import static Formularios.Frm_Principal.contenedor;
 import java.io.IOException;
 import java.awt.Dimension;
-import java.util.Date;
-import javax.swing.JTextField;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-
-import java.sql.Connection; 
-import java.sql.PreparedStatement; 
-import java.sql.ResultSet; 
-import java.text.SimpleDateFormat; 
 import java.util.Date; 
-import Conexion.Conectar;
-
-
 
 public class Frm_Entrada extends javax.swing.JInternalFrame {
 
