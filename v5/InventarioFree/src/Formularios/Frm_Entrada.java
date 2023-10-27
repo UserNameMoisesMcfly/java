@@ -6,6 +6,7 @@ import static Formularios.Frm_Principal.contenedor;
 import java.io.IOException;
 import java.awt.Dimension;
 import java.util.Date; 
+import javax.swing.JOptionPane;
 
 public class Frm_Entrada extends javax.swing.JInternalFrame {
 
@@ -83,10 +84,10 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
 
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
-        if (num == 0) {
-            
+        if (rescuerpo <= mermac || resreja <= mermar || restapa <= mermat) {
+            JOptionPane.showMessageDialog(null, "Merma no puede ser mayor a las entradas");
+        } else {
             String folio = CP.generarFolio(codigo, fecha_sql);
-            
             if (!folio.isEmpty()) {
                 int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, rescuerpo, resreja, restapa, mermac, mermar, mermat);
                 if (respuesta > 0) {
@@ -94,8 +95,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                     limpiar();
                     iniciar();
                 }
-            } else {
-                
             }
         }
     }

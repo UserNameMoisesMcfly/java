@@ -86,12 +86,6 @@ public class Cls_Entrada {
             PS = CN.getConnection().prepareStatement(SQL_SELECT_CATEGORIA);
             PS.setString(1, identificador);
             RS = PS.executeQuery();
-            //Conectar conectar = new Conectar();
-            //Connection conn = conectar.getConnection();
-            //PreparedStatement ps = conn.prepareStatement("SELECT categoria FROM artículos WHERE pro_codigo = ?");
-            //ps.setString(1, codigo);
-            //ResultSet rs = ps.executeQuery();
-            
             if (RS.next()) {
                 int categoria = RS.getInt("categoria");
                 int prefix;
