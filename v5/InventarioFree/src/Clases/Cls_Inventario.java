@@ -12,7 +12,7 @@ public class Cls_Inventario {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_SELECT_INVENTARIO = "SELECT inv_pro_codigo, pro_descripcion, nomproveedor, categoria, inv_entradas, inv_salidas, inv_stock, inv_cuerpo, inv_reja, inv_tapa FROM inventario INNER JOIN artículos ON inv_pro_codigo = pro_codigo";
+    private final String SQL_SELECT_INVENTARIO = "SELECT inv_pro_codigo, pro_descripcion, nomproveedor, categoria, inv_entradas, inv_salidas, inv_stock FROM inventario INNER JOIN artículos ON inv_pro_codigo = pro_codigo";
 
     public Cls_Inventario() {
         PS = null;
