@@ -15,7 +15,7 @@ public class Cls_Productos {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, estado, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?,?)";
+    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa, tarimas) values (?,?,?,?,?,?,?,?,?)";
     private final String SQL_SELECT_PRODUCTOS = "SELECT * FROM artículos";
     Connection conn;
 
@@ -37,10 +37,11 @@ public class Cls_Productos {
         DT.addColumn("Marca");/////////////////
         DT.addColumn("Categoria");/////////////////
         DT.addColumn("Notas");/////////////////
-        DT.addColumn("Estado"); ////////////////////
+        //DT.addColumn("Estado"); ////////////////////
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
         DT.addColumn("Tapa");
+        DT.addColumn("Tarimas");
         return DT;
     }
 
@@ -56,6 +57,7 @@ public class Cls_Productos {
                 fila[2] = RS.getString(3);/////////////////////
                 fila[3] = RS.getString(4);/////////////////////
                 fila[4] = RS.getString(5);/////////////////////
+                //fila[5] = RS.getString(6);/////////////////////
                 fila[5] = RS.getString(6);/////////////////////
                 fila[6] = RS.getString(7);/////////////////////
                 fila[7] = RS.getString(8);/////////////////////
@@ -72,32 +74,59 @@ public class Cls_Productos {
         return DT;
     }
 
-    public int registrarProducto(String codigo, String descripcion, String nomproveedor, String categoria, String ubicacion, String estado, String cuerpo, String reja, String tapa) {/////////////////////////
-        int res = 0;
-        try {
-            PS = CN.getConnection().prepareStatement(SQL_INSERT_PRODUCTOS);
-            PS.setString(1, codigo);
-            PS.setString(2, descripcion);
-            PS.setString(3, nomproveedor);/////////////////////
-            PS.setString(4, categoria);////////////////////
-            PS.setString(5, ubicacion);////////////////
-            PS.setString(6, estado);////////////////
-            PS.setString(7, cuerpo);
-            PS.setString(8, reja);
-            PS.setString(9, tapa);
-            res = PS.executeUpdate();
-            if (res > 0) {
-                JOptionPane.showMessageDialog(null, "Articulo registrado con éxito.");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se pudo registrar el producto.");
-            System.err.println("Error al registrar el producto." + e.getMessage());
-        } finally {
-            PS = null;
-            CN.desconectar();
+public int registrarProducto(String codigo, String descripcion, String nomproveedor, String categoria, String ubicacion, String cuerpo, String reja, String tapa) {
+    int res = 0;
+    int numeroDeCajas = 0;
+    int tarimas = 0;
+
+    try (Connection conn = CN.getConnection()) {
+        // Consultar número de cajas basado en cuerpo, reja y tapa de la tabla "articulos"
+        PreparedStatement psCajas = conn.prepareStatement("SELECT LEAST(cuerpo, reja, tapa) AS numeroCajas FROM artículos WHERE pro_codigo = ?");
+        psCajas.setString(1, codigo);
+        ResultSet rsCajas = psCajas.executeQuery();
+        if (rsCajas.next()) {
+            numeroDeCajas = rsCajas.getInt("numeroCajas");
         }
-        return res;
+
+        // Calcular tarimas basadas en categoría
+        if ("20".equals(categoria) && numeroDeCajas > 0) {
+            tarimas = numeroDeCajas / 207;
+        } else if ("40".equals(categoria) && numeroDeCajas > 0) {
+            tarimas = numeroDeCajas / 90;
+        }
+
+        // Registrar el producto y actualizar tarimas
+        PreparedStatement PS = conn.prepareStatement(SQL_INSERT_PRODUCTOS);
+        PS.setString(1, codigo);
+        PS.setString(2, descripcion);
+        PS.setString(3, nomproveedor);
+        PS.setString(4, categoria);
+        PS.setString(5, ubicacion);
+        PS.setString(6, cuerpo);
+        PS.setString(7, reja);
+        PS.setString(8, tapa);
+        PS.setInt(9, tarimas);
+        res = PS.executeUpdate();
+
+        // Actualizar tarimas en tabla "articulos"
+        PreparedStatement psUpdateTarimas = conn.prepareStatement("UPDATE artículos SET tarimas = ? WHERE pro_codigo = ?");
+        psUpdateTarimas.setInt(1, tarimas);
+        psUpdateTarimas.setString(2, codigo);
+        psUpdateTarimas.executeUpdate();
+
+        if (res > 0) {
+            JOptionPane.showMessageDialog(null, "Articulo registrado con éxito.");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "No se pudo registrar el producto.");
+        System.err.println("Error al registrar el producto." + e.getMessage());
     }
+
+    return res;
+}
+
+
+
 
     public void insertarProductoInventario(String codigoProducto) {
         int res;
@@ -131,8 +160,8 @@ public class Cls_Productos {
         return res;
     }
 
-    public int actualizarProducto(String codigo, String descripcion, String nomproveedor, String nomcategoria, String codigo_old, String nomUbicacion, String nomestado, String numcuerpo, String numreja, String numtapa) {//////////
-        String SQL = "UPDATE artículos SET pro_codigo='" + codigo + "',pro_descripcion='" + descripcion + "',nomproveedor='" + nomproveedor + "',categoria='" + nomcategoria + "',ubicacion='" + nomestado + "',estado='" + nomUbicacion + "',cuerpo='" + numcuerpo + "',reja='" + numreja + "',tapa='" + numtapa + "' WHERE pro_codigo='" + codigo_old + "'";
+    public int actualizarProducto(String codigo, String descripcion, String nomproveedor, String nomcategoria, String codigo_old, String nomUbicacion, String numcuerpo, String numreja, String numtapa) {//////////
+        String SQL = "UPDATE artículos SET pro_codigo='" + codigo + "',pro_descripcion='" + descripcion + "',nomproveedor='" + nomproveedor + "',categoria='" + nomcategoria + "',ubicacion='" + nomUbicacion + "',cuerpo='" + numcuerpo + "',reja='" + numreja + "',tapa='" + numtapa + "' WHERE pro_codigo='" + codigo_old + "'";
         int res = 0;
         try {
             PS = CN.getConnection().prepareStatement(SQL);

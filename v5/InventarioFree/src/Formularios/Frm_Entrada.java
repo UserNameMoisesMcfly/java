@@ -49,6 +49,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         txt_mermac.setEnabled(false);
         txt_mermar.setEnabled(false);
         txt_mermat.setEnabled(false);
+        ret_cuerpo.setEnabled(false);
+        ret_divisor.setEnabled(false);
+        ret_tapa.setEnabled(false);
 
     }
     
@@ -63,6 +66,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         txt_mermac.setEnabled(true);
         txt_mermar.setEnabled(true);
         txt_mermat.setEnabled(true);
+        ret_cuerpo.setEnabled(true);
+        ret_divisor.setEnabled(true);
+        ret_tapa.setEnabled(true);
 
     }
 
@@ -71,6 +77,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         txt_mermac.setText("");
         txt_mermar.setText("");
         txt_mermat.setText("");
+        ret_cuerpo.setText("");
+        ret_divisor.setText("");
+        ret_tapa.setText("");
         txt_descripcion.setText("");
         jtb_entrada.clearSelection();
     }
@@ -121,6 +130,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         int mermac = Integer.parseInt(txt_mermac.getText());
         int mermar = Integer.parseInt(txt_mermar.getText());
         int mermat = Integer.parseInt(txt_mermat.getText());
+        int rescuerpo = Integer.parseInt(txt_mermat.getText());
+        int resreja = Integer.parseInt(txt_mermat.getText());
+        int restapa = Integer.parseInt(txt_mermat.getText());
 
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
@@ -129,7 +141,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
             String folio = generarFolio(codigo, fechaa);
 
             if (!folio.isEmpty()) {
-                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, mermac, mermar, mermat);
+                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, mermac, mermar, mermat, rescuerpo, resreja, restapa );
                 if (respuesta > 0) {
                     listar();
                     limpiar();
@@ -167,6 +179,12 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         txt_mermar = new javax.swing.JTextField();
         txt_mermat = new javax.swing.JTextField();
         cant_cuerpo1 = new javax.swing.JLabel();
+        ret_divisor = new javax.swing.JTextField();
+        cant_reja1 = new javax.swing.JLabel();
+        ret_cuerpo = new javax.swing.JTextField();
+        cant_cuerpo2 = new javax.swing.JLabel();
+        ret_tapa = new javax.swing.JTextField();
+        cant_cuerpo3 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Entrada");
@@ -197,7 +215,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha *");
 
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
-        ((JTextField) jdc_fecha.getDateEditor().getUiComponent()).setEditable(false);
 
         jtb_entrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,10 +281,10 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         });
 
         cant_cuerpo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_cuerpo.setText("Merma Cuerpo *");
+        cant_cuerpo.setText("Cuerpo(s) merma *");
 
         cant_reja.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_reja.setText("Merma Divisor *");
+        cant_reja.setText("Divisor(es) merma *");
 
         txt_mermat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,7 +293,16 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         });
 
         cant_cuerpo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_cuerpo1.setText("Merma Tapa *");
+        cant_cuerpo1.setText("Tapa(s) merma *");
+
+        cant_reja1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cant_reja1.setText("Divisor(es) a retirar *");
+
+        cant_cuerpo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cant_cuerpo2.setText("Cuerpo(s) a retirar *");
+
+        cant_cuerpo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cant_cuerpo3.setText("Tapa(s) a retirar *");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -284,34 +310,47 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(76, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jbt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(61, 61, 61)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_mermar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cant_cuerpo)
-                                .addComponent(cant_reja)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txt_mermat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                                    .addComponent(txt_mermac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-                                .addComponent(cant_cuerpo1)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jbt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(61, 61, 61)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(145, 145, 145)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cant_cuerpo2)
+                                .addComponent(cant_reja1)
+                                .addComponent(ret_divisor)
+                                .addComponent(ret_cuerpo)
+                                .addComponent(ret_tapa, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                            .addComponent(cant_cuerpo3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_mermar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cant_cuerpo)
+                            .addComponent(cant_reja)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txt_mermat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                .addComponent(txt_mermac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                            .addComponent(cant_cuerpo1))))
                 .addGap(77, 77, 77))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(259, 259, 259)
@@ -334,29 +373,38 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                         .addGap(51, 51, 51))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(cant_cuerpo1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cant_cuerpo1)
+                            .addComponent(cant_cuerpo3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_mermat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ret_tapa)
+                            .addComponent(txt_mermat, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cant_cuerpo))
+                    .addComponent(cant_cuerpo)
+                    .addComponent(cant_cuerpo2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jdc_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(txt_mermac, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                    .addComponent(txt_mermac, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(ret_cuerpo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(cant_reja))
+                    .addComponent(cant_reja)
+                    .addComponent(cant_reja1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_descripcion, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txt_codigo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jbt_buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txt_mermar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_mermar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ret_divisor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -447,7 +495,10 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnexportar;
     private javax.swing.JLabel cant_cuerpo;
     private javax.swing.JLabel cant_cuerpo1;
+    private javax.swing.JLabel cant_cuerpo2;
+    private javax.swing.JLabel cant_cuerpo3;
     private javax.swing.JLabel cant_reja;
+    private javax.swing.JLabel cant_reja1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -459,6 +510,9 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbt_guardar;
     private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JTable jtb_entrada;
+    private javax.swing.JTextField ret_cuerpo;
+    private javax.swing.JTextField ret_divisor;
+    private javax.swing.JTextField ret_tapa;
     public static javax.swing.JTextField txt_codigo;
     public static javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_mermac;
