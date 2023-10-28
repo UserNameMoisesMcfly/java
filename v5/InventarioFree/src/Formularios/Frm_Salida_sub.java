@@ -4,6 +4,7 @@ import Clases.Clas_Exportar;
 import Clases.Cls_Salida;
 
 import static Formularios.Frm_SubAdmin.contenedor;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Date;
@@ -138,6 +139,7 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha *");
 
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
+        ((JTextFieldDateEditor) jdc_fecha.getDateEditor()).setEditable(false);
 
         jtb_salida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

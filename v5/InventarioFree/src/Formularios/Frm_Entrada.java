@@ -49,7 +49,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jdc_fecha.setEnabled(true);
         jbt_buscar.setEnabled(true);
         jbt_guardar.setEnabled(true);
-        jbt_guardar.setEnabled(true);
         jdc_fecha.getCalendarButton().setEnabled(false);
         txt_mermac.setEnabled(true);
         txt_mermar.setEnabled(true);
