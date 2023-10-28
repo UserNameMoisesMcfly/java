@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2023 a las 11:00:44
+-- Tiempo de generación: 28-10-2023 a las 07:36:11
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -64,11 +64,12 @@ INSERT INTO `artículos` (`pro_codigo`, `pro_descripcion`, `nomproveedor`, `cate
 ('010', 'test', 'XX Lager', 40, 'test', 621, 621, 621),
 ('011', 'test', 'XX Lager', 20, 'test', 621, 621, 621),
 ('012', 'test', 'XX Lager', 40, 'test', 621, 621, 621),
+('1234123', 'dilN', 'XX Lager', 40, 'DILAN', 6000, 6000, 6000),
 ('12345', 'hi', 'Sol', 20, 'hi', 1800, 1800, 1800),
 ('12345678', 'Cerveza', 'Sol', 20, 'mojado', 4000, 4000, 0),
-('333333', 'test', 'XX Lager', 40, 'test', 19700, 19700, 19700),
-('432', 'test', 'Sol', 20, 'nuevo', 30000, 30000, 0),
-('5162546354', 'hola', 'XX Lager', 40, 'adios', 57650, 57650, 57700),
+('333333', 'test', 'XX Lager', 40, 'test', 19500, 19500, 19500),
+('432', 'test', 'Sol', 20, 'nuevo', 29700, 29700, -300),
+('5162546354', 'hola', 'XX Lager', 40, 'adios', 56150, 56150, 56200),
 ('654', 'Cerveza', 'Sol', 40, 'golpeado', 8000, 8000, 0),
 ('666', 'cerveza', 'XX Lager', 40, 'intacto', 5000, 5000, 0),
 ('777', 'cerveza', 'XX Lager', 40, 'mojado', 4000, 0, 0),
@@ -153,7 +154,12 @@ INSERT INTO `entrada` (`ent_id`, `ent_categoria`, `ent_pro_codigo`, `ent_fecha`,
 (93, '932072023102620', '000', '2023-10-26', 150, 200, 200, 200, 50, 50, 50, 150, 150, 150),
 (94, '942072023102620', '000', '2023-10-26', 150, 150, 150, 150, 27, 30, 25, 150, 150, 150),
 (95, '952072023102720', '000', '2023-10-27', 100, 100, 100, 100, 10, 30, 20, 0, 0, 0),
-(96, '962072023102720', '000', '2023-10-27', 70, 100, 100, 100, 30, 10, 10, 0, 20, 20);
+(96, '962072023102720', '000', '2023-10-27', 70, 100, 100, 100, 30, 10, 10, 0, 20, 20),
+(97, '972072023102720', '432', '2023-10-27', 100, 300, 300, 300, 200, 200, 200, 0, 0, 0),
+(98, '98902023102740', '5162546354', '2023-10-27', 100, 500, 500, 500, 200, 100, 400, 200, 300, 0),
+(99, '99902023102740', '5162546354', '2023-10-27', -100, 500, 500, 500, 200, 410, 600, 400, 190, 0),
+(100, '100902023102740', '5162546354', '2023-10-27', -100, 500, 500, 500, 300, 200, 600, 300, 400, 0),
+(101, '101902023102740', '333333', '2023-10-27', -300, 200, 200, 200, 400, 500, 300, 100, 0, 200);
 
 -- --------------------------------------------------------
 
@@ -165,38 +171,38 @@ CREATE TABLE `inventario` (
   `inv_pro_codigo` varchar(50) NOT NULL,
   `inv_entradas` int(30) DEFAULT 0,
   `inv_salidas` int(30) DEFAULT 0,
-  `inv_stock` int(30) DEFAULT 0,
-  `inv_reja` int(30) NOT NULL
+  `inv_stock` int(30) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventario`
 --
 
-INSERT INTO `inventario` (`inv_pro_codigo`, `inv_entradas`, `inv_salidas`, `inv_stock`, `inv_reja`) VALUES
-('000', 1150, 0, 1150, 0),
-('0000', 0, 0, 0, 0),
-('002', 0, 0, 0, 0),
-('003', 0, 0, 0, 0),
-('004', 0, 0, 0, 0),
-('005', 0, 0, 0, 0),
-('006', 0, 0, 0, 0),
-('007', 0, 0, 0, 0),
-('008', 170, 0, 170, 0),
-('009', 0, 0, 0, 0),
-('010', 0, 0, 0, 0),
-('011', 0, 0, 0, 0),
-('012', 0, 0, 0, 0),
-('12345', 0, 0, 0, 0),
-('12345678', 2, 0, 2, 0),
-('333333', 0, 0, 0, 0),
-('432', 0, 0, 0, 0),
-('5162546354', 173400, 0, 173400, 0),
-('654', 1, 0, 1, 0),
-('666', 0, 0, 0, 0),
-('777', 0, 0, 0, 0),
-('77777777', 0, 0, 0, 0),
-('999999', 0, 0, 0, 0);
+INSERT INTO `inventario` (`inv_pro_codigo`, `inv_entradas`, `inv_salidas`, `inv_stock`) VALUES
+('000', 1150, 0, 1150),
+('0000', 0, 0, 0),
+('002', 0, 0, 0),
+('003', 0, 0, 0),
+('004', 0, 0, 0),
+('005', 0, 0, 0),
+('006', 0, 0, 0),
+('007', 0, 0, 0),
+('008', 170, 0, 170),
+('009', 0, 0, 0),
+('010', 0, 0, 0),
+('011', 0, 0, 0),
+('012', 0, 0, 0),
+('1234123', 0, 0, 0),
+('12345', 0, 0, 0),
+('12345678', 2, 0, 2),
+('333333', 19700, 0, 19700),
+('432', 0, 0, 0),
+('5162546354', 230600, 0, 230600),
+('654', 1, 0, 1),
+('666', 0, 0, 0),
+('777', 0, 0, 0),
+('77777777', 0, 0, 0),
+('999999', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -230,7 +236,7 @@ CREATE TABLE `salida` (
   `sal_factura` varchar(100) DEFAULT NULL,
   `sal_pro_codigo` varchar(100) DEFAULT NULL,
   `sal_fecha` date NOT NULL,
-  `sal_cantidad` int(50) NOT NULL,
+  `sal_merm_caja` int(50) NOT NULL,
   `sal_tarima` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -238,7 +244,7 @@ CREATE TABLE `salida` (
 -- Volcado de datos para la tabla `salida`
 --
 
-INSERT INTO `salida` (`sal_id`, `sal_factura`, `sal_pro_codigo`, `sal_fecha`, `sal_cantidad`, `sal_tarima`) VALUES
+INSERT INTO `salida` (`sal_id`, `sal_factura`, `sal_pro_codigo`, `sal_fecha`, `sal_merm_caja`, `sal_tarima`) VALUES
 (37, 'test', '999999', '2023-02-20', 0, 0);
 
 -- --------------------------------------------------------
@@ -344,7 +350,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `ent_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `ent_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
