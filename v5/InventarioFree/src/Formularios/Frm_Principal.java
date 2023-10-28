@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class Frm_Principal extends javax.swing.JFrame {
-
+   
     public Frm_Principal() {
         initComponents();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

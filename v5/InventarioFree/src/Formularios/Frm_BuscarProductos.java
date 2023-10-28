@@ -22,11 +22,33 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
         initComponents();
         CP = new Cls_BuscarProductos();
         columnModel = tabla.getColumnModel();
-        listar();
+        
+        updateTableBasedOnSource();
+    }
+    
+    private void updateTableBasedOnSource() {
+        if(Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1 || Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1){
+            if (Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1) {
+                listarEntrada();
+            } else if (Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1) {
+                listarSalida();
+            }
+        }else{
+            listar();
+        }
+        
     }
 
     private void listar() {
         tabla.setModel(CP.getDatosProductos());
+    }
+    
+    private void listarEntrada() {
+        tabla.setModel(CP.getDatosEntrada());
+    }
+    
+    private void listarSalida() {
+        tabla.setModel(CP.getDatosSalida());
     }
 
     @SuppressWarnings("unchecked")
@@ -131,16 +153,46 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
     private void txt_busquedaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_busquedaCaretUpdate
         if (jrb_nombre.isSelected()) {
             String inf = txt_busqueda.getText();
-            tabla.setModel(CP.getDatoP(1, inf));
+            if(Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1 || Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1){
+                if (Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1) {
+                    tabla.setModel(CP.getDatoE(1, inf));
+                    Frm_Entrada.enviar = 0;
+                    Frm_Entrada_sub.enviar = 0;
+                    dispose();
+                } else if (Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1) {
+                    tabla.setModel(CP.getDatoS(1, inf));
+                    Frm_Salida.enviar = 0;
+                    Frm_Salida_sub.enviar = 0;
+                    dispose();
+                }
+            }else{
+                tabla.setModel(CP.getDatoP(1, inf));
+            }
         }
 
         if (jrb_codigo.isSelected()) {
             String inf = txt_busqueda.getText();
-            tabla.setModel(CP.getDatoP(2, inf));
+            if(Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1 || Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1){
+                if (Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1) {
+                    tabla.setModel(CP.getDatoE(2, inf));
+                } else if (Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1) {
+                    tabla.setModel(CP.getDatoS(2, inf));
+                }
+            }else{
+                tabla.setModel(CP.getDatoP(2, inf));
+            }
         }
 
         if (txt_busqueda.getText().isEmpty()) {
-            tabla.setModel(CP.getDatosProductos());
+            if(Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1 || Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1){
+                if (Frm_Entrada.enviar == 1 || Frm_Entrada_sub.enviar == 1) {
+                    tabla.setModel(CP.getDatosEntrada());
+                } else if (Frm_Salida.enviar == 1 || Frm_Salida_sub.enviar == 1) {
+                    tabla.setModel(CP.getDatosSalida());
+                }
+            }else{
+                tabla.setModel(CP.getDatosProductos());
+            }
         }
     }//GEN-LAST:event_txt_busquedaCaretUpdate
 
