@@ -83,8 +83,14 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos.");
         return;
     }
-
-    if (num == 0) {
+    int cuerp =Integer.parseInt(cuerpo);
+    int rej =Integer.parseInt(reja);
+    int tap =Integer.parseInt(tapa);
+    
+    if (cuerp <= 0 || rej <= 0 || tap <= 0) {
+        JOptionPane.showMessageDialog(null, "El valor no puede ser 0");
+    }else{
+        if (num == 0) {
         int respuesta = CP.registrarProducto(codigo, descripcion, nomproveedor, categoria, MAX, cuerpo, reja, tapa);
         if (respuesta > 0) {
             if (CP.verificarCodigoInventario(codigo) == 0) {
@@ -109,6 +115,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
             num = 0;
             txt_descripcion.requestFocus();  // Esto mueve el foco al campo de texto de la descripción
         }
+    }
     }
 }
 
