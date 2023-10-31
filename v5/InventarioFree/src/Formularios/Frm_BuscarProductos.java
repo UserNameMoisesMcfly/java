@@ -201,28 +201,22 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
             int row = tabla.getSelectedRow();
             Frm_Entrada.txt_codigo.setText(tabla.getValueAt(row, 0).toString());
             Frm_Entrada.txt_descripcion.setText(tabla.getValueAt(row, 1).toString());
-            //Frm_Entrada.txt_mermac.setText(tabla.getValueAt(row, 2).toString());
             Frm_Entrada.enviar = 0;
             dispose();
         } else if (Frm_Salida.enviar == 1) {
             int row = tabla.getSelectedRow();
             Frm_Salida.txt_codigo.setText(tabla.getValueAt(row, 0).toString());
-            Frm_Salida.txt_descripcion.setText(tabla.getValueAt(row, 1).toString());
-            //Frm_Salida.txt_cantidad.requestFocus();
             Frm_Salida.enviar = 0;
             dispose();
         } else if (Frm_Entrada_sub.enviar == 1) {
             int row = tabla.getSelectedRow();
             Frm_Entrada_sub.txt_codigo.setText(tabla.getValueAt(row, 0).toString());
             Frm_Entrada_sub.txt_descripcion.setText(tabla.getValueAt(row, 1).toString());
-            //Frm_Entrada_sub.txt_cantidad.requestFocus();
             Frm_Entrada_sub.enviar = 0;
             dispose();
         } else if (Frm_Salida_sub.enviar == 1) {
             int row = tabla.getSelectedRow();
             Frm_Salida_sub.txt_codigo.setText(tabla.getValueAt(row, 0).toString());
-            Frm_Salida_sub.txt_descripcion.setText(tabla.getValueAt(row, 1).toString());
-            //Frm_Salida_sub.txt_cantidad.requestFocus();
             Frm_Salida_sub.enviar = 0;
             dispose();
         }

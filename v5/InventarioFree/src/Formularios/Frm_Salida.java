@@ -18,7 +18,6 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     TableColumnModel columnModel;
     private Frm_BuscarProductos currentBuscarProductosFrame;
     public static int enviar = 0;
-    int num = 0;
 
     public Frm_Salida() {
         initComponents();
@@ -35,7 +34,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
 
     private void iniciar() {
         txt_merma.setEnabled(false);
-        txt_cantidad.setEnabled(false);
+        txt_descripcion.setEnabled(false);
         jdc_fecha.setEnabled(false);
         jbt_buscar.setEnabled(false);
         jbt_guardar.setEnabled(false);
@@ -43,7 +42,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
 
     private void activar() {
         txt_merma.setEnabled(true);
-        txt_cantidad.setEnabled(true);
+        txt_descripcion.setEnabled(true);
         jdc_fecha.setEnabled(true);
         jdc_fecha.getCalendarButton().setEnabled(false);
         jbt_buscar.setEnabled(true);
@@ -53,19 +52,29 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     private void limpiar() {
         txt_codigo.setText("");
         txt_descripcion.setText("");
-        txt_cantidad.setText("");
         jtb_salida.clearSelection();
         txt_merma.setText("");
     }
 
     private void guardar() {
-        String codigo = txt_codigo.getText();
+        String entID = txt_codigo.getText();
+        String descripcon = txt_descripcion.getText();
+        int merma = Integer.parseInt(txt_merma.getText());
         Date fechaa = jdc_fecha.getDate();
         long d = fechaa.getTime();
-        int cantidad = Integer.parseInt(txt_cantidad.getText());
         
         java.sql.Date fecha_sql = new java.sql.Date(d);
+        
+        String folio = CP.generarFolio(entID, fecha_sql);
+        int entId = CP.obtenerId(entID);
+        
+        int respuesta = CP.registrarSalida(folio, fecha_sql, entId, descripcon, merma, 0);
+                if (respuesta > 0) {
+                    listar();
+                    limpiar();
+                    iniciar();
 
+                }
         /*int stock = CP.verificarStock(codigo);
 
         if (cantidad > stock) {
@@ -74,16 +83,9 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
             txt_cantidad.requestFocus();
         } else {
             if (num == 0) {
-                int respuesta = CP.registrarSalida(nfac, codigo, fecha_sql, cantidad);
-                if (respuesta > 0) {
-                    listar();
-                    limpiar();
-                    iniciar();
-
-                }
+                
             }
         }*/
-
     }
 
     @SuppressWarnings("unchecked")
@@ -95,8 +97,6 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         txt_codigo = new javax.swing.JTextField();
         txt_descripcion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txt_cantidad = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jdc_fecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -125,20 +125,21 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
             }
         });
 
-        txt_descripcion.setEditable(false);
+        txt_descripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_descripcionActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Descripción del Producto *");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Cantidad de tariimas a retirar *");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Fecha *");
 
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
         ((JTextFieldDateEditor) jdc_fecha.getDateEditor()).setEditable(false);
-
+        
         jtb_salida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -226,31 +227,25 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jbt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(59, 59, 59)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txt_merma, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txt_cantidad, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))))))
+                                    .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jbt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(59, 59, 59)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txt_merma, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))))
                         .addGap(26, 26, 26)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
@@ -262,13 +257,9 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cantidad))
+                .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -360,13 +351,16 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
 
+    private void txt_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_descripcionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_nuevo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -377,7 +371,6 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbt_guardar;
     private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JTable jtb_salida;
-    public static javax.swing.JTextField txt_cantidad;
     public static javax.swing.JTextField txt_codigo;
     public static javax.swing.JTextField txt_descripcion;
     public static javax.swing.JTextField txt_merma;

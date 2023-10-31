@@ -127,8 +127,6 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
 
         txt_codigo.setEditable(false);
 
-        txt_descripcion.setEditable(false);
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Descripción del Producto *");
 
@@ -137,7 +135,7 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Fecha *");
-
+        
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
         ((JTextFieldDateEditor) jdc_fecha.getDateEditor()).setEditable(false);
 
