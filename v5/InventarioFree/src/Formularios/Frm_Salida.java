@@ -7,7 +7,10 @@ import static Formularios.Frm_Principal.contenedor;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumnModel;
 
@@ -56,7 +59,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         txt_merma.setText("");
     }
 
-    private void guardar() {
+    private void guardar() throws SQLException {
         String entID = txt_codigo.getText();
         String descripcon = txt_descripcion.getText();
         int merma = Integer.parseInt(txt_merma.getText());
@@ -67,8 +70,9 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         
         String folio = CP.generarFolio(entID, fecha_sql);
         int entId = CP.obtenerId(entID);
+        int tarima = CP.restaMerma(entID, merma);
         
-        int respuesta = CP.registrarSalida(folio, fecha_sql, entId, descripcon, merma, 0);
+        int respuesta = CP.registrarSalida(folio, fecha_sql, entId, descripcon, merma, tarima);
                 if (respuesta > 0) {
                     listar();
                     limpiar();
@@ -334,7 +338,11 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_nuevoActionPerformed
 
     private void jbt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_guardarActionPerformed
-        guardar();
+        try {
+            guardar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Frm_Salida.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jbt_guardarActionPerformed
 

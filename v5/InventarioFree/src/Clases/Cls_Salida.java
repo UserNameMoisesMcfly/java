@@ -122,6 +122,19 @@ public class Cls_Salida {
         return id;
     }
     
+    public int restaMerma(String entID, int merma){
+        int id = 0;
+        try {
+            PS = CN.getConnection().prepareStatement("SELECT categoria, CASE WHEN categoria = 20 THEN (entrada.ent_cantidad - " + merma + ") / 207 WHEN categoria = 40 THEN (entrada.ent_cantidad - " + merma + ") / 90 ELSE 0 END AS calculo FROM artículos INNER JOIN inventario ON pro_codigo = inv_pro_codigo LEFT JOIN entrada ON artículos.pro_codigo = entrada.ent_pro_codigo WHERE ent_categoria =" + entID );
+            RS = PS.executeQuery();
+            if(RS.next()){
+                id = (int) Math.round(RS.getDouble("calculo"));
+            } 
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return id;
+    }
     public int registrarSalida(String folio, Date fecha, int entId, String descripcion,  int mermacaja,  int tarimas) {
         int res = 0;
 
@@ -136,7 +149,7 @@ public class Cls_Salida {
             res = PS.executeUpdate();
             if (res > 0) {
 
-                String GET_SUMA = "SELECT SUM(sal_cantidad) AS suma_sal_cantidad FROM salida WHERE sal_pro_codigo = ?;";
+                String GET_SUMA = "SELECT SUM(sal_tarimas) AS suma_sal_cantidad FROM salida WHERE sal_pro_codigo = ?;";
                 PS = CN.getConnection().prepareStatement(GET_SUMA);
                 PS.setString(1, folio);
                 RS = PS.executeQuery();
