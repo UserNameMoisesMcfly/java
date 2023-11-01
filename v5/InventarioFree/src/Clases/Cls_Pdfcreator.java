@@ -43,7 +43,6 @@ public class Cls_Pdfcreator {
             writer.setPageEvent(new MyHeaderFooter());
             doc.open();
 
-            // Agrega un espacio vertical para posicionar la tabla en las dos quintas partes de la página
             doc.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"));
 
             float[] columnWidths = new float[tabla.getColumnCount()];
@@ -54,7 +53,7 @@ public class Cls_Pdfcreator {
             PdfPTable pdfTable = new PdfPTable(columnWidths);
             pdfTable.setWidthPercentage(100);
 
-            Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.WHITE); 
+            Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8, BaseColor.WHITE);
             BaseColor headerColor = new BaseColor(50, 50, 50);
 
             for (int i = 0; i < tabla.getColumnCount(); i++) {
@@ -65,10 +64,20 @@ public class Cls_Pdfcreator {
                 pdfTable.addCell(cell);
             }
 
-            Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 8);
+            Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 6);
             BaseColor alternateColor = new BaseColor(235, 235, 235);
 
-            int[] selectedRows = tabla.getSelectedRows();
+            int[] selectedRows;
+            
+            // Si no hay filas seleccionadas, selecciona todas
+            if (tabla.getSelectedRows().length == 0) {
+                selectedRows = new int[tabla.getRowCount()];
+                for (int i = 0; i < tabla.getRowCount(); i++) {
+                    selectedRows[i] = i;
+                }
+            } else {
+                selectedRows = tabla.getSelectedRows();
+            }
 
             for (int row : selectedRows) {
                 for (int cols = 0; cols < tabla.getColumnCount(); cols++) {
@@ -83,7 +92,6 @@ public class Cls_Pdfcreator {
 
             doc.add(pdfTable);
 
-            // Crear y configurar la tabla de firmas
             PdfPTable signaturesTable = new PdfPTable(2);
             signaturesTable.setWidthPercentage(100);
             signaturesTable.setTotalWidth(doc.getPageSize().getWidth() - doc.leftMargin() - doc.rightMargin());
@@ -95,7 +103,7 @@ public class Cls_Pdfcreator {
             signaturesTable.addCell(cell2);
 
             float tableHeight = signaturesTable.getTotalHeight();
-            signaturesTable.writeSelectedRows(0, -1, doc.left(), tableHeight + 80, writer.getDirectContent()); // Aumentado a 80 para subir dos renglones
+            signaturesTable.writeSelectedRows(0, -1, doc.left(), tableHeight + 80, writer.getDirectContent());
 
             doc.close();
 
