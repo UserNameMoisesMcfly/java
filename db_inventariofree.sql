@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2023 a las 07:36:11
+-- Tiempo de generación: 01-11-2023 a las 07:14:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -64,7 +64,7 @@ INSERT INTO `artículos` (`pro_codigo`, `pro_descripcion`, `nomproveedor`, `cate
 ('010', 'test', 'XX Lager', 40, 'test', 621, 621, 621),
 ('011', 'test', 'XX Lager', 20, 'test', 621, 621, 621),
 ('012', 'test', 'XX Lager', 40, 'test', 621, 621, 621),
-('1234123', 'dilN', 'XX Lager', 40, 'DILAN', 6000, 6000, 6000),
+('1234123', 'dilN', 'XX Lager', 40, 'DILAN', 5500, 5500, 5500),
 ('12345', 'hi', 'Sol', 20, 'hi', 1800, 1800, 1800),
 ('12345678', 'Cerveza', 'Sol', 20, 'mojado', 4000, 4000, 0),
 ('333333', 'test', 'XX Lager', 40, 'test', 19500, 19500, 19500),
@@ -159,7 +159,8 @@ INSERT INTO `entrada` (`ent_id`, `ent_categoria`, `ent_pro_codigo`, `ent_fecha`,
 (98, '98902023102740', '5162546354', '2023-10-27', 100, 500, 500, 500, 200, 100, 400, 200, 300, 0),
 (99, '99902023102740', '5162546354', '2023-10-27', -100, 500, 500, 500, 200, 410, 600, 400, 190, 0),
 (100, '100902023102740', '5162546354', '2023-10-27', -100, 500, 500, 500, 300, 200, 600, 300, 400, 0),
-(101, '101902023102740', '333333', '2023-10-27', -300, 200, 200, 200, 400, 500, 300, 100, 0, 200);
+(101, '101902023102740', '333333', '2023-10-27', -300, 200, 200, 200, 400, 500, 300, 100, 0, 200),
+(102, '102902023103140', '1234123', '2023-10-31', 200, 500, 500, 500, 300, 50, 200, 0, 250, 100);
 
 -- --------------------------------------------------------
 
@@ -232,20 +233,36 @@ INSERT INTO `proveedor` (`id`, `fecha_altaa`, `nombre_pro`, `correo`) VALUES
 --
 
 CREATE TABLE `salida` (
-  `sal_id` int(20) NOT NULL,
-  `sal_factura` varchar(100) DEFAULT NULL,
-  `sal_pro_codigo` varchar(100) DEFAULT NULL,
+  `sal_id` int(11) NOT NULL,
+  `sal_folio` varchar(100) NOT NULL,
   `sal_fecha` date NOT NULL,
-  `sal_merm_caja` int(50) NOT NULL,
-  `sal_tarima` int(50) NOT NULL
+  `sal_entId` int(100) NOT NULL,
+  `sal_descripcion` varchar(150) NOT NULL,
+  `sal_mermaCaja` int(50) NOT NULL,
+  `sal_tarimas` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `salida`
 --
 
-INSERT INTO `salida` (`sal_id`, `sal_factura`, `sal_pro_codigo`, `sal_fecha`, `sal_merm_caja`, `sal_tarima`) VALUES
-(37, 'test', '999999', '2023-02-20', 0, 0);
+INSERT INTO `salida` (`sal_id`, `sal_folio`, `sal_fecha`, `sal_entId`, `sal_descripcion`, `sal_mermaCaja`, `sal_tarimas`) VALUES
+(1, '', '2023-10-31', 84, 'hola', 50, 0),
+(2, '', '2023-10-31', 94, 'dilan', 50, 0),
+(3, '', '2023-10-31', 96, 'hi', 200, 0),
+(4, '02023103120', '2023-10-31', 94, 'dilan hola', 150, 0),
+(5, '52023103120', '2023-10-31', 85, 'dilan 2', 600, 0),
+(6, '62023103120', '2023-10-31', 87, 'fjtfjytd', 5000, 0),
+(7, '72023103120', '2023-10-31', 96, 'kik', 650, 0),
+(8, '82023103120', '2023-10-31', 96, 'moy', 50, 0),
+(9, '92023103120', '2023-10-31', 87, 'ola', 50, 0),
+(10, '102023103140', '2023-10-31', 70, 'sdhdg', 50, 0),
+(11, '112023103120', '2023-10-31', 97, 'jyfjvu', 500, 0),
+(12, '122023103140', '2023-10-31', 69, 'hosjdhgs', 50, 57649),
+(13, '132023103120', '2023-10-31', 95, 'sdfhsfg', 20, 150),
+(14, '142023103140', '2023-10-31', 70, 'asgasdf', 50, 19699),
+(15, '152023103120', '2023-10-31', 95, 'sdfgjdfgh', 10, 150),
+(16, '162023103120', '2023-10-31', 85, 'sadhfg', 100, 3);
 
 -- --------------------------------------------------------
 
@@ -322,7 +339,7 @@ ALTER TABLE `proveedor`
 --
 ALTER TABLE `salida`
   ADD PRIMARY KEY (`sal_id`),
-  ADD KEY `sal_pro_codigo` (`sal_pro_codigo`);
+  ADD KEY `sal_entId` (`sal_entId`);
 
 --
 -- Indices de la tabla `tareas`
@@ -350,7 +367,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  MODIFY `ent_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `ent_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -362,7 +379,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `salida`
 --
 ALTER TABLE `salida`
-  MODIFY `sal_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
@@ -396,7 +413,7 @@ ALTER TABLE `inventario`
 -- Filtros para la tabla `salida`
 --
 ALTER TABLE `salida`
-  ADD CONSTRAINT `salida_ibfk_1` FOREIGN KEY (`sal_pro_codigo`) REFERENCES `artículos` (`pro_codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `salida_ibfk_1` FOREIGN KEY (`sal_entId`) REFERENCES `entrada` (`ent_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
