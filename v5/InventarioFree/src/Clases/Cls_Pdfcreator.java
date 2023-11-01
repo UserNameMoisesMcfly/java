@@ -2,6 +2,8 @@ package Clases;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.FileOutputStream;
 import javax.swing.JTable;
 
@@ -12,6 +14,19 @@ public class Cls_Pdfcreator {
             Document doc = new Document(PageSize.A4, 30, 30, 30, 30); // Establece márgenes de 30 en todos los lados
             PdfWriter.getInstance(doc, new FileOutputStream(rutaArchivo));
             doc.open();
+
+            // 1. Cargar la imagen desde la ruta relativa
+            Image headerImage = Image.getInstance("src/pdf/head.png");
+            
+            // 2. Establecer dimensiones de la imagen si es necesario
+            // Por ejemplo, ajustar el ancho al de la página y dejar que el alto se ajuste proporcionalmente:
+            headerImage.scaleToFit(PageSize.A4.getWidth() - 60, 10000);  // el número grande es solo para asegurar que el alto no se limite.
+            
+            // 3. Agregar la imagen al documento
+            doc.add(headerImage);
+
+            // Agrega un espacio vertical para posicionar la tabla en la mitad de la página
+            doc.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n"));
 
             // Ancho de las columnas basado en el contenido de las mismas
             float[] columnWidths = new float[tabla.getColumnCount()];
@@ -48,8 +63,48 @@ public class Cls_Pdfcreator {
             }
 
             doc.add(pdfTable);
-            doc.close();
 
+            // Añadir 10 saltos de línea después de la tabla
+            doc.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n"));
+
+            // Añadir líneas para las firmas en el mismo renglón
+            PdfPTable signaturesTable = new PdfPTable(2);
+            signaturesTable.setWidthPercentage(100);
+            signaturesTable.setWidths(new int[]{1, 1});
+
+            PdfPCell cell1 = new PdfPCell();
+            PdfPCell cell2 = new PdfPCell();
+
+            // Ajustar la longitud de las líneas a la mitad y centrarlas
+            LineSeparator line = new LineSeparator();
+            line.setPercentage(50); // Ajustar al 50% de la longitud completa
+            Chunk lineChunk = new Chunk(line);
+            
+            // Añadir líneas y texto centrados a las celdas
+            Paragraph p1 = new Paragraph(lineChunk);
+            p1.add("\n");
+            p1.add(new Phrase("Sello y firma de salida RPM", FontFactory.getFont(FontFactory.HELVETICA, 8)));
+            p1.setAlignment(Element.ALIGN_CENTER);
+            cell1.addElement(p1);
+            cell1.setBorder(Rectangle.NO_BORDER);
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            signaturesTable.addCell(cell1);
+
+            Paragraph p2 = new Paragraph(lineChunk);
+            p2.add("\n");
+            p2.add(new Phrase("Sello y firma del cliente", FontFactory.getFont(FontFactory.HELVETICA, 8)));
+            p2.setAlignment(Element.ALIGN_CENTER);
+            cell2.addElement(p2);
+            cell2.setBorder(Rectangle.NO_BORDER);
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            signaturesTable.addCell(cell2);
+
+            doc.add(signaturesTable);
+
+            doc.close();
+            
         } catch (Exception e) {
             System.err.println("Error al exportar a PDF: " + e.getMessage());
         }
