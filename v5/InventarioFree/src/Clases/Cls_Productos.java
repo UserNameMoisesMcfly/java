@@ -15,7 +15,7 @@ public class Cls_Productos {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?,)";
+    private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?)";
     private final String SQL_SELECT_PRODUCTOS = "SELECT * FROM artículos";
     Connection conn;
 
@@ -102,14 +102,14 @@ public int registrarProducto(String codigo, String descripcion, String nomprovee
         PS.setString(6, cuerpo);
         PS.setString(7, reja);
         PS.setString(8, tapa);
-        PS.setInt(9, tarimas);
+        //PS.setInt(9, tarimas);
         res = PS.executeUpdate();
 
         // Actualizar tarimas en tabla "articulos"
-        PreparedStatement psUpdateTarimas = conn.prepareStatement("UPDATE artículos SET tarimas = ? WHERE pro_codigo = ?");
-        psUpdateTarimas.setInt(1, tarimas);
-        psUpdateTarimas.setString(2, codigo);
-        psUpdateTarimas.executeUpdate();
+        //PreparedStatement psUpdateTarimas = conn.prepareStatement("UPDATE artículos SET tarimas = ? WHERE pro_codigo = ?");
+        //psUpdateTarimas.setInt(1, tarimas);
+        //psUpdateTarimas.setString(2, codigo);
+        //psUpdateTarimas.executeUpdate();
 
         if (res > 0) {
             JOptionPane.showMessageDialog(null, "Articulo registrado con éxito.");
