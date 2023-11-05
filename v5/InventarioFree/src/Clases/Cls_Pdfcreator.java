@@ -36,9 +36,9 @@ public class Cls_Pdfcreator {
         }
     }
 
-    public void exportarPDF(JTable tabla, String rutaArchivo) {
+    public boolean exportarPDF(JTable tabla, String rutaArchivo) {
+        Document doc = new Document(PageSize.A4, 30, 30, 30, 50); 
         try {
-            Document doc = new Document(PageSize.A4, 30, 30, 30, 50); 
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(rutaArchivo));
             writer.setPageEvent(new MyHeaderFooter());
             doc.open();
@@ -106,11 +106,15 @@ public class Cls_Pdfcreator {
             signaturesTable.writeSelectedRows(0, -1, doc.left(), tableHeight + 80, writer.getDirectContent());
 
             doc.close();
-
-        } catch (Exception e) {
-            System.err.println("Error al exportar a PDF: " + e.getMessage());
-        }
-    }
+                return true; // Retorna true al finalizar con éxito
+            } catch (Exception e) {
+                System.err.println("Error al exportar a PDF: " + e.getMessage());
+                if(doc != null) {
+                    doc.close(); // Asegúrate de cerrar el documento en caso de error también
+                }
+                return false; // Retorna false si ocurre una excepción
+            }
+}
 
     private PdfPCell createSignatureCell(String text) {
         PdfPCell cell = new PdfPCell();

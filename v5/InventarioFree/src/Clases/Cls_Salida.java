@@ -16,8 +16,7 @@ public class Cls_Salida {
     private final Conectar CN;
     private DefaultTableModel DT;
     private final String SQL_INSERT_SALIDA = "INSERT INTO salida (sal_folio, sal_fecha, sal_entId, sal_descripcion, sal_mermaCaja, sal_tarimas) values (?,?,?,?,?,?)";
-    private final String SQL_SELECT_SALIDA = "SELECT sal_folio, sal_fecha, ent_categoria, sal_descripcion, nomproveedor, sal_mermaCaja, sal_tarimas FROM salida " +
-        "INNER JOIN entrada ON sal_entId = ent_id INNER JOIN artículos ON ent_pro_codigo = pro_codigo ";
+    private final String SQL_SELECT_SALIDA = "SELECT sal_folio, sal_fecha, ent_categoria, sal_descripcion, nomproveedor, sal_mermaCaja, sal_tarimas FROM salida " + "INNER JOIN entrada ON sal_entId = ent_id INNER JOIN artículos ON ent_pro_codigo = pro_codigo ORDER BY sal_fecha DESC";
     private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos INNER JOIN entrada ON ent_pro_codigo = pro_codigo WHERE ent_categoria = ?";
     private final String SQL_SELECT_ID= "SELECT MAX(sal_id) FROM salida ";
     

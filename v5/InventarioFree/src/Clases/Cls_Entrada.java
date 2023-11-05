@@ -16,7 +16,7 @@ public class Cls_Entrada {
     private final Conectar CN;
     private DefaultTableModel DT;
     private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_cantidad, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma, sob_cuerpo, sob_reja, sob_tapa) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria , ent_cantidad, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo";
+    private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria, ent_cantidad, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo ORDER BY ent_fecha DESC";
     private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos WHERE pro_codigo = ?";
     private final String SQL_SELECT_ID= "SELECT MAX(ent_id) FROM entrada ";
     
