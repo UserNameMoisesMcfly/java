@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2023 a las 07:14:30
+-- Tiempo de generación: 06-11-2023 a las 06:14:49
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -262,7 +262,9 @@ INSERT INTO `salida` (`sal_id`, `sal_folio`, `sal_fecha`, `sal_entId`, `sal_desc
 (13, '132023103120', '2023-10-31', 95, 'sdfhsfg', 20, 150),
 (14, '142023103140', '2023-10-31', 70, 'asgasdf', 50, 19699),
 (15, '152023103120', '2023-10-31', 95, 'sdfgjdfgh', 10, 150),
-(16, '162023103120', '2023-10-31', 85, 'sadhfg', 100, 3);
+(16, '162023103120', '2023-10-31', 85, 'sadhfg', 100, 3),
+(17, '172023110540', '2023-11-05', 69, 'dilan', 50, 640),
+(18, '182023110520', '2023-11-05', 85, 'hola dilan cono tas', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -379,7 +381,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `salida`
 --
 ALTER TABLE `salida`
-  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
