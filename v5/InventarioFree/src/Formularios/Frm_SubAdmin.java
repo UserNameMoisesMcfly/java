@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -167,29 +168,39 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cerrarFramesInternos();
         Frm_Productos f = new Frm_Productos();
         contenedor.add(f);
         f.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        cerrarFramesInternos();
         Frm_Inventario f = new Frm_Inventario();
         contenedor.add(f);
         f.show();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        cerrarFramesInternos();
         Frm_BuscarProductos f = new Frm_BuscarProductos();
         contenedor.add(f);
         f.show();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        cerrarFramesInternos();
         Fmr_Movimientos_sub f = new Fmr_Movimientos_sub();
         contenedor.add(f);
         f.show();
     }//GEN-LAST:event_jButton9ActionPerformed
-
+    
+    private void cerrarFramesInternos() {
+        JInternalFrame[] frames = contenedor.getAllFrames();
+        for (JInternalFrame frame : frames) {
+            frame.dispose();  // Cierra el frame interno
+        }
+    }
     /**
      * @param args the command line arguments
      */

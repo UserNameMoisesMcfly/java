@@ -29,7 +29,6 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
     }
 
     private void iniciar() {
-        //txt_cantidad.setEnabled(false);
         txt_codigo.setEnabled(false);
         jdc_fecha.setEnabled(false);
         jbt_buscar.setEnabled(false);
@@ -48,7 +47,6 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
         txt_codigo.setEnabled(true);
         jdc_fecha.setEnabled(true);
         jbt_buscar.setEnabled(true);
-        jbt_guardar.setEnabled(true);
         jbt_guardar.setEnabled(true);
         jdc_fecha.getCalendarButton().setEnabled(false);
         txt_mermac.setEnabled(true);
@@ -405,7 +403,7 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
 
             // Abre un nuevo JInternalFrame.
             currentBuscarProductosFrame = new Frm_BuscarProductos();
-            Frm_Principal.contenedor.add(currentBuscarProductosFrame);
+            Frm_SubAdmin.contenedor.add(currentBuscarProductosFrame);
             Dimension desktopSize = contenedor.getSize();
             Dimension FrameSize = currentBuscarProductosFrame.getSize();
             currentBuscarProductosFrame.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);

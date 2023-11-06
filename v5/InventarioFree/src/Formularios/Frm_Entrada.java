@@ -19,7 +19,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private final Cls_Entrada CP;
     private Frm_BuscarProductos currentBuscarProductosFrame;
     public static int enviar = 0;
-    int num = 0;
     
     public Frm_Entrada() {
         initComponents();
@@ -33,7 +32,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     }
 
     private void iniciar() {
-        //txt_cantidad.setEnabled(false);
         txt_codigo.setEnabled(false);
         jdc_fecha.setEnabled(false);
         jbt_buscar.setEnabled(false);
@@ -439,7 +437,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
 
     private void jbt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_guardarActionPerformed
         guardar();
-
     }//GEN-LAST:event_jbt_guardarActionPerformed
 
     private void btnexportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexportarActionPerformed

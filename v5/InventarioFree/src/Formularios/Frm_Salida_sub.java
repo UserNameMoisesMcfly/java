@@ -355,7 +355,7 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
 
             // Abre un nuevo JInternalFrame.
             currentBuscarProductosFrame = new Frm_BuscarProductos();
-            Frm_Principal.contenedor.add(currentBuscarProductosFrame);
+            Frm_SubAdmin.contenedor.add(currentBuscarProductosFrame);
             Dimension desktopSize = contenedor.getSize();
             Dimension FrameSize = currentBuscarProductosFrame.getSize();
             currentBuscarProductosFrame.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
