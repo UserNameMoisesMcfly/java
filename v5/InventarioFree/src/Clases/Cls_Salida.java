@@ -134,7 +134,7 @@ public class Cls_Salida {
         }
         return id;
     }
-    public int registrarSalida(String folio, Date fecha, int entId, String descripcion,  int mermacaja,  int tarimas) {
+    public int registrarSalida(String folio, Date fecha, int entId, String descripcion, int mermacaja, int tarimas) {
         int res = 0;
 
         try {
@@ -147,40 +147,8 @@ public class Cls_Salida {
             PS.setInt(6, tarimas);
             res = PS.executeUpdate();
             if (res > 0) {
-
-                String GET_SUMA = "SELECT SUM(sal_tarimas) AS suma_sal_cantidad FROM salida WHERE sal_pro_codigo = ?;";
-                PS = CN.getConnection().prepareStatement(GET_SUMA);
-                PS.setString(1, folio);
-                RS = PS.executeQuery();
-                if (RS.next()) {
-                    int sumaTotal = RS.getInt("suma_sal_cantidad");
-                    System.out.println("Codigo: " + folio);
-                    System.out.println("Suma total de: " + sumaTotal);
-                    //////// 00000000
-                    int res2 = 0;
-                    String UPDATE_INV_SALIDAS = "UPDATE inventario SET inv_salidas = ? WHERE inv_pro_codigo = ?";
-                    PS = CN.getConnection().prepareStatement(UPDATE_INV_SALIDAS);
-                    PS.setInt(1, sumaTotal);
-                    PS.setString(2, folio);
-
-                    res2 = PS.executeUpdate();
-                    if (res2 > 0) {
-                        System.out.println("Tabla de entradas act.");
-
-                        int res3 = 0;
-                        String UPDATE_INV_STOCK = "UPDATE inventario SET inv_stock = inv_entradas - inv_salidas WHERE inv_pro_codigo = ?";
-                        PS = CN.getConnection().prepareStatement(UPDATE_INV_STOCK);
-                        PS.setString(1, folio);
-                        res3 = PS.executeUpdate();
-
-                        if (res3 > 0) {
-                            System.out.println("Update Inventario");
-                        }
-                    }
-                }
-
                 JOptionPane.showMessageDialog(null, "Salida realizada con éxito.");
-                alerta(folio);
+                alerta(folio); // Asumiendo que el método 'alerta' no depende del bloque eliminado.
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "No se pudo registrar la salida.");
@@ -191,6 +159,7 @@ public class Cls_Salida {
         }
         return res;
     }
+
 
     public int verificarStock(String codigo) {
         int res = 0;
@@ -229,8 +198,8 @@ public class Cls_Salida {
         }
 
         //en caso de querer poner una alerta por minimo de stock
-        if (ress < 50) {
-            JOptionPane.showMessageDialog(null, "El stock de este producto es menor a 50!! se requiere pedir más");
+        if (ress < 1) {
+            JOptionPane.showMessageDialog(null, "El stock de lote es bajo!! se requiere pedir más");
         }
 
     }//////////////////////////
