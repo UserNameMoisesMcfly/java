@@ -72,7 +72,7 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
 
         jrb_nombre.setBackground(new java.awt.Color(255, 255, 255));
         bg_busqueda.add(jrb_nombre);
-        jrb_nombre.setText("Descripción");
+        jrb_nombre.setText("Fecha");
         jrb_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrb_nombreActionPerformed(evt);

@@ -2,16 +2,20 @@ package Formularios;
 
 
 import Clases.Clas_Exportar;
+import Clases.Cls_Pdfcreator;
 import Clases.Cls_Salida;
 import static Formularios.Frm_SubAdmin.contenedor;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
 
 public class Frm_Salida_sub extends javax.swing.JInternalFrame {
@@ -113,6 +117,7 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
         jdc_fecha = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         txt_merma = new javax.swing.JTextField();
+        pdf_button = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Salida");
@@ -217,6 +222,14 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
             }
         });
 
+        pdf_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
+        pdf_button.setText("Exportar PDF");
+        pdf_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pdf_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -229,7 +242,7 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 539, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(77, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,7 +253,9 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
                         .addComponent(jbt_guardar)
                         .addGap(29, 29, 29)
                         .addComponent(jButton1)
-                        .addGap(331, 331, 331))
+                        .addGap(29, 29, 29)
+                        .addComponent(pdf_button)
+                        .addGap(245, 245, 245))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +307,8 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbt_guardar)
                     .addComponent(bt_nuevo)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(pdf_button))
                 .addGap(22, 22, 22))
         );
 
@@ -374,6 +390,43 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_mermaActionPerformed
 
+    private void pdf_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdf_buttonActionPerformed
+                 // Usa tu tabla jtb_entrada directamente
+
+            // Crea un JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como"); // Título del diálogo
+
+            // Sugerir un nombre de archivo predeterminado
+            fileChooser.setSelectedFile(new File("salida.pdf"));
+
+            // Filtro para que solo se muestren archivos .pdf
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Documents", "pdf");
+            fileChooser.setFileFilter(filter);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+
+            // Muestra el diálogo para guardar archivo
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String path = fileToSave.getAbsolutePath();
+                if (!path.endsWith(".pdf")) {
+                    path += ".pdf";
+                }
+
+                Cls_Pdfcreator pdfCreator = new Cls_Pdfcreator();
+
+                boolean result = pdfCreator.exportarPDF(jtb_salida, path);
+
+                if (result) {
+                    JOptionPane.showMessageDialog(null, "PDF generado con éxito en: " + path);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo generar el PDF.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+        }
+    }//GEN-LAST:event_pdf_buttonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_nuevo;
@@ -390,6 +443,7 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbt_guardar;
     private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JTable jtb_salida;
+    private javax.swing.JButton pdf_button;
     public static javax.swing.JTextField txt_codigo;
     public static javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_merma;

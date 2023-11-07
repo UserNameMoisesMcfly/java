@@ -461,7 +461,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_mermatActionPerformed
 
     private void pdf_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdf_buttonActionPerformed
-// Usa tu tabla jtb_entrada directamente
+        // Usa tu tabla jtb_entrada directamente
 
         // Crea un JFileChooser
         JFileChooser fileChooser = new JFileChooser();
