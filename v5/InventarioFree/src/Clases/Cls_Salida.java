@@ -159,6 +159,24 @@ public class Cls_Salida {
         }
         return res;
     }
+    
+    public int actualizarProducto(int id, String folio, Date fecha, String desc, int merma, int tarima) {//////////
+        String SQL = "UPDATE salida SET sal_id='" + codigo + "',pro_descripcion='" + descripcion + "',nomproveedor='" + nomproveedor + "',categoria='" + nomcategoria + "',ubicacion='" + nomUbicacion + "',cuerpo='" + numcuerpo + "',reja='" + numreja + "',tapa='" + numtapa + "' WHERE pro_codigo='" + codigo_old + "'";
+        int res = 0;
+        try {
+            PS = CN.getConnection().prepareStatement(SQL);
+            res = PS.executeUpdate();
+            if (res > 0) {
+                JOptionPane.showMessageDialog(null, "Articulo actualizado con éxito");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al modificar los datos" + e.getMessage());
+        } finally {
+            PS = null;
+            CN.desconectar();
+        }
+        return res;
+    }
 
 
     public int verificarStock(String codigo) {

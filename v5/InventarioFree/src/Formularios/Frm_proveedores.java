@@ -38,11 +38,11 @@ public class Frm_proveedores extends javax.swing.JInternalFrame {
             ResultSetMetaData srMd = sr.getMetaData();
             int cantidadColumnas = srMd.getColumnCount();
 
-            modelo.addColumn("proveedor");
+            modelo.addColumn("Presentacion");
             //modelo.addColumn("RFC");
             //modelo.addColumn("razon social");
             //modelo.addColumn("telefono");
-            modelo.addColumn("e-mail");
+           modelo.addColumn("SKU");
 
             while (sr.next()) {
 

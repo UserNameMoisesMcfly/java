@@ -145,7 +145,7 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/proveedor2.png"))); // NOI18N
-        jButton7.setText("Gestionar Marcas");
+        jButton7.setText("Gestionar Presentaciones");
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

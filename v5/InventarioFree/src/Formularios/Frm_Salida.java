@@ -48,7 +48,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     }
 
     private void activar() {
-        txt_merma.setEnabled(true);
+        txt_merma.setEnabled(false);
         txt_descripcion.setEnabled(true);
         jdc_fecha.setEnabled(true);
         jdc_fecha.getCalendarButton().setEnabled(false);
@@ -118,6 +118,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         txt_merma = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         pdf_button = new javax.swing.JButton();
+        bt_actualizar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Salida");
@@ -224,6 +225,9 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
             }
         });
 
+        bt_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/modificar.png"))); // NOI18N
+        bt_actualizar.setText("Agregar merma");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -257,8 +261,8 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))))
                         .addGap(26, 26, 26)))
                 .addContainerGap(78, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(247, 247, 247)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bt_nuevo)
                 .addGap(27, 27, 27)
                 .addComponent(jbt_guardar)
@@ -266,7 +270,9 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
                 .addComponent(jButton1)
                 .addGap(52, 52, 52)
                 .addComponent(pdf_button)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(bt_actualizar)
+                .addGap(167, 167, 167))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,13 +302,14 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
                         .addComponent(txt_merma)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbt_guardar)
                     .addComponent(bt_nuevo)
                     .addComponent(jButton1)
-                    .addComponent(pdf_button))
-                .addGap(22, 22, 22))
+                    .addComponent(pdf_button)
+                    .addComponent(bt_actualizar))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -418,6 +425,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_actualizar;
     private javax.swing.JButton bt_nuevo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
