@@ -63,7 +63,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txt_menu = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -118,17 +117,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 230, 40));
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/inventario.png"))); // NOI18N
-        jButton5.setText("Visualizar Inventario");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 230, 40));
-
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/buscar.png"))); // NOI18N
         jButton2.setText("Mostrar Productos");
@@ -141,7 +129,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 230, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 230, 40));
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/proveedor2.png"))); // NOI18N
@@ -152,7 +140,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 230, 40));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 230, 40));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, -20, 270, 290));
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -164,7 +152,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 230, 40));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 230, 40));
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/altas_bajas.png"))); // NOI18N
@@ -199,13 +187,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         contenedor.add(f);
         f.show();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        cerrarFramesInternos();
-        Frm_Inventario f = new Frm_Inventario();
-        contenedor.add(f);
-        f.show();
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cerrarFramesInternos();
@@ -275,7 +256,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane contenedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
