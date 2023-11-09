@@ -135,7 +135,7 @@ public class Frm_proveedores extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Fecha de alta:");
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("SKU nombre:");
 
         txtProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +143,7 @@ public class Frm_proveedores extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("e-mail:");
+        jLabel6.setText("SKU numero: ");
 
         btn_Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/adduser.png"))); // NOI18N
         btn_Add.setText("Agregar");

@@ -1,7 +1,12 @@
 package Formularios;
 
+import Clases.Class_Excel;
 import Clases.Cls_BuscarProductos;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -62,6 +67,7 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
         txt_busqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        excel_report = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -115,6 +121,14 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
+        excel_report.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/xls.png"))); // NOI18N
+        excel_report.setText("Entradas/Salidas");
+        excel_report.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excel_reportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,7 +144,10 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jrb_nombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(excel_report)
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,7 +158,8 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jrb_nombre)
                     .addComponent(jrb_codigo)
-                    .addComponent(txt_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(excel_report))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -235,9 +253,41 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_busquedaActionPerformed
 
+    private void excel_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excel_reportActionPerformed
+        int selectedRow = tabla.getSelectedRow();
+        if (selectedRow >= 0) {
+            String proCodigo = tabla.getValueAt(selectedRow, 0).toString(); // Asumiendo que el código del producto está en la columna 0.
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como"); // Título del diálogo
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xls)", "xls")); // Filtro para solo mostrar archivos Excel
+            fileChooser.setSelectedFile(new File(proCodigo + "_Reporte.xls")); // Nombre de archivo sugerido
+
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                if (!filePath.endsWith(".xls")) {
+                    filePath += ".xls"; // Asegúrate de que la extensión sea .xls
+                }
+
+                Class_Excel classExcel = new Class_Excel();
+                try {
+                    classExcel.exportarAExcel(proCodigo, filePath);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error al guardar el archivo Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_excel_reportActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_busqueda;
+    private javax.swing.JButton excel_report;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton jrb_codigo;

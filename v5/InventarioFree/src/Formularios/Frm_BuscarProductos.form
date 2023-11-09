@@ -41,7 +41,10 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jrb_nombre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txt_busqueda" min="-2" pref="416" max="-2" attributes="0"/>
+                      <Component id="txt_busqueda" min="-2" pref="290" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="excel_report" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -57,6 +60,7 @@
                   <Component id="jrb_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jrb_codigo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_busqueda" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="excel_report" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="253" max="-2" attributes="0"/>
@@ -134,5 +138,16 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="excel_report">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/xls.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Entradas/Salidas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excel_reportActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
