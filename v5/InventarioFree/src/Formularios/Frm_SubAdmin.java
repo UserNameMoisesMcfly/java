@@ -63,7 +63,6 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txt_menu = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -102,11 +101,11 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         txt_menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_menu.setForeground(new java.awt.Color(255, 255, 255));
         txt_menu.setText("Menú de opciones");
-        jPanel1.add(txt_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
+        jPanel1.add(txt_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/paquete.png"))); // NOI18N
-        jButton1.setText("Administrar Bodega");
+        jButton1.setText("Ordenes de Adquisiciones");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,20 +114,9 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 40));
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/inventario.png"))); // NOI18N
-        jButton5.setText("Visualizar Inventario");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 230, 40));
-
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/buscar.png"))); // NOI18N
-        jButton2.setText("Mostrar Productos");
+        jButton2.setText("Busqueda por lote");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.setMaximumSize(new java.awt.Dimension(125, 41));
         jButton2.setMinimumSize(new java.awt.Dimension(125, 41));
@@ -138,7 +126,7 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 230, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 230, 40));
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/altas_bajas.png"))); // NOI18N
@@ -148,7 +136,7 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 230, 40));
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 230, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/fondo8.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 670));
@@ -173,13 +161,6 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         contenedor.add(f);
         f.show();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        cerrarFramesInternos();
-        Frm_Inventario f = new Frm_Inventario();
-        contenedor.add(f);
-        f.show();
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cerrarFramesInternos();
@@ -236,7 +217,6 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane contenedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

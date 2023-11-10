@@ -134,7 +134,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         ret_tapa = new javax.swing.JTextField();
         cant_cuerpo3 = new javax.swing.JLabel();
         pdf_button = new javax.swing.JToggleButton();
-        pdf_selector = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Entrada");
@@ -246,26 +245,19 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         cant_cuerpo1.setText("Tapa(s) merma *");
 
         cant_reja1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_reja1.setText("Divisor(es) a retirar *");
+        cant_reja1.setText("Divisor(es) recibidos *");
 
         cant_cuerpo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_cuerpo2.setText("Cuerpo(s) a retirar *");
+        cant_cuerpo2.setText("Cuerpo(s) recibidos *");
 
         cant_cuerpo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_cuerpo3.setText("Tapa(s) a retirar *");
+        cant_cuerpo3.setText("Tapa(s) recibidas *");
 
         pdf_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
         pdf_button.setText("Exportar PDF");
         pdf_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pdf_buttonActionPerformed(evt);
-            }
-        });
-
-        pdf_selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ultimo Dia", "Ultima semana", "Ultimo Mes" }));
-        pdf_selector.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pdf_selectorActionPerformed(evt);
             }
         });
 
@@ -284,8 +276,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                         .addComponent(btnexportar)
                         .addGap(31, 31, 31)
                         .addComponent(pdf_button)
-                        .addGap(18, 18, 18)
-                        .addComponent(pdf_selector, 0, 1, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(44, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -383,8 +374,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                     .addComponent(jbt_guardar)
                     .addComponent(bt_nuevo)
                     .addComponent(btnexportar)
-                    .addComponent(pdf_button)
-                    .addComponent(pdf_selector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pdf_button))
                 .addGap(21, 21, 21))
         );
 
@@ -499,10 +489,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_pdf_buttonActionPerformed
 
-    private void pdf_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdf_selectorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pdf_selectorActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_nuevo;
@@ -525,7 +511,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JTable jtb_entrada;
     private javax.swing.JToggleButton pdf_button;
-    private javax.swing.JComboBox<String> pdf_selector;
     private javax.swing.JTextField ret_cuerpo;
     private javax.swing.JTextField ret_divisor;
     private javax.swing.JTextField ret_tapa;

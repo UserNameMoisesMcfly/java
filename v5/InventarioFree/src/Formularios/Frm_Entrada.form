@@ -48,7 +48,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
                           <Component id="bt_nuevo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
@@ -57,8 +57,7 @@
                           <Component id="btnexportar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="pdf_button" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="pdf_selector" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace pref="44" max="32767" attributes="0"/>
@@ -187,7 +186,6 @@
                       <Component id="bt_nuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnexportar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="pdf_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pdf_selector" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
@@ -390,7 +388,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Divisor(es) a retirar *"/>
+            <Property name="text" type="java.lang.String" value="Divisor(es) recibidos *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="ret_cuerpo">
@@ -400,7 +398,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cuerpo(s) a retirar *"/>
+            <Property name="text" type="java.lang.String" value="Cuerpo(s) recibidos *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="ret_tapa">
@@ -410,7 +408,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tapa(s) a retirar *"/>
+            <Property name="text" type="java.lang.String" value="Tapa(s) recibidas *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JToggleButton" name="pdf_button">
@@ -423,23 +421,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdf_buttonActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="pdf_selector">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Ultimo Dia"/>
-                <StringItem index="1" value="Ultima semana"/>
-                <StringItem index="2" value="Ultimo Mes"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdf_selectorActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

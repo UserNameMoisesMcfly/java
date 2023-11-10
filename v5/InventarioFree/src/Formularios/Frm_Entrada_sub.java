@@ -245,13 +245,13 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
         cant_cuerpo9.setText("Tapa(s) merma *");
 
         cant_reja5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_reja5.setText("Divisor(es) a retirar *");
+        cant_reja5.setText("Divisor(es) recibidos *");
 
         cant_cuerpo10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_cuerpo10.setText("Cuerpo(s) a retirar *");
+        cant_cuerpo10.setText("Cuerpo(s) recibidas *");
 
         cant_cuerpo11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cant_cuerpo11.setText("Tapa(s) a retirar *");
+        cant_cuerpo11.setText("Tapa(s) recibidas *");
 
         pdf_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
         pdf_button.setText("Exportar PDF");
