@@ -32,10 +32,8 @@ public class Conectar {
     public void desconectar() {
         try {
             conn.close();
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error al cerrar la conexion con la base de datos", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }

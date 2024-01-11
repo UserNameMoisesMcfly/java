@@ -15,8 +15,8 @@ public class Cls_Salida {
     private ResultSet RS;
     private final Conectar CN;
     private DefaultTableModel DT;
-    private final String SQL_INSERT_SALIDA = "INSERT INTO salida (sal_folio, sal_fecha, sal_entId, sal_descripcion, sal_mermaCaja, sal_tarimas) values (?,?,?,?,?,?)";
-    private final String SQL_SELECT_SALIDA = "SELECT sal_folio, sal_fecha, ent_categoria, sal_descripcion, nomproveedor, sal_mermaCaja, sal_tarimas FROM salida " + "INNER JOIN entrada ON sal_entId = ent_id INNER JOIN artículos ON ent_pro_codigo = pro_codigo ORDER BY sal_fecha DESC";
+    private final String SQL_INSERT_SALIDA = "INSERT INTO salida (sal_folio, sal_fecha, sal_proCodigo, sal_descripcion, sal_mermaCaja, sal_tarimas) values (?,?,?,?,?,?)";
+    private final String SQL_SELECT_SALIDA = "SELECT sal_folio, sal_fecha, pro_codigo, sal_descripcion, nomproveedor FROM salida INNER JOIN artículos ON pro_codigo = sal_proCodigo ORDER by sal_fecha DESC";
     private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos INNER JOIN entrada ON ent_pro_codigo = pro_codigo WHERE ent_categoria = ?";
     private final String SQL_SELECT_ID= "SELECT MAX(sal_id) FROM salida ";
     
@@ -35,11 +35,9 @@ public class Cls_Salida {
         };
         DT.addColumn("Folio de Salida");
         DT.addColumn("Fecha");
-        DT.addColumn("Folio de Entrada");
+        DT.addColumn("Folio de Lote");
         DT.addColumn("Descripción");
         DT.addColumn("Proveedor");
-        DT.addColumn("Merma Cajas");
-        DT.addColumn("Tarimas");
         return DT;
     }
 
@@ -55,8 +53,6 @@ public class Cls_Salida {
                 fila[2] = RS.getString(3);
                 fila[3] = RS.getString(4);
                 fila[4] = RS.getString(5);//////////
-                fila[5] = RS.getInt(6);/////////
-                fila[6] = RS.getInt(7);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
@@ -201,6 +197,5 @@ public class Cls_Salida {
         if (ress < 1) {
             JOptionPane.showMessageDialog(null, "El stock de lote es bajo!! se requiere pedir más");
         }
-
-    }//////////////////////////
+    }
 }

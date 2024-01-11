@@ -36,7 +36,7 @@ public class Cls_Productos {
         DT.addColumn("Descripción");
         DT.addColumn("Marca");/////////////////
         DT.addColumn("Categoria");/////////////////
-        DT.addColumn("Notas");/////////////////
+        DT.addColumn("Fecha");/////////////////
         //DT.addColumn("Estado"); ////////////////////
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");

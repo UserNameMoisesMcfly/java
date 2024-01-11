@@ -221,11 +221,6 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
             Frm_Entrada.txt_descripcion.setText(tabla.getValueAt(row, 1).toString());
             Frm_Entrada.enviar = 0;
             dispose();
-        } else if (Frm_Salida.enviar == 1) {
-            int row = tabla.getSelectedRow();
-            Frm_Salida.txt_codigo.setText(tabla.getValueAt(row, 0).toString());
-            Frm_Salida.enviar = 0;
-            dispose();
         } else if (Frm_Entrada_sub.enviar == 1) {
             int row = tabla.getSelectedRow();
             Frm_Entrada_sub.txt_codigo.setText(tabla.getValueAt(row, 0).toString());
