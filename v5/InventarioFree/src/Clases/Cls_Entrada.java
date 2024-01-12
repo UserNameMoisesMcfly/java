@@ -16,8 +16,8 @@ public class Cls_Entrada {
     private final Conectar CN;
     private DefaultTableModel DT;
     private final String SQL_INSERT_ENTRADA = "INSERT INTO entrada (ent_categoria, ent_pro_codigo, ent_fecha, ent_tarima, ent_cajas, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma, sob_cuerpo, sob_reja, sob_tapa) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, categoria, ent_tarima, ent_cajas, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo ORDER BY ent_fecha DESC";
-    private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos WHERE pro_codigo = ?";
+    private final String SQL_SELECT_ENTRADA = "SELECT ent_categoria, ent_fecha, ent_pro_codigo, pro_descripcion, nomproveedor, valor, ent_tarima, ent_cajas, res_cuerpo, res_reja, res_tapa, cuerpo_merma, reja_merma, tapa_merma FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo INNER JOIN categorias ON id = categoria ORDER BY ent_fecha DESC";
+    private final String SQL_SELECT_CATEGORIA= "SELECT valor, cajaTarima FROM artículos INNER JOIN categorias ON id = categoria WHERE pro_codigo = ?";
     private final String SQL_SELECT_ID= "SELECT MAX(ent_id) FROM entrada ";
     
     public Cls_Entrada() {
@@ -89,23 +89,13 @@ public class Cls_Entrada {
             PS.setString(1, identificador);
             RS = PS.executeQuery();
             if (RS.next()) {
-                int categoria = RS.getInt("categoria");
-                int prefix;
-                switch (categoria) {
-                    case 20:
-                        prefix = 207;
-                        break;
-                    case 40:
-                        prefix = 90;
-                        break;
-                    default:
-                        throw new Exception("Categoría no válida");
-                }
-
+                String tarima = RS.getString("cajaTarima");
+                String categoria = RS.getString("valor");
+        
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String fechaStr = sdf.format(fecha);
                 
-                folio = numeroUnico() + String.valueOf(prefix) + fechaStr + categoria;  
+                folio = numeroUnico() + tarima + fechaStr + categoria;  
             } else {
                 throw new Exception("Código no encontrado");
             }
@@ -220,7 +210,7 @@ public class Cls_Entrada {
                             }
 
                             // Después de actualizar las cantidades, consulta las cantidades actuales.
-                            String QUERY_PIEZAS_ACTUALES = "SELECT res_cuerpo-cuerpo_merma as cuerpo, res_reja-reja_merma as reja, res_tapa-tapa_merma as tapa FROM entrada WHERE ent_categoria = ?";
+                            String QUERY_PIEZAS_ACTUALES = "SELECT res_cuerpo-cuerpo_merma as cuerpo, res_reja-reja_merma as reja, res_tapa-tapa_merma as tapa, cajaTarima FROM entrada INNER JOIN artículos ON ent_pro_codigo = pro_codigo INNER JOIN categorias ON categoria = id WHERE ent_categoria = ?";
                             PS = CN.getConnection().prepareStatement(QUERY_PIEZAS_ACTUALES);
                             PS.setString(1, categoria);
                             RS = PS.executeQuery();
@@ -228,30 +218,37 @@ public class Cls_Entrada {
                             int cuerposDisponibles = 0;
                             int rejasDisponibles = 0;
                             int tapasDisponibles = 0;
+                            int tamañoTarima = 0;
 
                             if (RS.next()) {
                                 cuerposDisponibles = RS.getInt("cuerpo");
                                 rejasDisponibles = RS.getInt("reja");
                                 tapasDisponibles = RS.getInt("tapa");
+                                tamañoTarima = RS.getInt("cajaTarima");
                             }
 
                             // Calcula cuántas cajas completas puedes formar con las piezas disponibles.
-                            int cajasCompletas = Math.min(Math.min(cuerposDisponibles, rejasDisponibles), tapasDisponibles);
+                            int cajasCompletas = Math.min(Math.min(cuerposDisponibles, rejasDisponibles), (tapasDisponibles/2));
                             
                             cuerposDisponibles -= cajasCompletas;
                             rejasDisponibles -= cajasCompletas;
-                            tapasDisponibles -= cajasCompletas;
+                            tapasDisponibles -= (cajasCompletas*2);
                             
                             System.out.println("Número de cajas completas que se pueden formar: " + cajasCompletas);
-
+                            
+                            // Calcula cuantas tarimas seran dependiendo de la cantidad de cajas y la categoria
+                            int tarimasCompletas = cajasCompletas/tamañoTarima;
+                            int cajasSobrantes = cajasCompletas-(tamañoTarima*tarimasCompletas);
+                                    
                             // Actualiza el número de cajas completas en la tabla "entradas".
-                            String UPDATE_ENTRADAS = "UPDATE entrada SET ent_caja = ?, sob_cuerpo = ?, sob_reja = ?, sob_tapa = ? WHERE ent_categoria = ?";
+                            String UPDATE_ENTRADAS = "UPDATE entrada SET ent_tarima = ?, ent_cajas = ?, sob_cuerpo = ?, sob_reja = ?, sob_tapa = ? WHERE ent_categoria = ?";
                             PS = CN.getConnection().prepareStatement(UPDATE_ENTRADAS);
-                            PS.setInt(1, cajasCompletas);
-                            PS.setInt(2, cuerposDisponibles);
-                            PS.setInt(3, rejasDisponibles);
-                            PS.setInt(4, tapasDisponibles);
-                            PS.setString(5, categoria);
+                            PS.setInt(1, tarimasCompletas);
+                            PS.setInt(2, cajasSobrantes);
+                            PS.setInt(3, cuerposDisponibles);
+                            PS.setInt(4, rejasDisponibles);
+                            PS.setInt(5, tapasDisponibles);
+                            PS.setString(6, categoria);
                             int resUpdate = PS.executeUpdate();
 
                             if (resUpdate > 0) {
