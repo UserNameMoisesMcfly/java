@@ -77,6 +77,11 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
     private void guardar() {
         String codigo = txt_codigo.getText();
         Date fechaa = jdc_fecha.getDate();
+        if (codigo.isEmpty() || fechaa == null || txt_mermac.getText().isEmpty() || txt_mermar.getText().isEmpty() || txt_mermat.getText().isEmpty() || ret_cuerpo.getText().isEmpty() || ret_divisor.getText().isEmpty() || ret_tapa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos.");
+            return;
+        }
+
         long d = fechaa.getTime();
         int mermac = Integer.parseInt(txt_mermac.getText());
         int mermar = Integer.parseInt(txt_mermar.getText());
@@ -87,8 +92,8 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
 
         java.sql.Date fecha_sql = new java.sql.Date(d);
 
-        if (rescuerpo <= mermac || resreja <= mermar || restapa <= mermat) {
-            JOptionPane.showMessageDialog(null, "Merma no puede ser mayor a las entradas");
+        if (rescuerpo < mermac || resreja < mermar || restapa < mermat) {
+            JOptionPane.showMessageDialog(null, "La merma no puede ser mayor que las entradas.");
         } else {
             String folio = CP.generarFolio(codigo, fecha_sql);
             if (!folio.isEmpty()) {
@@ -99,7 +104,7 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
                     iniciar();
                 }
             }
-        }
+        }     
     }
 
     @SuppressWarnings("unchecked")
