@@ -16,7 +16,7 @@ public class Cls_Productos {
     private final Conectar CN;
     private DefaultTableModel DT;
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?)";
-    private final String SQL_SELECT_PRODUCTOS = "SELECT * FROM artículos";
+    private final String SQL_SELECT_PRODUCTOS = "SELECT pro_codigo, pro_descripcion, nomproveedor, valor, ubicacion, cuerpo, reja, tapa FROM artículos INNER JOIN categorias WHERE categoria = id";
     Connection conn;
 
     public Cls_Productos() {

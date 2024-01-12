@@ -92,7 +92,7 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
         } else {
             String folio = CP.generarFolio(codigo, fecha_sql);
             if (!folio.isEmpty()) {
-                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, rescuerpo, resreja, restapa, mermac, mermar, mermat);
+                int respuesta = CP.registrarEntrada(folio, codigo, fecha_sql, 0, 0, rescuerpo, resreja, restapa, mermac, mermar, mermat);
                 if (respuesta > 0) {
                     listar();
                     limpiar();
@@ -164,7 +164,9 @@ public class Frm_Entrada_sub extends javax.swing.JInternalFrame {
         jLabel20.setText("Fecha *");
 
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
-
+        ((JTextField) jdc_fecha.getDateEditor()).setEditable(false);
+        jdc_fecha.getCalendarButton().setEnabled(false);
+        
         jtb_entrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
