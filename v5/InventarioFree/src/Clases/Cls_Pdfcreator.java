@@ -6,6 +6,8 @@ import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.FileOutputStream;
 import javax.swing.JTable;
 
+
+
 public class Cls_Pdfcreator {
     
     class MyHeaderFooter extends PdfPageEventHelper {

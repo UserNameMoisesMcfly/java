@@ -1,9 +1,21 @@
 package Formularios;
 
+import Clases.Cls_Barras;
 import Clases.Cls_Productos;
 import static Formularios.Frm_Principal.contenedor;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
+
+
+  
 
 public class Frm_Productos extends javax.swing.JInternalFrame {
 
@@ -145,6 +157,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         txt_ubicacion = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        remisionPDF = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Productos");
@@ -271,12 +285,40 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Fecha *");
 
+        remisionPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mensaje.png"))); // NOI18N
+        remisionPDF.setText("Codigo");
+        remisionPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remisionPDFActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
+        jButton2.setText("Remision");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(remisionPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bt_nuevo)
+                        .addGap(51, 51, 51)
+                        .addComponent(bt_guardar)
+                        .addGap(52, 52, 52)
+                        .addComponent(bt_actualizar)
+                        .addGap(68, 68, 68)
+                        .addComponent(bt_eliminar)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton1)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -313,18 +355,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
                                 .addGap(343, 343, 343)))
                         .addGap(274, 274, 274)))
                 .addGap(61, 61, 61))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(bt_nuevo)
-                .addGap(51, 51, 51)
-                .addComponent(bt_guardar)
-                .addGap(52, 52, 52)
-                .addComponent(bt_actualizar)
-                .addGap(68, 68, 68)
-                .addComponent(bt_eliminar)
-                .addGap(51, 51, 51)
-                .addComponent(jButton1)
-                .addGap(149, 149, 149))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +365,9 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addGap(16, 16, 16)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(remisionPDF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel1))
@@ -366,7 +398,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
                     .addComponent(bt_actualizar)
                     .addComponent(bt_eliminar)
                     .addComponent(bt_nuevo)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addGap(23, 23, 23))
         );
 
@@ -453,11 +486,54 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         //txt_cuerpo.setText(jtb_productos.getValueAt(row, 5).toString());
         //txt_reja.setText(jtb_productos.getValueAt(row, 6).toString());
         //txt_tapa.setText(jtb_productos.getValueAt(row, 7).toString());
+        
+        String codigoProducto = jtb_productos.getValueAt(row, 0).toString();
+        Cls_Barras generadorBarras = new Cls_Barras();
+        try {
+            BufferedImage imagenCodigoBarras = generadorBarras.generateBarcode(codigoProducto);
+        } catch (IOException ex) {
+            Logger.getLogger(Frm_Productos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jtb_productosMouseClicked
 
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
+
+    private void remisionPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remisionPDFActionPerformed
+        try {
+        // Obtener el código del producto seleccionado
+        int row = jtb_productos.getSelectedRow();
+        String proCodigo = jtb_productos.getValueAt(row, 0).toString();
+
+        // Generar el código de barras
+        Cls_Barras generadorBarras = new Cls_Barras();
+        BufferedImage barcodeImage = generadorBarras.generateBarcode(proCodigo);
+
+        // Mostrar el file chooser para guardar la imagen
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar código de barras");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Image", "png");
+        fileChooser.setFileFilter(filter);
+
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            // Asegurarse de que el archivo tiene la extensión .png
+            if (!fileToSave.getAbsolutePath().endsWith(".png")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".png");
+            }
+            
+            // Guardar la imagen
+            ImageIO.write(barcodeImage, "PNG", fileToSave);
+            JOptionPane.showMessageDialog(this, "Código de barras guardado exitosamente: " + fileToSave.getAbsolutePath());
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al generar el código de barras:");
+    }
+    }//GEN-LAST:event_remisionPDFActionPerformed
 
     private void txt_estadoActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
@@ -476,6 +552,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxCategoria;
     private javax.swing.JComboBox<String> cbxProveedor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -486,6 +563,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtb_productos;
+    private javax.swing.JButton remisionPDF;
     private javax.swing.JTextField txt_codigo;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_ubicacion;
