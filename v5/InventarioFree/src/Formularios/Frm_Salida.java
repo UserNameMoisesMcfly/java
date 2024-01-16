@@ -198,6 +198,6 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtb_salida;
-    private javax.swing.JTextField txt_codigo;
+    public static javax.swing.JTextField txt_codigo;
     // End of variables declaration//GEN-END:variables
 }

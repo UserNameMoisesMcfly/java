@@ -140,7 +140,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         cant_cuerpo2 = new javax.swing.JLabel();
         ret_tapa = new javax.swing.JTextField();
         cant_cuerpo3 = new javax.swing.JLabel();
-        pdf_button = new javax.swing.JToggleButton();
 
         setClosable(true);
         setTitle("Entrada");
@@ -171,8 +170,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         jLabel5.setText("Fecha *");
 
         jdc_fecha.setDateFormatString("yyyy/MM/dd");
-        ((JTextField) jdc_fecha.getDateEditor()).setEditable(false);
-        jdc_fecha.getCalendarButton().setEnabled(false);
 
         jtb_entrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -262,14 +259,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         cant_cuerpo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cant_cuerpo3.setText("Tapa(s) recibidas *");
 
-        pdf_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
-        pdf_button.setText("Exportar PDF");
-        pdf_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pdf_buttonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -326,8 +315,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                 .addComponent(jbt_guardar)
                 .addGap(47, 47, 47)
                 .addComponent(btnexportar)
-                .addGap(31, 31, 31)
-                .addComponent(pdf_button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -381,8 +368,7 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbt_guardar)
                     .addComponent(bt_nuevo)
-                    .addComponent(btnexportar)
-                    .addComponent(pdf_button))
+                    .addComponent(btnexportar))
                 .addGap(21, 21, 21))
         );
 
@@ -460,43 +446,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_mermatActionPerformed
 
-    private void pdf_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdf_buttonActionPerformed
-        // Usa tu tabla jtb_entrada directamente
-
-        // Crea un JFileChooser
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Guardar como"); // Título del diálogo
-
-        // Sugerir un nombre de archivo predeterminado
-        fileChooser.setSelectedFile(new File("salida.pdf"));
-
-        // Filtro para que solo se muestren archivos .pdf
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Documents", "pdf");
-        fileChooser.setFileFilter(filter);
-        fileChooser.setAcceptAllFileFilterUsed(false);
-
-        // Muestra el diálogo para guardar archivo
-        int userSelection = fileChooser.showSaveDialog(this);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            String path = fileToSave.getAbsolutePath();
-            if (!path.endsWith(".pdf")) {
-                path += ".pdf";
-            }
-
-            Cls_Pdfcreator pdfCreator = new Cls_Pdfcreator();
-
-            boolean result = pdfCreator.exportarPDF(jtb_entrada, path);
-
-            if (result) {
-                JOptionPane.showMessageDialog(null, "PDF generado con éxito en: " + path);
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo generar el PDF.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_pdf_buttonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_nuevo;
@@ -518,7 +467,6 @@ public class Frm_Entrada extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbt_guardar;
     private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JTable jtb_entrada;
-    private javax.swing.JToggleButton pdf_button;
     private javax.swing.JTextField ret_cuerpo;
     private javax.swing.JTextField ret_divisor;
     private javax.swing.JTextField ret_tapa;

@@ -157,7 +157,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         txt_ubicacion = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        remisionPDF = new javax.swing.JButton();
+        barrasCode = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setClosable(true);
@@ -285,11 +285,11 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Fecha *");
 
-        remisionPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mensaje.png"))); // NOI18N
-        remisionPDF.setText("Codigo");
-        remisionPDF.addActionListener(new java.awt.event.ActionListener() {
+        barrasCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mensaje.png"))); // NOI18N
+        barrasCode.setText("Codigo");
+        barrasCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remisionPDFActionPerformed(evt);
+                barrasCodeActionPerformed(evt);
             }
         });
 
@@ -302,7 +302,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addComponent(remisionPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(barrasCode, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -366,7 +366,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
                         .addGap(16, 16, 16)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(remisionPDF)
+                        .addComponent(barrasCode)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -500,7 +500,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
 
-    private void remisionPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remisionPDFActionPerformed
+    private void barrasCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barrasCodeActionPerformed
         try {
         // Obtener el código del producto seleccionado
         int row = jtb_productos.getSelectedRow();
@@ -532,7 +532,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Error al generar el código de barras:");
     }
-    }//GEN-LAST:event_remisionPDFActionPerformed
+    }//GEN-LAST:event_barrasCodeActionPerformed
 
     private void txt_estadoActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
@@ -544,6 +544,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton barrasCode;
     private javax.swing.JButton bt_actualizar;
     private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_guardar;
@@ -562,7 +563,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtb_productos;
-    private javax.swing.JButton remisionPDF;
     private javax.swing.JTextField txt_codigo;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_ubicacion;
