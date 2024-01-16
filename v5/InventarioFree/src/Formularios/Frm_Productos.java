@@ -520,7 +520,6 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
-            // Asegurarse de que el archivo tiene la extensión .png
             if (!fileToSave.getAbsolutePath().endsWith(".png")) {
                 fileToSave = new File(fileToSave.getAbsolutePath() + ".png");
             }
