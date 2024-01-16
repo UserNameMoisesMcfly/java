@@ -32,7 +32,7 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         jtCategorias.setModel(modelo);
 
-        String sql = "SELECT valor,unidad FROM categorias";
+        String sql = "SELECT valor,unidad,cajaTarima FROM categorias";
 
         try (PreparedStatement pr = con.prepareStatement(sql);
              ResultSet sr = pr.executeQuery()) {
@@ -42,6 +42,7 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
 
             modelo.addColumn("Valor");
             modelo.addColumn("Unidad");
+            modelo.addColumn("Cajas por tarima");
 
             while (sr.next()) {
                 Object[] filas = new Object[cantidadColumnas];
@@ -57,12 +58,13 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
     }
 
     public void agregarCategoria(){
-        String sql="INSERT INTO categorias(valor, unidad) VALUES(?, ?)";
+        String sql="INSERT INTO categorias(valor, unidad, cajaTarima) VALUES(?, ?, ?)";
 
         try {
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, txtValor.getText());
             pst.setString(2, txtUnidad.getText());
+            pst.setString(3, txtTarima.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Registro exitoso");
             mostrarCategorias();
@@ -96,6 +98,8 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
         jButton8 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtUnidad = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtTarima = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -270,6 +274,15 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Unidad:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Cajas x Tarima:");
+
+        txtTarima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTarimaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,19 +298,21 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(160, 160, 160))
             .addGroup(layout.createSequentialGroup()
+                .addGap(155, 155, 155)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(241, 241, 241)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTarima, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -313,7 +328,9 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
-                    .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTarima, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
@@ -343,13 +360,14 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
 
         String valor = txtValor.getText();
         String unidad = txtUnidad.getText(); 
+        String tarima = txtTarima.getText();
 
         try {
-            String query = "UPDATE categorias SET valor = ?, unidad = ? WHERE valor = ?";
+            String query = "UPDATE categorias SET valor = ?, unidad = ?, cajaTarima = ? WHERE valor = ?";
             PreparedStatement modi = con.prepareStatement(query);
             modi.setString(1, valor);
             modi.setString(2, unidad);
-            modi.setString(3, nomcategoria);
+            modi.setString(3, tarima);
             modi.executeUpdate();
 
             mostrarCategorias();
@@ -376,6 +394,7 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
                 while (rs.next()) {
                     txtValor.setText(rs.getString("valor"));
                     txtUnidad.setText(rs.getString("unidad")); // Añadido para establecer el valor en el campo txtUnidad
+                    txtTarima.setText(rs.getString("tarima"));
                 }
             }
 
@@ -442,6 +461,10 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void txtTarimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTarimaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTarimaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -490,11 +513,13 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtCategorias;
     private javax.swing.JTable jtCategorias1;
     private javax.swing.JTextField txtCategoria1;
+    private javax.swing.JTextField txtTarima;
     private javax.swing.JTextField txtUnidad;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
