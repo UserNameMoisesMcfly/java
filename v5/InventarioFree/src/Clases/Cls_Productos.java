@@ -73,23 +73,17 @@ public class Cls_Productos {
 
 public int registrarProducto(String codigo, String descripcion, String nomproveedor, String categoria, String ubicacion, String cuerpo, String reja, String tapa) {
     int res = 0;
-    int numeroDeCajas = 0;
-    int tarimas = 0;
+    int idCategoria = 0;
 
     try (Connection conn = CN.getConnection()) {
         // Consultar número de cajas basado en cuerpo, reja y tapa de la tabla "articulos"
-        PreparedStatement psCajas = conn.prepareStatement("SELECT LEAST(cuerpo, reja, tapa) AS numeroCajas FROM artículos WHERE pro_codigo = ?");
-        psCajas.setString(1, codigo);
-        ResultSet rsCajas = psCajas.executeQuery();
-        if (rsCajas.next()) {
-            numeroDeCajas = rsCajas.getInt("numeroCajas");
-        }
-
-        // Calcular tarimas basadas en categoría
-        if ("20".equals(categoria) && numeroDeCajas > 0) {
-            tarimas = numeroDeCajas / 207;
-        } else if ("40".equals(categoria) && numeroDeCajas > 0) {
-            tarimas = numeroDeCajas / 90;
+        PreparedStatement psCategoria = conn.prepareStatement("SELECT id FROM categorias WHERE valor = ? AND unidad = ?");
+        String[] palabra = categoria.split(" ");
+        psCategoria.setString(1, palabra[0]);
+        psCategoria.setString(2, palabra[1]);
+        ResultSet rsCategoria = psCategoria.executeQuery();
+        if (rsCategoria.next()) {
+            idCategoria = rsCategoria.getInt("id");
         }
 
         // Registrar el producto y actualizar tarimas
@@ -97,19 +91,12 @@ public int registrarProducto(String codigo, String descripcion, String nomprovee
         PS.setString(1, codigo);
         PS.setString(2, descripcion);
         PS.setString(3, nomproveedor);
-        PS.setString(4, categoria);
+        PS.setInt(4, idCategoria);
         PS.setString(5, ubicacion);
         PS.setString(6, cuerpo);
         PS.setString(7, reja);
         PS.setString(8, tapa);
-        //PS.setInt(9, tarimas);
         res = PS.executeUpdate();
-
-        // Actualizar tarimas en tabla "articulos"
-        //PreparedStatement psUpdateTarimas = conn.prepareStatement("UPDATE artículos SET tarimas = ? WHERE pro_codigo = ?");
-        //psUpdateTarimas.setInt(1, tarimas);
-        //psUpdateTarimas.setString(2, codigo);
-        //psUpdateTarimas.executeUpdate();
 
         if (res > 0) {
             JOptionPane.showMessageDialog(null, "Articulo registrado con éxito.");
@@ -222,7 +209,7 @@ public int registrarProducto(String codigo, String descripcion, String nomprovee
             RS = PS.executeQuery();
 
             while (RS.next()) {
-                categorias.addItem(RS.getString("valor" )/*+" "+RS.getString("unidad")*/);
+                categorias.addItem(RS.getString("valor" ) + " " + RS.getString("unidad"));
             }
 
         } catch (Exception ex) {

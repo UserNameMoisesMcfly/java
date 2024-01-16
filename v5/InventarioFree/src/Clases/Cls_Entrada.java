@@ -39,7 +39,7 @@ public class Cls_Entrada {
         DT.addColumn("Proveedor");
         DT.addColumn("Categoria");
         DT.addColumn("Tarimas");
-        DT.addColumn("Cajas");
+        DT.addColumn("Cajas Sobrantes");
         DT.addColumn("Retiro de Cuerpos");
         DT.addColumn("Retiro de Divisores");
         DT.addColumn("Retiro de Tapa");
