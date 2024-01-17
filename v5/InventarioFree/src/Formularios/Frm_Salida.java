@@ -36,7 +36,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         iniciar();
         
         
-                                    // Añade aquí el ActionListener para txt_codigo
+                                    /*
                                     txt_codigo.addActionListener(new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent evt) {
@@ -59,6 +59,71 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
                                             }
                                         }
                                     });
+                                    */
+                                    
+                                    /*
+                                    txt_codigo.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent evt) {
+                                            String codigoBarrasString = txt_codigo.getText();
+                                            try {
+                                                // Verificar si el código de barras contiene solo dígitos
+                                                if (codigoBarrasString.matches("\\d+")) {
+                                                    int codigoBarras = Integer.parseInt(codigoBarrasString);
+                                                    int resultado = CP.registrarCodigoBarras(codigoBarras);
+
+                                                    if (resultado > 0) {
+                                                        JOptionPane.showMessageDialog(null, "Código de barras registrado con éxito.");
+                                                    } else {
+                                                        JOptionPane.showMessageDialog(null, "Error al registrar el código de barras.");
+                                                    }
+                                                } else {
+                                                    JOptionPane.showMessageDialog(null, "Formato de código de barras no válido. Solo se permiten números.");
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                JOptionPane.showMessageDialog(null, "Formato de código de barras no válido.");
+                                            } catch (Exception e) {
+                                                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                                            } finally {
+                                                txt_codigo.setText(""); // Limpiar el campo de texto después del registro o en caso de error.
+                                            }
+                                        }
+                                    });
+                                    */
+                                    
+                                    
+                                                    txt_codigo.addActionListener(new ActionListener() {
+                                                        @Override
+                                                        public void actionPerformed(ActionEvent evt) {
+                                                            String codigoBarrasString = txt_codigo.getText();
+                                                            try {
+                                                                // Verificar si el código de barras contiene solo dígitos y tiene una longitud adecuada
+                                                                if (codigoBarrasString.matches("\\d+") && codigoBarrasString.length() <= 100) {
+                                                                    int resultado = CP.registrarCodigoBarras(codigoBarrasString);
+
+                                                                    if (resultado > 0) {
+                                                                        JOptionPane.showMessageDialog(null, "Código de barras registrado con éxito.");
+                                                                        listar(); // Actualizar la tabla después de un registro exitoso
+                                                                    } else {
+                                                                        JOptionPane.showMessageDialog(null, "Error al registrar el código de barras.");
+                                                                    }
+                                                                } else {
+                                                                    JOptionPane.showMessageDialog(null, "Formato de código de barras no válido. Debe contener hasta 100 dígitos.");
+                                                                }
+                                                            } catch (Exception e) {
+                                                                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                                                            } finally {
+                                                                txt_codigo.setText(""); // Limpiar el campo de texto después del registro o en caso de error.
+                                                            }
+                                                        }
+                                                    });
+
+
+
+                                    
+                                    
+                                    
+                                    
         
         
     }
@@ -131,7 +196,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Código del Producto *");
 
-        txt_codigo.setEditable(false);
+        txt_codigo.setEditable(true);
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_codigoActionPerformed(evt);
@@ -228,6 +293,6 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtb_salida;
-    public static javax.swing.JTextField txt_codigo;
+    private javax.swing.JTextField txt_codigo;
     // End of variables declaration//GEN-END:variables
 }

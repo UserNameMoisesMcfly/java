@@ -56,11 +56,12 @@ public class Cls_Salida {
     }
 
     
-                        public int registrarCodigoBarras(int codigoBarras) {
+                        /*
+                        public int registrarCodigoBarras(String codigoBarras) {
                             int res = 0;
                             try {
-                                PS = CN.getConnection().prepareStatement("INSERT INTO sal (sal_folio, fecha) VALUES (?, NOW())");
-                                PS.setInt(1, codigoBarras);
+                                PS = CN.getConnection().prepareStatement("INSERT INTO salida (sal_folio, sal_fecha) VALUES (?, NOW())");
+                                PS.setString(1, codigoBarras);
                                 res = PS.executeUpdate();
                             } catch (SQLException e) {
                                 System.err.println("Error al registrar el código de barras." + e.getMessage());
@@ -70,6 +71,29 @@ public class Cls_Salida {
                             }
                             return res;
                         }
+                        */
+    
+    
+                        public int registrarCodigoBarras(String codigoBarras) {
+                            int res = 0;
+                            try {
+                                // Obtener la conexión a la base de datos
+                                PS = CN.getConnection().prepareStatement("INSERT INTO salida (sal_folio, sal_fecha) VALUES (?, NOW())");
+                                PS.setString(1, codigoBarras);
+                                res = PS.executeUpdate();
+                            } catch (SQLException e) {
+                                System.err.println("Error al registrar el código de barras: " + e.getMessage());
+                            } finally {
+                                try {
+                                    if (PS != null) PS.close(); // Cerrar PreparedStatement
+                                } catch (SQLException ex) {
+                                    System.err.println("Error al cerrar el PreparedStatement: " + ex.getMessage());
+                                }
+                                CN.desconectar(); // Cerrar la conexión a la base de datos
+                            }
+                            return res;
+                        }
+
 
 
                         /*
@@ -120,7 +144,7 @@ public class Cls_Salida {
 
     
     
-    
+    /*
     public String generarFolio(String identificador, Date fecha) {
         String folio = "";
         try {
@@ -140,6 +164,7 @@ public class Cls_Salida {
         }
         return folio;
     }
+*/
     
     public int numeroUnico(){
         int id = 0;
