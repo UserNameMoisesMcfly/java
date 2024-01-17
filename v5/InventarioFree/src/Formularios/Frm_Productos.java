@@ -33,12 +33,17 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         bt_actualizar.setEnabled(false);
         bt_eliminar.setEnabled(false);
         bt_guardar.setEnabled(false);
+       
+        
     }
 
     private void listar() {
         jtb_productos.setModel(CP.getDatosProductos());
         columnModel.getColumn(1).setPreferredWidth(600);
+        
+        
     }
+    
 
     private void iniciar() {
         txt_codigo.setEnabled(false);
@@ -46,6 +51,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         cbxProveedor.setEnabled(false);
         cbxCategoria.setEnabled(false);
         txt_ubicacion.setEnabled(false);
+        
+        bt_remision.setEnabled(false);
         
         //Remisiones
         txt_origen.setEnabled(false);
@@ -83,6 +90,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
     private void activar_remision(){
         
         //Remisiones
+        bt_remision.setEnabled(true);
+        
         txt_origen.setEnabled(true);
         txt_no_pro.setEnabled(true);
         txt_almacen.setEnabled(true);
@@ -125,6 +134,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         txt_operador.setText("");
         txt_solicita.setText("");
     }
+    
 
     private void guardar() {
         String codigo = txt_codigo.getText();
