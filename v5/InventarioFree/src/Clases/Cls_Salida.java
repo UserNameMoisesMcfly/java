@@ -16,7 +16,9 @@ public class Cls_Salida {
     private final Conectar CN;
     private DefaultTableModel DT;
     private final String SQL_INSERT_SALIDA = "INSERT INTO salida (sal_folio, sal_fecha, sal_proCodigo, sal_descripcion, sal_mermaCaja, sal_tarimas) values (?,?,?,?,?,?)";
-    private final String SQL_SELECT_SALIDA = "SELECT sal_folio, sal_fecha, pro_codigo, sal_descripcion, nomproveedor FROM salida INNER JOIN artículos ON pro_codigo = sal_proCodigo ORDER by sal_fecha DESC";
+    
+    private final String SQL_SELECT_SALIDA = "SELECT sal_folio, sal_fecha FROM salida ORDER BY sal_fecha DESC";
+    
     private final String SQL_SELECT_CATEGORIA= "SELECT categoria FROM artículos INNER JOIN entrada ON ent_pro_codigo = pro_codigo WHERE ent_categoria = ?";
     private final String SQL_SELECT_ID= "SELECT MAX(sal_id) FROM salida ";
     
@@ -25,7 +27,7 @@ public class Cls_Salida {
         CN = new Conectar();
     }
 
-    private DefaultTableModel setTitulosSalida() {
+    /*private DefaultTableModel setTitulosSalida() {
         DT = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -39,8 +41,38 @@ public class Cls_Salida {
         DT.addColumn("Descripción");
         DT.addColumn("Proveedor");
         return DT;
+    }*/
+    
+    private DefaultTableModel setTitulosSalida() {
+        DT = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        DT.addColumn("Folio de Salida");
+        DT.addColumn("Fecha");
+        return DT;
     }
 
+    
+                        public int registrarCodigoBarras(int codigoBarras) {
+                            int res = 0;
+                            try {
+                                PS = CN.getConnection().prepareStatement("INSERT INTO sal (sal_folio, fecha) VALUES (?, NOW())");
+                                PS.setInt(1, codigoBarras);
+                                res = PS.executeUpdate();
+                            } catch (SQLException e) {
+                                System.err.println("Error al registrar el código de barras." + e.getMessage());
+                            } finally {
+                                PS = null;
+                                CN.desconectar();
+                            }
+                            return res;
+                        }
+
+
+                        /*
     public DefaultTableModel getDatosSalida() {
         try {
             setTitulosSalida();
@@ -63,7 +95,31 @@ public class Cls_Salida {
             CN.desconectar();
         }
         return DT;
-    }
+    }*/
+                        
+        public DefaultTableModel getDatosSalida() {
+            try {
+                setTitulosSalida();
+                PS = CN.getConnection().prepareStatement(SQL_SELECT_SALIDA);
+                RS = PS.executeQuery();
+                Object[] fila = new Object[2];////////////
+                while (RS.next()) {
+                    fila[0] = RS.getString(1);
+                    fila[1] = RS.getTimestamp(2);
+                    DT.addRow(fila);
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al listar los datos." + e.getMessage());
+            } finally {
+                PS = null;
+                RS = null;
+                CN.desconectar();
+            }
+            return DT;
+        }
+
+    
+    
     
     public String generarFolio(String identificador, Date fecha) {
         String folio = "";

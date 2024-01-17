@@ -7,6 +7,8 @@ import Clases.Cls_Salida;
 import static Formularios.Frm_Principal.contenedor;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,11 +34,38 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         columnModel = jtb_salida.getColumnModel();
         listar();
         iniciar();
+        
+        
+                                    // Añade aquí el ActionListener para txt_codigo
+                                    txt_codigo.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent evt) {
+                                            try {
+                                                int codigoBarras = Integer.parseInt(txt_codigo.getText());
+                                                int resultado = CP.registrarCodigoBarras(codigoBarras);
+
+                                                if (resultado > 0) {
+                                                    JOptionPane.showMessageDialog(null, "Código de barras registrado con éxito.");
+                                                    // Aquí puedes agregar más acciones si necesitas realizar algo después del registro exitoso
+                                                } else {
+                                                    JOptionPane.showMessageDialog(null, "Error al registrar el código de barras.");
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                JOptionPane.showMessageDialog(null, "Formato de código de barras no válido.");
+                                            } catch (Exception e) {
+                                                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                                            } finally {
+                                                txt_codigo.setText(""); // Limpiar el campo de texto después del registro o en caso de error.
+                                            }
+                                        }
+                                    });
+        
+        
     }
 
     private void listar() {
         jtb_salida.setModel(CP.getDatosSalida());
-        columnModel.getColumn(3).setPreferredWidth(350);
+        //columnModel.getColumn(3).setPreferredWidth(350);
     }
 
     private void iniciar() {
@@ -80,6 +109,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
 
                 }
     }*/
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
