@@ -197,7 +197,7 @@ public class Cls_Remision {
             float alturaDelContenidoFinal = (alturaTexto + espacioEntreLineas) * numeroDeLineasTextoFinal;
             
             // Comprueba si es necesario agregar una nueva página
-            float espacioRestante = document.getPageSize().getHeight() - document.getVerticalPosition(true) - document.bottomMargin();
+            float espacioRestante = document.getPageSize().getHeight() - document.bottomMargin();
             if (espacioRestante < alturaDelContenidoFinal) {
                 document.newPage();
             }

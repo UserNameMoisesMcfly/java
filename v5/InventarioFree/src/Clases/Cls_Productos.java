@@ -17,6 +17,7 @@ public class Cls_Productos {
     private DefaultTableModel DT;
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?)";
     private final String SQL_SELECT_PRODUCTOS = "SELECT pro_codigo, pro_descripcion, nomproveedor, valor, ubicacion, cuerpo, reja, tapa FROM artículos INNER JOIN categorias WHERE categoria = id";
+     private final String SQL_SELECT_REMISION = "SELECT pro_codigo, pro_descripcion, SUM(ent_tarima) AS total_tarimas, SUM(ent_cajas) AS total_cajas FROM artículos INNER JOIN entrada ON ent_pro_codigo = pro_codigo WHERE ent_fecha = CURDATE() GROUP BY pro_codigo, pro_descripcion ";
     Connection conn;
 
     public Cls_Productos() {
@@ -37,7 +38,6 @@ public class Cls_Productos {
         DT.addColumn("Marca");/////////////////
         DT.addColumn("Categoria");/////////////////
         DT.addColumn("Fecha");/////////////////
-        //DT.addColumn("Estado"); ////////////////////
         DT.addColumn("Cuerpo");
         DT.addColumn("Reja");
         DT.addColumn("Tapa");
@@ -70,7 +70,48 @@ public class Cls_Productos {
         }
         return DT;
     }
+    
+    
+    //remision
+    private DefaultTableModel setTitulosRemision() {
+        DT = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
 
+        };
+        DT.addColumn("Folio");
+        DT.addColumn("Descripción");
+        DT.addColumn("Tarima");/////////////////
+        DT.addColumn("Caja Sobrante");/////////////////
+
+        return DT;
+    }
+
+    public DefaultTableModel getDatosRemision() {
+        try {
+            setTitulosRemision();
+            PS = CN.getConnection().prepareStatement(SQL_SELECT_REMISION);
+            RS = PS.executeQuery();
+            Object[] fila = new Object[4];
+            while (RS.next()) {
+                fila[0] = RS.getString(1);
+                fila[1] = RS.getString(2);
+                fila[2] = RS.getString(3);
+                fila[3] = RS.getString(4);
+                DT.addRow(fila);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al listar los datos productos." + e.getMessage());
+        } finally {
+            PS = null;
+            RS = null;
+            CN.desconectar();
+        }
+        return DT;
+    }
+    
 public int registrarProducto(String codigo, String descripcion, String nomproveedor, String categoria, String ubicacion, String cuerpo, String reja, String tapa) {
     int res = 0;
     int idCategoria = 0;
