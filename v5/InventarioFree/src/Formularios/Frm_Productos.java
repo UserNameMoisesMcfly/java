@@ -1,6 +1,7 @@
 package Formularios;
 
 import Clases.Cls_Barras;
+import Clases.Cls_Pdfcreator;
 import Clases.Cls_Productos;
 import Clases.Cls_Remision;
 import static Formularios.Frm_Principal.contenedor;
@@ -722,7 +723,7 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
 
     private void bt_remisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_remisionActionPerformed
         Cls_Remision remision = new Cls_Remision();
-
+        Cls_Pdfcreator pdfcreator = new Cls_Pdfcreator();
     // Crear un JFileChooser
     JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Guardar PDF");
@@ -743,7 +744,8 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         }
 
         // Llamar a crearPDF con la ruta seleccionada
-        remision.crearPDF(txt_origen.getText(), txt_no_pro.getText(), txt_almacen.getText(), txt_pedido.getText(), txt_destino.getText(), txt_cliente.getText(), txt_linea.getText(), txt_autoriza.getText(), txt_transporte.getText(), txt_placas.getText(), txt_operador.getText(), txt_solicita.getText(), filePath);
+        remision.crearPDF(txt_origen.getText(), txt_no_pro.getText(), txt_almacen.getText(), txt_pedido.getText(), txt_destino.getText(), txt_cliente.getText(), txt_linea.getText(), txt_autoriza.getText(), txt_transporte.getText(), txt_placas.getText(), txt_operador.getText(), txt_solicita.getText(), jtb_productos, filePath);
+        //pdfcreator.exportarPDF(jtb_productos, filePath,txt_origen.getText(), txt_no_pro.getText(), txt_almacen.getText(), txt_pedido.getText(), txt_destino.getText(), txt_cliente.getText(), txt_linea.getText());
     }
     }//GEN-LAST:event_bt_remisionActionPerformed
 

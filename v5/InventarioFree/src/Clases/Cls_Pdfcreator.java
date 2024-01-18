@@ -38,13 +38,32 @@ public class Cls_Pdfcreator {
         }
     }
 
-    public boolean exportarPDF(JTable tabla, String rutaArchivo) {
+    public boolean exportarPDF(JTable tabla, String rutaArchivo, String origen, String noPro, String almacen, String pedido, String destino, String cliente, String linea) {
         Document doc = new Document(PageSize.A4, 30, 30, 30, 50); 
         try {
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(rutaArchivo));
             writer.setPageEvent(new MyHeaderFooter());
             doc.open();
+            
+            // Obtener PdfContentByte
+            PdfContentByte cb = writer.getDirectContent();
 
+            // fuente y tamaño
+            BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            cb.setFontAndSize(bf, 9);
+
+            // DATOS REMISION            
+            cb.beginText();
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, origen, 150, 653, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, noPro, 150, 640, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, almacen, 150, 627, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, pedido, 150, 614, 0);
+            
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, destino, 435, 640, 0);
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, cliente, 435, 627, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, linea, 435, 614, 0);
+            cb.endText();
+            
             doc.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"));
 
             float[] columnWidths = new float[tabla.getColumnCount()];
