@@ -17,7 +17,21 @@ public class Cls_Productos {
     private DefaultTableModel DT;
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO artículos (pro_codigo,pro_descripcion,nomproveedor,categoria, ubicacion, cuerpo, reja, tapa) values (?,?,?,?,?,?,?,?)";
     private final String SQL_SELECT_PRODUCTOS = "SELECT pro_codigo, pro_descripcion, nomproveedor, valor, ubicacion, cuerpo, reja, tapa FROM artículos INNER JOIN categorias WHERE categoria = id";
-     private final String SQL_SELECT_REMISION = "SELECT pro_codigo, pro_descripcion, SUM(ent_tarima) AS total_tarimas, SUM(ent_cajas) AS total_cajas FROM artículos INNER JOIN entrada ON ent_pro_codigo = pro_codigo WHERE ent_fecha = CURDATE() GROUP BY pro_codigo, pro_descripcion ";
+    //private final String SQL_SELECT_REMISION = "SELECT pro_codigo, pro_descripcion, SUM(ent_tarima) AS total_tarimas, SUM(ent_cajas) AS total_cajas FROM artículos INNER JOIN entrada ON ent_pro_codigo = pro_codigo WHERE ent_fecha = CURDATE() GROUP BY pro_codigo, pro_descripcion ";
+    
+    private final String SQL_SELECT_REMISION = 
+    "SELECT " +
+    "art.pro_codigo, " + // Primera columna: Código del producto
+    "art.pro_descripcion, " + // Segunda columna: Descripción del producto
+    "SUM(ent.ent_tarima) AS total_tarimas, " + // Tercera columna: Suma de tarimas
+    "SUM(ent.ent_cajas) AS total_cajas, " + // Cuarta columna: Suma de cajas sobrantes
+    "(SELECT COUNT(*) FROM salida WHERE salida.sal_folio = art.pro_codigo) AS tarimas_escaneadas " + // Quinta columna: Conteo de las veces que aparece pro_codigo en salida
+    "FROM artículos art " +
+    "INNER JOIN entrada ent ON ent.ent_pro_codigo = art.pro_codigo " +
+    "WHERE ent.ent_fecha = CURDATE() " +
+    "GROUP BY art.pro_codigo, art.pro_descripcion";
+
+    
     Connection conn;
 
     public Cls_Productos() {
@@ -85,6 +99,7 @@ public class Cls_Productos {
         DT.addColumn("Descripción");
         DT.addColumn("Tarima");/////////////////
         DT.addColumn("Caja Sobrante");/////////////////
+        DT.addColumn("Tarimas Escaneadas");/////////////////
 
         return DT;
     }
@@ -94,12 +109,13 @@ public class Cls_Productos {
             setTitulosRemision();
             PS = CN.getConnection().prepareStatement(SQL_SELECT_REMISION);
             RS = PS.executeQuery();
-            Object[] fila = new Object[4];
+            Object[] fila = new Object[5];
             while (RS.next()) {
                 fila[0] = RS.getString(1);
                 fila[1] = RS.getString(2);
                 fila[2] = RS.getString(3);
                 fila[3] = RS.getString(4);
+                fila[4] = RS.getString(5);
                 DT.addRow(fila);
             }
         } catch (SQLException e) {
