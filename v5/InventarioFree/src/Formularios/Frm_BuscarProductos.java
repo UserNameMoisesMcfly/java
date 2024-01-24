@@ -122,7 +122,7 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabla);
 
         excel_report.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/xls.png"))); // NOI18N
-        excel_report.setText("Entradas/Salidas");
+        excel_report.setText("Reporte Completo");
         excel_report.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 excel_reportActionPerformed(evt);
@@ -249,33 +249,26 @@ public class Frm_BuscarProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_busquedaActionPerformed
 
     private void excel_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excel_reportActionPerformed
-        int selectedRow = tabla.getSelectedRow();
-        if (selectedRow >= 0) {
-            String proCodigo = tabla.getValueAt(selectedRow, 0).toString(); // Asumiendo que el código del producto está en la columna 0.
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar como");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xls)", "xls"));
+        fileChooser.setSelectedFile(new File("Reporte.xls"));
 
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Guardar como"); // Título del diálogo
-            fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel (*.xls)", "xls")); // Filtro para solo mostrar archivos Excel
-            fileChooser.setSelectedFile(new File(proCodigo + "_Reporte.xls")); // Nombre de archivo sugerido
+        int userSelection = fileChooser.showSaveDialog(this);
 
-            int userSelection = fileChooser.showSaveDialog(this);
-
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File fileToSave = fileChooser.getSelectedFile();
-                String filePath = fileToSave.getAbsolutePath();
-                if (!filePath.endsWith(".xls")) {
-                    filePath += ".xls"; // Asegúrate de que la extensión sea .xls
-                }
-
-                Class_Excel classExcel = new Class_Excel();
-                try {
-                    classExcel.exportarAExcel(proCodigo, filePath);
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(this, "Error al guardar el archivo Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+            if (!filePath.endsWith(".xls")) {
+                filePath += ".xls"; // Asegúrate de que la extensión sea .xls
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+            Class_Excel classExcel = new Class_Excel();
+            try {
+                classExcel.exportarTablaAExcel(tabla, filePath);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_excel_reportActionPerformed
 

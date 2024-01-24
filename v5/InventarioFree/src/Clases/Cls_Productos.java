@@ -156,11 +156,11 @@ public int registrarProducto(String codigo, String descripcion, String nomprovee
         res = PS.executeUpdate();
 
         if (res > 0) {
-            JOptionPane.showMessageDialog(null, "Articulo registrado con éxito.");
+            JOptionPane.showMessageDialog(null, "Lote registrado con éxito.");
         }
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "No se pudo registrar el producto.");
-        System.err.println("Error al registrar el producto." + e.getMessage());
+        JOptionPane.showMessageDialog(null, "No se pudo registrar el Lote.");
+        System.err.println("Error al registrar el Lote." + e.getMessage());
     }
 
     return res;

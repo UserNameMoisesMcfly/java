@@ -32,20 +32,20 @@ public class Cls_Entrada {
                 return false;
             }
         };
-        DT.addColumn("Folio de entrada");
+        DT.addColumn("Folio Ent.");
         DT.addColumn("Fecha");
-        DT.addColumn("Folio de lote");
+        DT.addColumn("Folio Lote");
         DT.addColumn("Descripción");
-        DT.addColumn("Proveedor");
-        DT.addColumn("Categoria");
+        DT.addColumn("Prov.");
+        DT.addColumn("Cat");
         DT.addColumn("Tarimas");
         DT.addColumn("Cajas Sobrantes");
-        DT.addColumn("Retiro de Cuerpos");
-        DT.addColumn("Retiro de Divisores");
-        DT.addColumn("Retiro de Tapa");
-        DT.addColumn("Merma Cuerpo");
-        DT.addColumn("Merma Divisor");
-        DT.addColumn("Merma Tapa");
+        DT.addColumn("In. Cuerpos");
+        DT.addColumn("In. Divisores");
+        DT.addColumn("In. Tapas");
+        DT.addColumn("M. Cuerpo");
+        DT.addColumn("M. Divisor");
+        DT.addColumn("M. Tapa");
         return DT;
     }
 
