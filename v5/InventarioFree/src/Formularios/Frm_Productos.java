@@ -8,6 +8,8 @@ import static Formularios.Frm_Principal.contenedor;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -706,6 +708,11 @@ public class Frm_Productos extends javax.swing.JInternalFrame {
         activar();
         limpiar();
         bt_guardar.setEnabled(true);
+        
+        // Formatear la fecha actual y establecerla en txt_ubicacion
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy"); // Puedes cambiar el formato de fecha si lo necesitas
+        String fechaActual = formatoFecha.format(new Date());
+        txt_ubicacion.setText(fechaActual);
     }//GEN-LAST:event_bt_nuevoActionPerformed
 
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
