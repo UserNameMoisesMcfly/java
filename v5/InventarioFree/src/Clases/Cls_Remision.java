@@ -202,22 +202,17 @@ public class Cls_Remision {
                 document.newPage();
             }
 
-            // Añadir texto al final de la última página
+            // DATOS REMISION FINAL       
             cb.beginText();
-            cb.setFontAndSize(bf, 9);
-
-            float yPos = document.getPageSize().getHeight() - document.topMargin() - alturaDelContenidoFinal;
-            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, autoriza, 150, yPos, 0);
-            yPos -= (alturaTexto + espacioEntreLineas);
-            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, transporte, 150, yPos, 0);
-            yPos -= (alturaTexto + espacioEntreLineas);
-            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, placas, 150, yPos, 0);
-            yPos -= (alturaTexto + espacioEntreLineas);
-            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, operador, 150, yPos, 0);
-            yPos -= (alturaTexto + espacioEntreLineas);
-            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, solicita, 150, yPos, 0);
-
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, autoriza, 150, 330, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, transporte, 150, 317, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, placas, 150, 304, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, operador, 150, 291, 0); 
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, solicita, 150, 278, 0); 
             cb.endText();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String fechaHoraActual = sdf.format(new Date());
+            cb.showTextAligned(PdfContentByte.ALIGN_LEFT, fechaHoraActual, 150, 689, 0);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
