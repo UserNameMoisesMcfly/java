@@ -7,6 +7,8 @@ import Clases.Cls_Salida;
 import static Formularios.Frm_SubAdmin.contenedor;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,22 +34,102 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
         columnModel = jtb_salida.getColumnModel();
         listar();
         iniciar();
+        
+        
+                                    /*
+                                    txt_codigo.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent evt) {
+                                            try {
+                                                int codigoBarras = Integer.parseInt(txt_codigo.getText());
+                                                int resultado = CP.registrarCodigoBarras(codigoBarras);
+
+                                                if (resultado > 0) {
+                                                    JOptionPane.showMessageDialog(null, "Código de barras registrado con éxito.");
+                                                    // Aquí puedes agregar más acciones si necesitas realizar algo después del registro exitoso
+                                                } else {
+                                                    JOptionPane.showMessageDialog(null, "Error al registrar el código de barras.");
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                JOptionPane.showMessageDialog(null, "Formato de código de barras no válido.");
+                                            } catch (Exception e) {
+                                                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                                            } finally {
+                                                txt_codigo.setText(""); // Limpiar el campo de texto después del registro o en caso de error.
+                                            }
+                                        }
+                                    });
+                                    */
+                                    
+                                    /*
+                                    txt_codigo.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent evt) {
+                                            String codigoBarrasString = txt_codigo.getText();
+                                            try {
+                                                // Verificar si el código de barras contiene solo dígitos
+                                                if (codigoBarrasString.matches("\\d+")) {
+                                                    int codigoBarras = Integer.parseInt(codigoBarrasString);
+                                                    int resultado = CP.registrarCodigoBarras(codigoBarras);
+
+                                                    if (resultado > 0) {
+                                                        JOptionPane.showMessageDialog(null, "Código de barras registrado con éxito.");
+                                                    } else {
+                                                        JOptionPane.showMessageDialog(null, "Error al registrar el código de barras.");
+                                                    }
+                                                } else {
+                                                    JOptionPane.showMessageDialog(null, "Formato de código de barras no válido. Solo se permiten números.");
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                JOptionPane.showMessageDialog(null, "Formato de código de barras no válido.");
+                                            } catch (Exception e) {
+                                                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                                            } finally {
+                                                txt_codigo.setText(""); // Limpiar el campo de texto después del registro o en caso de error.
+                                            }
+                                        }
+                                    });
+                                    */
+                                    
+                                    
+                                                    txt_codigo.addActionListener(new ActionListener() {
+                                                        @Override
+                                                        public void actionPerformed(ActionEvent evt) {
+                                                            String codigoBarrasString = txt_codigo.getText();
+                                                            try {
+                                                                // Verificar si el código de barras contiene solo dígitos y tiene una longitud adecuada
+                                                                if (codigoBarrasString.matches("\\d+") && codigoBarrasString.length() <= 100) {
+                                                                    int resultado = CP.registrarCodigoBarras(codigoBarrasString);
+
+                                                                    if (resultado > 0) {
+                                                                        JOptionPane.showMessageDialog(null, "Código de barras registrado con éxito.");
+                                                                        listar(); // Actualizar la tabla después de un registro exitoso
+                                                                    } else {
+                                                                        JOptionPane.showMessageDialog(null, "Error al registrar el código de barras.");
+                                                                    }
+                                                                } else {
+                                                                    JOptionPane.showMessageDialog(null, "Formato de código de barras no válido. Debe contener hasta 100 dígitos.");
+                                                                }
+                                                            } catch (Exception e) {
+                                                                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                                                            } finally {
+                                                                txt_codigo.setText(""); // Limpiar el campo de texto después del registro o en caso de error.
+                                                            }
+                                                        }
+                                                    });
+
     }
 
     private void listar() {
         jtb_salida.setModel(CP.getDatosSalida());
-        columnModel.getColumn(3).setPreferredWidth(350);
+        //columnModel.getColumn(3).setPreferredWidth(350);
     }
 
     private void iniciar() {
-        txt_merma.setEnabled(false);
-        txt_descripcion.setEnabled(false);
-        jdc_fecha.setEnabled(false);
-        jbt_buscar.setEnabled(false);
-        jbt_guardar.setEnabled(false);
+        txt_codigo.setEnabled(true);
     }
 
-    private void activar() {
+    /*private void activar() {
         txt_merma.setEnabled(true);
         txt_descripcion.setEnabled(true);
         jdc_fecha.setEnabled(true);
@@ -93,36 +175,38 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
             if (num == 0) {
                 
             }
-        }*/
-    }
+        }
+    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txt_codigo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtb_salida = new javax.swing.JTable();
-        bt_nuevo = new javax.swing.JButton();
-        jbt_guardar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txt_codigo = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jbt_buscar = new javax.swing.JButton();
-        txt_descripcion = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jdc_fecha = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
-        txt_merma = new javax.swing.JTextField();
-        pdf_button = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Salida");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Código del Producto *");
+
+        txt_codigo.setEditable(false);
+        txt_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_codigoActionPerformed(evt);
+            }
+        });
 
         jtb_salida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,177 +223,60 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jtb_salida);
 
-        bt_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/ic_nuevo.png"))); // NOI18N
-        bt_nuevo.setText("Nuevo");
-        bt_nuevo.setBorderPainted(false);
-        bt_nuevo.setContentAreaFilled(false);
-        bt_nuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        bt_nuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_nuevoActionPerformed(evt);
-            }
-        });
-
-        jbt_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/guardar.png"))); // NOI18N
-        jbt_guardar.setText("Registrar Salida");
-        jbt_guardar.setBorderPainted(false);
-        jbt_guardar.setContentAreaFilled(false);
-        jbt_guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jbt_guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbt_guardarActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Salida de Productos");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel7.setText("Llene la información respectiva para la salida de los productos.");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/excell.png"))); // NOI18N
-        jButton1.setText("Exportar Excel");
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        txt_codigo.setEditable(false);
-        txt_codigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_codigoActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Código del Producto *");
-
-        jbt_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/ic_consultas.png"))); // NOI18N
-        jbt_buscar.setBorderPainted(false);
-        jbt_buscar.setContentAreaFilled(false);
-        jbt_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jbt_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbt_buscarActionPerformed(evt);
-            }
-        });
-
-        txt_descripcion.setEditable(false);
-        txt_descripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_descripcionActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Descripción del Producto *");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Merma Caja Armada*");
-
-        jdc_fecha.setDateFormatString("yyyy/MM/dd");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Fecha *");
-
-        txt_merma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_mermaActionPerformed(evt);
-            }
-        });
-
-        pdf_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
-        pdf_button.setText("Exportar PDF");
-        pdf_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pdf_buttonActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel6))
+                            .addGap(535, 535, 535))))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_codigo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(bt_nuevo)
-                        .addGap(27, 27, 27)
-                        .addComponent(jbt_guardar)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton1)
-                        .addGap(29, 29, 29)
-                        .addComponent(pdf_button)
-                        .addGap(245, 245, 245))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jbt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(59, 59, 59)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txt_merma))))
-                        .addGap(90, 90, 90))))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addGap(52, 52, 52)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdc_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3))
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_merma)
-                    .addComponent(txt_descripcion, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbt_buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_codigo))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbt_guardar)
-                    .addComponent(bt_nuevo)
-                    .addComponent(jButton1)
-                    .addComponent(pdf_button))
-                .addGap(22, 22, 22))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -328,124 +295,23 @@ public class Frm_Salida_sub extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtb_salidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtb_salidaMouseClicked
-
-    }//GEN-LAST:event_jtb_salidaMouseClicked
-
-    private void bt_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_nuevoActionPerformed
-        activar();
-        limpiar();
-        jdc_fecha.setDate(new Date());
-        jbt_guardar.setEnabled(true);
-    }//GEN-LAST:event_bt_nuevoActionPerformed
-
-    private void jbt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_guardarActionPerformed
-        try {
-            guardar();
-        } catch (SQLException ex) {
-            Logger.getLogger(Frm_Salida.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jbt_guardarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            objj = new Clas_Exportar();
-            objj.exportarExcel(jtb_salida);
-        } catch (IOException ex) {
-            System.out.println("Error en" + ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void txt_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
 
-    private void jbt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_buscarActionPerformed
-        enviar = 1;
-        try {
-            // Cierra el JInternalFrame actualmente abierto si existe uno.
-            if (currentBuscarProductosFrame != null) {
-                currentBuscarProductosFrame.dispose();
-            }
+    private void jtb_salidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtb_salidaMouseClicked
 
-            // Abre un nuevo JInternalFrame.
-            currentBuscarProductosFrame = new Frm_BuscarProductos();
-            Frm_SubAdmin.contenedor.add(currentBuscarProductosFrame);
-            Dimension desktopSize = contenedor.getSize();
-            Dimension FrameSize = currentBuscarProductosFrame.getSize();
-            currentBuscarProductosFrame.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            currentBuscarProductosFrame.toFront();
-            currentBuscarProductosFrame.setVisible(true);
-        } catch (Exception e) {
-            System.out.println("Error:" + e.getMessage());
-        }
-    }//GEN-LAST:event_jbt_buscarActionPerformed
-
-    private void txt_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_descripcionActionPerformed
-
-    private void txt_mermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_mermaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_mermaActionPerformed
-
-    private void pdf_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdf_buttonActionPerformed
-                 // Usa tu tabla jtb_entrada directamente
-
-            // Crea un JFileChooser
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Guardar como"); // Título del diálogo
-
-            // Sugerir un nombre de archivo predeterminado
-            fileChooser.setSelectedFile(new File("salida.pdf"));
-
-            // Filtro para que solo se muestren archivos .pdf
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Documents", "pdf");
-            fileChooser.setFileFilter(filter);
-            fileChooser.setAcceptAllFileFilterUsed(false);
-
-            // Muestra el diálogo para guardar archivo
-            int userSelection = fileChooser.showSaveDialog(this);
-
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File fileToSave = fileChooser.getSelectedFile();
-                String path = fileToSave.getAbsolutePath();
-                if (!path.endsWith(".pdf")) {
-                    path += ".pdf";
-                }
-
-                Cls_Pdfcreator pdfCreator = new Cls_Pdfcreator();
-
-                boolean result = pdfCreator.exportarPDF(jtb_salida, path);
-
-                if (result) {
-                    JOptionPane.showMessageDialog(null, "PDF generado con éxito en: " + path);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo generar el PDF.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-        }
-    }//GEN-LAST:event_pdf_buttonActionPerformed
+    }//GEN-LAST:event_jtb_salidaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_nuevo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbt_buscar;
-    private javax.swing.JButton jbt_guardar;
-    private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JTable jtb_salida;
-    private javax.swing.JButton pdf_button;
     public static javax.swing.JTextField txt_codigo;
-    public static javax.swing.JTextField txt_descripcion;
-    private javax.swing.JTextField txt_merma;
     // End of variables declaration//GEN-END:variables
 }

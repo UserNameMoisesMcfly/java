@@ -196,7 +196,7 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Código del Producto *");
 
-        txt_codigo.setEditable(true);
+        txt_codigo.setEditable(false);
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_codigoActionPerformed(evt);
@@ -293,6 +293,6 @@ public class Frm_Salida extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtb_salida;
-    private javax.swing.JTextField txt_codigo;
+    public static javax.swing.JTextField txt_codigo;
     // End of variables declaration//GEN-END:variables
 }
