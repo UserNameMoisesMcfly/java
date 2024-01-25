@@ -62,9 +62,9 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txt_menu = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,31 +103,6 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         txt_menu.setText("Menú de opciones");
         jPanel1.add(txt_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/paquete.png"))); // NOI18N
-        jButton1.setText("Ordenes de Adquisiciones");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 40));
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/buscar.png"))); // NOI18N
-        jButton2.setText("Busqueda por lote");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.setMaximumSize(new java.awt.Dimension(125, 41));
-        jButton2.setMinimumSize(new java.awt.Dimension(125, 41));
-        jButton2.setPreferredSize(new java.awt.Dimension(125, 41));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 230, 40));
-
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/altas_bajas.png"))); // NOI18N
         jButton9.setText("Gestionar Movimientos");
@@ -137,6 +112,31 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 230, 40));
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/buscar.png"))); // NOI18N
+        jButton2.setText("Busqueda por Lote");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.setMaximumSize(new java.awt.Dimension(125, 41));
+        jButton2.setMinimumSize(new java.awt.Dimension(125, 41));
+        jButton2.setPreferredSize(new java.awt.Dimension(125, 41));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 230, 40));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/paquete.png"))); // NOI18N
+        jButton1.setText("Ordenes de Adquisiciones");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 230, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/fondo8.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 670));
@@ -155,12 +155,12 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         cerrarFramesInternos();
-        Frm_Productos f = new Frm_Productos();
+        Fmr_Movimientos_sub f = new Fmr_Movimientos_sub();
         contenedor.add(f);
         f.show();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cerrarFramesInternos();
@@ -169,12 +169,12 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
         f.show();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         cerrarFramesInternos();
-        Fmr_Movimientos_sub f = new Fmr_Movimientos_sub();
+        Frm_Productos f = new Frm_Productos();
         contenedor.add(f);
         f.show();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void cerrarFramesInternos() {
         JInternalFrame[] frames = contenedor.getAllFrames();
