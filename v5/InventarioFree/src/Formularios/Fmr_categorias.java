@@ -394,7 +394,7 @@ public class Fmr_categorias extends javax.swing.JInternalFrame {
                 while (rs.next()) {
                     txtValor.setText(rs.getString("valor"));
                     txtUnidad.setText(rs.getString("unidad")); // Añadido para establecer el valor en el campo txtUnidad
-                    txtTarima.setText(rs.getString("tarima"));
+                    txtTarima.setText(rs.getString("cajaTarima"));
                 }
             }
 
