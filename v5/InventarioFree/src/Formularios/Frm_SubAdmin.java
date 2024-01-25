@@ -95,7 +95,7 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Control de almacen");
+        jLabel2.setText("Control de Existencias");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, -1));
 
         txt_menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -125,7 +125,7 @@ public class Frm_SubAdmin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 230, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 230, 40));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ITO/paquete.png"))); // NOI18N
